@@ -23,7 +23,6 @@ import br.com.api.everywheresystems.services.ImageService;
 import br.com.api.everywheresystems.services.LoginService;
 import br.com.api.everywheresystems.util.Erro;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)

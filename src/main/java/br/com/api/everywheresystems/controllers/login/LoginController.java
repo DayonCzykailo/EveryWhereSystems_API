@@ -4,8 +4,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,9 +35,13 @@ public class LoginController {
     }
 
     @PostMapping(path = "conta/entrar") // TODO, apenas Empresa cadastra, subUsuarios sao cadastrados
-    public ResponseEntity<Object> singIn() {
+    public ResponseEntity<Object> singIn(@RequestParam String email, @RequestParam String senha) {
+        
+        if(senha.equals("senha") && email.equals("email")){
+            return ResponseEntity.status(HttpStatus.OK).body("Logado");
+        }
 
-        return ResponseEntity.status(HttpStatus.OK).body("Logado");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Dados Invalidos");
     }
 
     @PostMapping(value = "conta/criar")
@@ -48,10 +50,11 @@ public class LoginController {
         AccontModel accontModel = new AccontModel();
 
         if (loginService.existsByCelular(accontDto.getCelular())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERRO : Celular já cadastrado");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("ERRO : Celular já cadastrado");
         }
         if (loginService.existsByEmail(accontDto.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERRO : E-mail já cadastrado");
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(new Erro("ERRO : E-mail já cadastrado", "Dado Em Uso"));
         }
 
         try {
@@ -79,10 +82,11 @@ public class LoginController {
         try {
             accont = loginService.findById(id).get();
             accont.setAtivo(Ativo.INATIVO);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(loginService.save(accont));
+            return ResponseEntity.status(HttpStatus.CREATED).body(loginService.save(accont));
         } catch (Exception e) {
             if (accont == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Conta não registrada", "Falta Cadastro"));
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new Erro("Conta não registrada", "Falta Cadastro"));
             }
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro(e));
         }
