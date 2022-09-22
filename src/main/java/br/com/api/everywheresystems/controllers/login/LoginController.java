@@ -1,8 +1,11 @@
 package br.com.api.everywheresystems.controllers.login;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,19 +32,27 @@ public class LoginController {
 
     final ImageService imageService;
 
-    public LoginController(LoginService loginService, ImageService imageService) {
+    private final PasswordEncoder encoder;
+
+    public LoginController(LoginService loginService, ImageService imageService, PasswordEncoder encoder) {
         this.loginService = loginService;
         this.imageService = imageService;
+        this.encoder = encoder;
     }
 
-    @PostMapping(path = "conta/entrar") // TODO, apenas Empresa cadastra, subUsuarios sao cadastrados
+    @PostMapping(path = "conta/entrar")
     public ResponseEntity<Object> singIn(@RequestParam String email, @RequestParam String senha) {
-        
-        if(senha.equals("senha") && email.equals("email")){
-            return ResponseEntity.status(HttpStatus.OK).body("Logado");
+
+        System.out.println(email);
+        Optional<AccontModel> accont = loginService.findByEmail(email);
+
+        if (!accont.isEmpty() && encoder.matches(senha.trim(), accont.get().getSenha())) {
+            return ResponseEntity.status(HttpStatus.OK).body(accont);
+           
         }
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Dados Invalidos");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new Erro("Não Autorizado : E-mail e/ou Senha incorretos.", "Não Autorizado"));
     }
 
     @PostMapping(value = "conta/criar")
@@ -55,6 +66,12 @@ public class LoginController {
         if (loginService.existsByEmail(accontDto.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new Erro("ERRO : E-mail já cadastrado", "Dado Em Uso"));
+        }
+        try {
+            accontDto.setSenha(encoder.encode(accontDto.getSenha()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("ERRO : Dados não foi possivel criptografar sua senha : " + e.getMessage());
         }
 
         try {

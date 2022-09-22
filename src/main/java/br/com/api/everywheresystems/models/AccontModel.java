@@ -15,11 +15,13 @@ import org.hibernate.annotations.GenericGenerator;
 
 import br.com.api.everywheresystems.models.enums.Ativo;
 import br.com.api.everywheresystems.models.enums.Atuacao;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Data
 @Entity(name = "tb_accont")
 @Getter
 @Setter
@@ -34,7 +36,7 @@ public class AccontModel {
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String senha;
 
     @Enumerated(EnumType.STRING)

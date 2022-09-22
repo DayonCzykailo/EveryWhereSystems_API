@@ -44,6 +44,9 @@ public class LoginService {
     public Optional<AccontModel> findById(String id) {
         return loginRepository.findById(id);
     }
+    public Optional<AccontModel> findByEmail(String email) {
+        return loginRepository.findByEmail(email);
+    }
 
     public boolean existsByCelular(String celular) {
         return loginRepository.existsByCelular(celular);
