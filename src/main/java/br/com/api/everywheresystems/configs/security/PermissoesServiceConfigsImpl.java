@@ -20,7 +20,7 @@ public class PermissoesServiceConfigsImpl implements UserDetailsService{
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {//bunca o usuario
         Optional<AccontModel> accont = loginService.findByEmail(email);
         if(accont.isEmpty()){
             throw new UsernameNotFoundException("Usuário ["+email+"] não encontrado !!!");

@@ -1,10 +1,11 @@
 package br.com.api.everywheresystems.configs.security;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.api.everywheresystems.models.AccontModel;
@@ -19,8 +20,7 @@ public class PermissoesConfigs implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       
-        return new ArrayList<>();
+        return accont.orElse(new AccontModel()).getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role)).collect(Collectors.toSet());
     }
 
     @Override

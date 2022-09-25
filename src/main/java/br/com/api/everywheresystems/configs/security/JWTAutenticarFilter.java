@@ -8,6 +8,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,8 +31,9 @@ public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
 
     public JWTAutenticarFilter(AuthenticationManager manager) {
         this.manager = manager;
-    }
 
+        setFilterProcessesUrl("/auth");
+    }
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
@@ -39,10 +41,11 @@ public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
         try {
             AccontModel accontModel = new ObjectMapper().readValue(request.getInputStream(), AccontModel.class);
 
+            
             return manager.authenticate(new UsernamePasswordAuthenticationToken(
                     accontModel.getEmail(),
                     accontModel.getSenha(),
-                    new ArrayList<>()));
+                    accontModel.getRoles()));
         } catch (IOException e) {
             throw new RuntimeException("Falha ao autenticar o Usuário", e);
         }

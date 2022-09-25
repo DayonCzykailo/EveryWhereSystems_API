@@ -3,6 +3,7 @@ package br.com.api.everywheresystems;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,6 @@ public class EverywheresystemsApplication {
 		SpringApplication.run(EverywheresystemsApplication.class, args);
 	}
 
-	   
 	@GetMapping("/")
 	public String status(){
 		return "ONLINE, segue o baile";//saber se o String está funcionando

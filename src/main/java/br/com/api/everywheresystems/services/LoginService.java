@@ -1,5 +1,6 @@
 package br.com.api.everywheresystems.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -39,6 +40,9 @@ public class LoginService {
 
     public Page<AccontModel> findAll(Pageable pageable) {// nao sei se vai ter
         return loginRepository.findAll(pageable);
+    }
+    public List<AccontModel> findAll() {
+        return loginRepository.findAll();
     }
 
     public Optional<AccontModel> findById(String id) {
