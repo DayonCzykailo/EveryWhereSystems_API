@@ -1,6 +1,5 @@
 package br.com.api.everywheresystems.controllers.login;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -8,14 +7,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,7 +52,6 @@ public class LoginController {
     @PostMapping(path = "/login/conta/entrar")
     public ResponseEntity<Object> singIn(@RequestParam String email, @RequestParam String senha) {
 
-        System.out.println(email);
         Optional<AccontModel> accont = loginService.findByEmail(email);
 
         if (!accont.isEmpty() && encoder.matches(senha.trim(), accont.get().getSenha())) {
@@ -68,9 +63,11 @@ public class LoginController {
                 .body(new Erro("Não Autorizado : E-mail e/ou Senha incorretos.", "Não Autorizado"));
     }
 
-    @PostMapping(value = "/conta/criar/user")
+    @PostMapping(value = "/auth/criar/user")//"/conta/criar/user"
     public ResponseEntity<Object> postAuthCriarConta(@RequestBody AccontDto accontDto) {
         AccontModel accontModel = new AccontModel();
+
+        System.out.println(accontDto.toString());//tirar
 
         if (loginService.existsByCelular(accontDto.getCelular())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("ERRO : Celular já cadastrado");
@@ -104,7 +101,8 @@ public class LoginController {
 
         accontModel.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
 
-        return ResponseEntity.status(HttpStatus.OK).body(loginService.save(accontModel));
+        return ResponseEntity.status(HttpStatus.OK).body(accontModel);
+        //return ResponseEntity.status(HttpStatus.OK).body(loginService.save(accontModel);
     }
 
     @PostMapping(value = "/conta/criar/admin")

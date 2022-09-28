@@ -49,9 +49,7 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
         .and()
                 .addFilter(new JWTAutenticarFilter(authenticationManager()))
                 .addFilter(new JWTValidarFilter(authenticationManager(),loginService))
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                
-        
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); 
     }
 
     

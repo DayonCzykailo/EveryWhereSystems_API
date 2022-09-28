@@ -3,6 +3,7 @@ package br.com.api.everywheresystems.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import br.com.api.everywheresystems.models.EmpresaModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +26,8 @@ public class AccontDto {
 
     @Size(max = 13)
     private String celular;
+
+    private EmpresaModel empresa;
 
     // private int nivel_acesso// ainda ver se vai ser int
     private String idImagem;//UUID2
