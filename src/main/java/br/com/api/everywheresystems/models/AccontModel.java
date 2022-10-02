@@ -18,8 +18,6 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.com.api.everywheresystems.models.enums.Ativo;
 import br.com.api.everywheresystems.models.enums.Atuacao;
 import lombok.Data;
@@ -70,7 +68,6 @@ public class AccontModel {
 
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = true)
-    @JsonIgnore
     private EmpresaModel empresa;
     
     @Column(nullable = false)

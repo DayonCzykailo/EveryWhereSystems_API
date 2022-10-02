@@ -27,7 +27,7 @@ public class AccontDto {
     @Size(max = 13)
     private String celular;
 
-    private EmpresaModel empresa;
+    private String empresa;
 
     // private int nivel_acesso// ainda ver se vai ser int
     private String idImagem;//UUID2

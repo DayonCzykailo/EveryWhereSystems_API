@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import br.com.api.everywheresystems.dto.AccontDto;
 import br.com.api.everywheresystems.models.AccontModel;
 import br.com.api.everywheresystems.models.RoleModel;
 import br.com.api.everywheresystems.models.enums.Ativo;
 import br.com.api.everywheresystems.models.enums.Atuacao;
 import br.com.api.everywheresystems.models.enums.Role;
+import br.com.api.everywheresystems.services.EmpresaService;
 import br.com.api.everywheresystems.services.ImageService;
 import br.com.api.everywheresystems.services.LoginService;
 import br.com.api.everywheresystems.services.RolesService;
@@ -40,13 +40,16 @@ public class LoginController {
     final RolesService rolesService;
     @Autowired
     private final PasswordEncoder encoder;
+    @Autowired
+    final EmpresaService empresaService;
 
     public LoginController(LoginService loginService, ImageService imageService, RolesService rolesService,
-            PasswordEncoder encoder) {
+            PasswordEncoder encoder, EmpresaService empresaService) {
         this.loginService = loginService;
         this.imageService = imageService;
         this.rolesService = rolesService;
         this.encoder = encoder;
+        this.empresaService = empresaService;
     }
 
     @PostMapping(path = "/login/conta/entrar")
@@ -63,11 +66,11 @@ public class LoginController {
                 .body(new Erro("Não Autorizado : E-mail e/ou Senha incorretos.", "Não Autorizado"));
     }
 
-    @PostMapping(value = "/auth/criar/user")//"/conta/criar/user"
+    @PostMapping(value = "/auth/criar/user") // "/conta/criar/user"
     public ResponseEntity<Object> postAuthCriarConta(@RequestBody AccontDto accontDto) {
         AccontModel accontModel = new AccontModel();
 
-        System.out.println(accontDto.toString());//tirar
+        System.out.println(accontDto.toString());// tirar
 
         if (loginService.existsByCelular(accontDto.getCelular())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("ERRO : Celular já cadastrado");
@@ -99,10 +102,17 @@ public class LoginController {
                     .body("ERRO : Dados recebidos com erro : " + e.getMessage());
         }
 
+        try {
+            accontModel.setEmpresa(empresaService.findById(accontDto.getEmpresa()).get());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("ERRO : não foi possível cadastrar empresa  : " + e.getMessage());
+        }
+
         accontModel.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
 
         return ResponseEntity.status(HttpStatus.OK).body(accontModel);
-        //return ResponseEntity.status(HttpStatus.OK).body(loginService.save(accontModel);
+        // return ResponseEntity.status(HttpStatus.OK).body(loginService.save(accontModel));
     }
 
     @PostMapping(value = "/conta/criar/admin")
