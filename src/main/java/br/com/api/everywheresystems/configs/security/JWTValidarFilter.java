@@ -1,8 +1,6 @@
 package br.com.api.everywheresystems.configs.security;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 
 import javax.servlet.FilterChain;
@@ -19,8 +17,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import br.com.api.everywheresystems.models.AccontModel;
-import br.com.api.everywheresystems.models.RoleModel;
-import br.com.api.everywheresystems.models.enums.Role;
 import br.com.api.everywheresystems.services.LoginService;
 
 public class JWTValidarFilter extends BasicAuthenticationFilter {

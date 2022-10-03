@@ -3,7 +3,6 @@ package br.com.api.everywheresystems.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import br.com.api.everywheresystems.models.EmpresaModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

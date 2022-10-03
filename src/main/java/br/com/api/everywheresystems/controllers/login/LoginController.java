@@ -70,11 +70,10 @@ public class LoginController {
     public ResponseEntity<Object> postAuthCriarConta(@RequestBody AccontDto accontDto) {
         AccontModel accontModel = new AccontModel();
 
-        System.out.println(accontDto.toString());// tirar
-
         if (loginService.existsByCelular(accontDto.getCelular())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("ERRO : Celular já cadastrado");
         }
+        
         if (loginService.existsByEmail(accontDto.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new Erro("ERRO : E-mail já cadastrado", "Dado Em Uso"));
