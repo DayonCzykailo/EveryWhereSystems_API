@@ -8,24 +8,24 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import br.com.api.everywheresystems.models.AccontModel;
-import br.com.api.everywheresystems.services.LoginService;
+import br.com.api.everywheresystems.services.AccontService;
 
 @Component
-public class PermissoesServiceConfigsImpl implements UserDetailsService{
+public class PermissoesServiceConfigsImpl implements UserDetailsService {
 
-    private final LoginService loginService;
+    private final AccontService loginService;
 
-    public PermissoesServiceConfigsImpl(LoginService loginService) {
+    public PermissoesServiceConfigsImpl(AccontService loginService) {
         this.loginService = loginService;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {//bunca o usuario
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {// bunca o usuario
         Optional<AccontModel> accont = loginService.findByEmail(email);
-        if(accont.isEmpty()){
-            throw new UsernameNotFoundException("Usuário ["+email+"] não encontrado !!!");
+        if (accont.isEmpty()) {
+            throw new UsernameNotFoundException("Usuário [" + email + "] não encontrado !!!");
         }
         return new PermissoesConfigs(accont);
     }
-    
+
 }

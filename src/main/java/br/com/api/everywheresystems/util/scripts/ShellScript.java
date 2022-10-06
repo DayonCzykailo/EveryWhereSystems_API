@@ -1,7 +1,6 @@
 package br.com.api.everywheresystems.util.scripts;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ShellScript {
@@ -39,7 +38,7 @@ public class ShellScript {
 
     }
 
-    public static void main(String[] args) throws IOException {
+   /* public static void main(String[] args) throws IOException {
         System.out.println(executarShellScript("ls"));
-    }
+    }*/
 }

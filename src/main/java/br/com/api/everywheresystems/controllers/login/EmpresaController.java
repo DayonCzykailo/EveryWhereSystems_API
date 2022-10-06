@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.everywheresystems.models.EmpresaModel;
 import br.com.api.everywheresystems.services.EmpresaService;
-import br.com.api.everywheresystems.services.LoginService;
+import br.com.api.everywheresystems.services.AccontService;
 import br.com.api.everywheresystems.services.RolesService;
+import br.com.api.everywheresystems.util.Endpoints;
 import br.com.api.everywheresystems.util.Erro;
 
 @RestController
@@ -22,19 +23,19 @@ import br.com.api.everywheresystems.util.Erro;
 public class EmpresaController {
 
     @Autowired
-    final LoginService loginService;
+    final AccontService loginService;
     @Autowired
     final RolesService rolesService;
     @Autowired
     final EmpresaService empresaService;
 
-    public EmpresaController(LoginService loginService, EmpresaService empresaService, RolesService rolesService) {
+    public EmpresaController(AccontService loginService, EmpresaService empresaService, RolesService rolesService) {
         this.loginService = loginService;
         this.empresaService = empresaService;
         this.rolesService = rolesService;
     }
 
-    @PostMapping(path = "/auth/conta/empresa")
+    @PostMapping(path = Endpoints.enterpriseCreate)
     public ResponseEntity<Object> cadastroEmpresa(@RequestBody EmpresaModel empresaModel) {
 
         Optional<EmpresaModel> empresa = empresaService.findByCnpj(empresaModel.getCnpj());
@@ -43,10 +44,10 @@ public class EmpresaController {
             return ResponseEntity.status(HttpStatus.OK).body(empresaService.save(empresaModel));
         }
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(new Erro("Cnpj já utilizado", "Dados Inválidos"));
+                .body(new Erro("Cnpj já utilizado", "Empresa já existente."));
     }
 
-    @PostMapping(path = "conta/buscar/empresa")
+    @PostMapping(path = Endpoints.findEnterprise)
     public ResponseEntity<Object> buscarEmpresa(@RequestParam String cnpj) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(empresaService.findByCnpj(cnpj));

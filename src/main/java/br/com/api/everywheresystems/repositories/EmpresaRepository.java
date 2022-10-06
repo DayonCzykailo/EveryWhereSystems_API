@@ -12,6 +12,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface EmpresaRepository extends JpaRepository<EmpresaModel, String> {
     Optional<EmpresaModel> findById(String id);
     Optional<EmpresaModel> findByCnpj(String cnpj);
-    
-    
 }

@@ -17,16 +17,16 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import br.com.api.everywheresystems.models.AccontModel;
-import br.com.api.everywheresystems.services.LoginService;
+import br.com.api.everywheresystems.services.AccontService;
 
 public class JWTValidarFilter extends BasicAuthenticationFilter {
 
     public static final String HEADER_ATRIBUTO = "Authorization";
     public static final String BEARER_ATRIBUTO = "Bearer ";
 
-    final LoginService loginService;
+    final AccontService loginService;
 
-    public JWTValidarFilter(AuthenticationManager authenticationManager, LoginService loginService) {
+    public JWTValidarFilter(AuthenticationManager authenticationManager, AccontService loginService) {
         super(authenticationManager);
         this.loginService = loginService;
     }
@@ -34,47 +34,43 @@ public class JWTValidarFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-                String atributo = request.getHeader(HEADER_ATRIBUTO);
+        String atributo = request.getHeader(HEADER_ATRIBUTO);
 
-                if(atributo == null){
-                    chain.doFilter(request, response);
-                    return;
-                }
+        if (atributo == null) {
+            chain.doFilter(request, response);
+            return;
+        }
 
-                if(!atributo.startsWith(BEARER_ATRIBUTO)){
+        if (!atributo.startsWith(BEARER_ATRIBUTO)) {
 
-                    chain.doFilter(request, response);
-                    return;
-                }
+            chain.doFilter(request, response);
+            return;
+        }
 
-                String token = atributo.replace(BEARER_ATRIBUTO, "");
+        String token = atributo.replace(BEARER_ATRIBUTO, "");
 
-                UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationToken(token);
+        UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationToken(token);
 
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-                chain.doFilter(request, response);
+        chain.doFilter(request, response);
 
-                
     }
-  
-    private UsernamePasswordAuthenticationToken getAuthenticationToken(String token){
+
+    private UsernamePasswordAuthenticationToken getAuthenticationToken(String token) {
         String usuario = JWT.require(Algorithm.HMAC512(JWTAutenticarFilter.TOKEN_SENHA))
-        .build().verify(token).getSubject();
+                .build().verify(token).getSubject();
 
         System.out.println(usuario);
 
-        
-        
-        if(usuario == null){
+        if (usuario == null) {
             return null;
         }
         Optional<AccontModel> accontModel = loginService.findByEmail(usuario);
 
-        if(accontModel.isEmpty()){
+        if (accontModel.isEmpty()) {
             return null;
         }
-
 
         return new UsernamePasswordAuthenticationToken(usuario, null, accontModel.get().getRoles());
     }
