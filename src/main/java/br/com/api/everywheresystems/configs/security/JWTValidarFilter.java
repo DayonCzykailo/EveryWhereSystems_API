@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import br.com.api.everywheresystems.models.AccontModel;
@@ -40,7 +41,7 @@ public class JWTValidarFilter extends BasicAuthenticationFilter {
         try {
             String atributo = request.getHeader(HEADER_ATRIBUTO);
 
-            if (atributo == null) {
+            if (atributo == null || atributo.isEmpty()) {
                 response.setStatus(401);
                 response.setContentType(" application/json");
                 response.setCharacterEncoding("UTF-8");
@@ -57,16 +58,13 @@ public class JWTValidarFilter extends BasicAuthenticationFilter {
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(new Erro("Não autorizado", "Tipo de Autorização inválida").toString());
                 response.getWriter().flush();
-                
+
                 chain.doFilter(request, response);
                 return;
             }
 
-            String token = atributo.replace(BEARER_ATRIBUTO, "");
-
-            UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationToken(token);
-
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            SecurityContextHolder.getContext()
+                    .setAuthentication(getAuthenticationToken(atributo.replace(BEARER_ATRIBUTO, "")));
 
             chain.doFilter(request, response);
         } catch (Exception e) {
@@ -74,17 +72,34 @@ public class JWTValidarFilter extends BasicAuthenticationFilter {
                 response.setStatus(401);
                 response.setContentType(" application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(new Erro("Não autorizado", "Token Expirado").toString());
+                response.getWriter().write(new Erro("Token Expirado", "Não autorizado").toString());
                 response.getWriter().flush();
+
+                chain.doFilter(request, response);
+                return;
             }
             if (e instanceof JWTDecodeException) {
                 response.setStatus(401);
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(new Erro("Não autorizado", "Token Inválido").toString());
+                response.getWriter().write(new Erro("Token Inválido", "Não autorizado").toString());
                 response.getWriter().flush();
                 return;
             }
+            if (e instanceof SignatureVerificationException) {
+                response.setStatus(401);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(new Erro("Assinatura do Token Inválida", "Não autorizado").toString());
+                response.getWriter().flush();
+                return;
+            }
+
+            response.setStatus(500);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(new Erro("Ops... Algo deu errado.", e, "Erro interno").toString());
+            response.getWriter().flush();
         }
     }
 
