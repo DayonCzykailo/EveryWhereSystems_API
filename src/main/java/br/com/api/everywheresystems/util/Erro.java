@@ -4,11 +4,9 @@ import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class Erro {
     private String tipo;
     private String mensagem;
@@ -35,7 +33,7 @@ public class Erro {
         this.erro = "";
         this.horaErro = Util.getDataHoraAgora();
     }
-    
+
     public Erro() {
         this.tipo = "Desconhecido";
         this.mensagem = "Ops ... Ocorreu algum erro desconhecido";
@@ -48,5 +46,19 @@ public class Erro {
         this.mensagem = "Ops ... Ocorreu algum erro desconhecido";
         this.erro = erro.getMessage();
         this.horaErro = Util.getDataHoraAgora();
+    }
+
+    @Override
+    public String toString() {
+        if (!mensagem.isEmpty() && !erro.isEmpty() && !tipo.isEmpty()) {
+            return "{\ntipo:\""+tipo+"\",\nmensagem:\""+mensagem+"\",\nerro:\""+erro+"\",\n hora:\""+horaErro+"\"\n}";
+        }else if(!mensagem.isEmpty() && !tipo.isEmpty()){
+            return "{\ntipo:\""+tipo+"\",\nmensagem:\""+mensagem+"\",\nhora:\""+horaErro+"\"\n}";
+        }else if(!mensagem.isEmpty()){
+            return "{\nmensagem:\""+mensagem+"\",\nhora:\""+horaErro+"\"\n}";
+        }else if(!erro.isEmpty()){
+            return "{\nerro:\""+erro+"\",\nhora:\""+horaErro+"\"\n}";
+        }
+        return "";
     }
 }

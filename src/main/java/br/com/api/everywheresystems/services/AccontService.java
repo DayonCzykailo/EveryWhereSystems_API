@@ -116,6 +116,6 @@ public class AccontService {
 
         accontModel.setRoles(Arrays.asList(rolesService.findByRole(role)));
 
-        return ResponseEntity.status(HttpStatus.OK).body(save(accontModel));
+        return ResponseEntity.status(HttpStatus.OK).body(accontModel);
     }
 }

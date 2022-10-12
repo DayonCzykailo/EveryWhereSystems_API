@@ -15,9 +15,12 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import br.com.api.everywheresystems.models.AccontModel;
 import br.com.api.everywheresystems.services.AccontService;
+import br.com.api.everywheresystems.util.Erro;
 
 public class JWTValidarFilter extends BasicAuthenticationFilter {
 
@@ -34,38 +37,65 @@ public class JWTValidarFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        String atributo = request.getHeader(HEADER_ATRIBUTO);
+        try {
+            String atributo = request.getHeader(HEADER_ATRIBUTO);
 
-        if (atributo == null) {
+            if (atributo == null) {
+                response.setStatus(401);
+                response.setContentType(" application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(new Erro("Não autorizado", "Falta Autorização").toString());
+                response.getWriter().flush();
+
+                chain.doFilter(request, response);
+                return;
+            }
+
+            if (!atributo.startsWith(BEARER_ATRIBUTO)) {
+                response.setStatus(401);
+                response.setContentType(" application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(new Erro("Não autorizado", "Tipo de Autorização inválida").toString());
+                response.getWriter().flush();
+                
+                chain.doFilter(request, response);
+                return;
+            }
+
+            String token = atributo.replace(BEARER_ATRIBUTO, "");
+
+            UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationToken(token);
+
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
             chain.doFilter(request, response);
-            return;
+        } catch (Exception e) {
+            if (e instanceof TokenExpiredException) {
+                response.setStatus(401);
+                response.setContentType(" application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(new Erro("Não autorizado", "Token Expirado").toString());
+                response.getWriter().flush();
+            }
+            if (e instanceof JWTDecodeException) {
+                response.setStatus(401);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(new Erro("Não autorizado", "Token Inválido").toString());
+                response.getWriter().flush();
+                return;
+            }
         }
-
-        if (!atributo.startsWith(BEARER_ATRIBUTO)) {
-
-            chain.doFilter(request, response);
-            return;
-        }
-
-        String token = atributo.replace(BEARER_ATRIBUTO, "");
-
-        UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationToken(token);
-
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
-        chain.doFilter(request, response);
-
     }
 
     private UsernamePasswordAuthenticationToken getAuthenticationToken(String token) {
         String usuario = JWT.require(Algorithm.HMAC512(JWTAutenticarFilter.TOKEN_SENHA))
                 .build().verify(token).getSubject();
 
-        System.out.println(usuario);
-
         if (usuario == null) {
             return null;
         }
+
         Optional<AccontModel> accontModel = loginService.findByEmail(usuario);
 
         if (accontModel.isEmpty()) {
