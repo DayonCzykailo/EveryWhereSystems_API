@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/bootstrap-icons-1.9.1/bootstrap-icons.css}" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script th:src="@{/js/menu.js}" type="text/javascript"></script>
+    <title id="Title">Cliente</title>
+</head>
+
+<body id="body-pd">
+    <script th:src="@{/js/menuTamplate.js}" type="text/javascript"></script>
+
+    <div class="ms-5" id="page-content-wrapper">
+        <!--BODY da página-->
+        <div class="pt-3">
+            <div class="p-4 border lightMode">
+
+                <form>
+
+                    <div class="form-row">
+                        <h1>Cadastro de Cliente</h1>
+                    </div>
+
+                    <div class="form-check p-3">
+                        <input checked class="form-check-input " type="checkbox" id="ativoCheckBox">
+                        <label class="form-check-label" for="ativoCheckBox">
+                            Ativo
+                        </label>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="nomeFantasia">Nome Fantasia</label>
+                            <!--is-valid-->
+                            <input type="text" class="form-control lightMode" id="nomeFantasia" placeholder="Empresa..."
+                                required>
+                            <div class="valid-feedback">
+                                Nome válido!
+                            </div>
+
+                            <div class="invalid-feedback">
+                                Nome Inválida!.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="nomeRasaoSocial">Nome Razão Social</label>
+                            <!--is-valid-->
+                            <input type="text" class="form-control lightMode" id="nomeRasaoSocial"
+                                placeholder="Empresa..." required>
+                            <div class="valid-feedback">
+                                Nome válido!
+                            </div>
+
+                            <div class="invalid-feedback">
+                                Nome Inválida!.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="validationCNPJ">CNPJ</label>
+                            <!--is-valid-->
+                            <input type="text" class="form-control lightMode" id="validationCNPJ"
+                                placeholder="XX.XXX.XXX/0001-XX" required>
+                            <div class="valid-feedback">
+                                CNPJ válido!
+                            </div>
+
+                            <div class="invalid-feedback">
+                                CNPJ Inválida!.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="validationPassword">Senha</label>
+                            <!--is-valid-->
+                            <input type="password" class="form-control lightMode" id="validationPassword"
+                                placeholder="*******" required>
+                            <div class="valid-feedback">
+                                Senha válida!
+                            </div>
+
+                            <div class="invalid-feedback">
+                                Senha Inválida!.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="validationPassword2">Confirme a Senha</label>
+                            <!--is-valid-->
+                            <input type="password" class="form-control lightMode" id="validationPassword2"
+                                placeholder="*******" required>
+                            <div class="valid-feedback">
+                                Senha válida!
+                            </div>
+
+                            <div class="invalid-feedback">
+                                Senha Inválida!.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="campoEmail">Email</label>
+                            <!--is-valid-->
+                            <input type="email" class="form-control lightMode" id="campoEmail"
+                                placeholder="email@exemplo.com.br" required>
+                            <div class="valid-feedback">
+                                Função válido!
+                            </div>
+
+                            <div class="invalid-feedback">
+                                Função Inválida!.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mx-4 d-flex justify-content-center">
+                        <button class="btn btn-primary" type="submit">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+            <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
+</body>
+
+
+</html>

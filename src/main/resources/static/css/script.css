@@ -1,0 +1,20 @@
+.bg-white {
+    background: #ffff;
+}
+
+.fullSize {
+    height: 100%;
+}
+
+.textAreaSize {
+    height: 80%;
+}
+
+.textSize {
+    font-size: 1.3rem;
+}
+
+.big-checkbox {
+    width: 25px;
+    height: 25px;
+}

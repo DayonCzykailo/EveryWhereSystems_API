@@ -1,5 +1,8 @@
 package br.com.api.everywheresystems.configs.security;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,20 +40,32 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        /*
+         * http
+         * .csrf()
+         * .disable()
+         * .httpBasic()
+         * .and()
+         * .authorizeRequests().antMatchers(Endpoints.authAutorization.toArray(new
+         * String[0])).permitAll()
+         * .antMatchers(HttpMethod.POST,
+         * Endpoints.createAccontAdmin).hasAuthority("ROLE_ADMIN")
+         * .antMatchers(HttpMethod.POST,
+         * Endpoints.createAccontUser).hasAuthority("ROLE_ADMIN")
+         * .antMatchers(HttpMethod.POST,
+         * Endpoints.createAccontSubUser).hasAuthority("ROLE_USER")
+         * .anyRequest().authenticated()
+         * .and()
+         * .addFilter(new JWTAutenticarFilter(authenticationManager()))
+         * .addFilter(new JWTValidarFilter(authenticationManager(), loginService))
+         * .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+         */
         http
                 .csrf()
                 .disable()
                 .httpBasic()
                 .and()
-                .authorizeRequests().antMatchers(Endpoints.authAutorization.toArray(new String[0])).permitAll()
-                .antMatchers(HttpMethod.POST, Endpoints.createAccontAdmin).hasAuthority("ROLE_ADMIN")
-                .antMatchers(HttpMethod.POST, Endpoints.createAccontUser).hasAuthority("ROLE_ADMIN")
-                .antMatchers(HttpMethod.POST,Endpoints.createAccontSubUser).hasAuthority("ROLE_USER")
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(new JWTAutenticarFilter(authenticationManager()))
-                .addFilter(new JWTValidarFilter(authenticationManager(), loginService))
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .authorizeRequests().antMatchers("favicon.ico").permitAll().and().authorizeRequests().anyRequest().permitAll().and();
     }
 
     @Bean

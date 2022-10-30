@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+    <script src="./node_modules/chart.js/dist/chart.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="./bootstrap-icons-1.9.1/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <title>Dashboard</title>
+</head>
+
+<body style="background: #dfe0e6">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background: #2e75b5">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    Everywhere Analitics
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#dash">Dashboard</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <!--
+        <div class="m-auto py-3 text-center " style="width: 100%;">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">Geral</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Qualitativo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Planejamento Comercial</a>
+                </li>
+            </ul>
+        </div>-->
+
+        <div class="py-4">
+            <div class="m-auto p-1 text-center rounded-4 " style="width: 95%; background: #ffff;">
+
+                <!--<div class="m-auto text-center " style="width: 100%; background: #ffff;">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">Mapa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Diário</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Hora e Turno</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Recorrências</a>
+                        </li>
+                    </ul>
+                </div>-->
+
+
+                <div class="row">
+                    <div class="col-2">
+
+                        <div class="p-3 m-4 text-start rounded-4 shadow"
+                            style="width: 100%; height: 95%; background: #2e75b5; color: #f5f6fa;">
+                            <div class="py-3">
+                                <p>Dados</p>
+                                <div class="row">
+                                    <div>
+                                        <input id="startDate" class="form-control" type="date" />
+                                        <input type="range" class="form-range" id="customRange1">
+                                    </div>
+                                    <div>
+                                        <input id="startDate" class="form-control" type="date" />
+                                        <input type="range" class="form-range" id="customRange1">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="py-3">
+                                <p>Cidade</p>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+
+                            <div class="py-3">
+                                <p>Local</p>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="py-3">
+                                <p>Duração</p>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="py-3">
+                                <p>Tipo de Painel</p>
+                                <select class="form-select">
+                                    <option selected>Todos</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-10">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="m-4 p-2 text-center rounded-4" style="width: 98%; height: 150px;">
+                                            <div class="row">
+                                                <div class="p-1">
+                                                    <h3>Análise Semanal e Diário</h3>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="p-1 rounded-2 shadow">
+                                                        <p>1.123.123</p>
+                                                        <p>Audiência</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <div class="p-1 rounded-2 shadow">
+                                                        <p>1.123.123</p>
+                                                        <p>Impactos</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <div class="p-1 rounded-2 shadow">
+                                                        <p>1,12</p>
+                                                        <p>Frequência</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <div class="p-1 rounded-2 shadow">
+                                                        <p>123</p>
+                                                        <p>Média de dias monitorados</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <div class="p-1 rounded-2 shadow">
+                                                        <p>12</p>
+                                                        <p>N° Locais</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="m-2 p-2 text-center rounded-4 shadow">
+                                    <div class="p-1">
+                                        <p>Análise Diária Audiência X Impactos</p>
+                                    </div>
+                                    <div class="px-4 overflow-auto">
+                                        <div style="width: 1700px;">
+                                            <canvas width="70px" height="10px" id="grafico1" class=""></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="m-2 p-2 text-center rounded-4 shadow">
+                                    <div class="px-4 overflow-auto">
+                                        <div>
+                                            <canvas width="12px" height="10px" id="grafico3" class=""></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="p-2 m-2 text-center rounded-4 shadow">
+                                    <div class="p-1">
+                                        <p>Análise Semana Audiência X Impactos</p>
+                                    </div>
+                                    <div class="px-4">
+                                        <canvas width="40px" height="10px" id="grafico2" class=""></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="m-2 p-2 text-center rounded-4 shadow">
+                                    <div class="px-4 overflow-auto">
+                                        <div>
+                                            <canvas width="12px" height="10px" id="grafico4" class=""></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+
+
+    </main>
+
+    <script src="./app.js"></script>
+    <!--<script src="./js/popper.min.js"></script>-->
+    <script src="./js/bootstrap.min.js"></script>
+</body>
+
+</html>

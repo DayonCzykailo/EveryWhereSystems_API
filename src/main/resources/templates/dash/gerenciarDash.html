@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/bootstrap-icons-1.9.1/bootstrap-icons.css}" rel="stylesheet" type="text/css">
+    
+    <<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
+    
+    <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+    <script th:src="@{/js/menu.js}" type="text/javascript"></script>
+    <title id="Title">Dashboard</title>
+</head>
+
+<body id="body-pd">
+    <script th:src="@{/js/menuTamplate.js}" type="text/javascript"></script>
+
+    <div class="ms-5" id="page-content-wrapper">
+        <!--BODY da página-->
+        <div class="pt-3">
+            <div class="p-4 lightMode">
+
+                <form>
+
+                    <div class="row">
+                        <div class="col">
+                            <h1>Dashboards</h1>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <table class="table table-striped">
+                            <tr>
+                                <th id="colName0">Dashboard</th>
+                                <th id="colName3">Opção</th>
+                            </tr>
+
+                            <tbody id="usuarios">
+
+                            </tbody>
+
+                        </table>
+
+
+
+                        <script>
+                            //var colName = [];
+                            //for (let i = 0; i < document.getElementsByTagName("th").length; i++) {
+                            //    colName = colName.concat($(`#colName${i}`).text());
+                            //}
+                            //console.log(colName)
+
+
+                            var dados = [
+                                { 'id': '1', 'dashboard': 'Planejamento Comercial' },
+                                { 'id': '2', 'dashboard': 'Planejamento Comercial' },
+                                { 'id': '3', 'dashboard': 'Planejamento Comercial' },
+                                { 'id': '4', 'dashboard': 'Planejamento Comercial' },
+                            ]
+
+                            buildTable(dados)
+
+                            function buildTable(data) {
+                                var table = document.getElementById('usuarios')
+
+                                for (var i = 0; i < data.length; i++) {
+                                    var row = `<tr>
+                                            <td>${data[i].dashboard}</td>
+                                            <td><a class="btn btn-primary" href="./dash.html" role="button" id="${data[i].id}">Entrar</a></td>
+                                        </tr>`
+                                    table.innerHTML += row
+                                    // console.log(data[i].id)
+                                }
+                            }
+                        </script>
+
+                    </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
+</body>
+
+</html>

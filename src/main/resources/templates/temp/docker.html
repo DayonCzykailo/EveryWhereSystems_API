@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="./bootstrap-icons-1.9.1/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./menu.css">
+    <link rel="stylesheet" href="./script.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="./menu.js"></script>
+
+    <!-- Include Moment.js CDN -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js">
+    </script>
+
+    <!-- Include Bootstrap DateTimePicker CDN -->
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"
+        rel="stylesheet">
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js">
+        </script>
+
+    <title>Docker</title>
+</head>
+
+<body id="body-pd" style="background: #ebebf0">
+    <main>
+        <header class="header shadow" id="header">
+            <div class="header_toggle"><i class='bi bi-list' id="header-toggle"></i></div>
+        </header>
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div>
+                    <a href="#" class="nav_logo">
+                        <i class='bi bi-grid-1x2'></i>
+                        <span class="nav_logo-name">Everywhere Analitics</span>
+                    </a>
+                    <div class="nav_list">
+                        <a href="dash.html" class="nav_link">
+                            <i class='bi bi-graph-up-arrow'></i>
+                            <span class="nav_name">Dashboard</span>
+                        </a>
+                        <a href="404.html" class="nav_link"><i class='bi bi-people'></i>
+                            <span class="nav_name">Usuários</span>
+                        </a>
+                        <a href="formularios.html" class="nav_link"> <i class='bi bi-card-checklist'></i>
+                            <span class="nav_name">Formulários</span>
+                        </a>
+                        <a href="404.html" class="nav_link"> <i class='bi bi-person-video2'></i>
+                            <span class="nav_name">Clientes</span>
+                        </a>
+                        <a href="docker.html" class="nav_link active"> <i class='bi bi-boxes'></i>
+                            <span class="nav_name">Docker</span>
+                        </a>
+                    </div>
+                </div>
+                <a href="index.html" class="nav_link">
+                    <i class='bi bi-box-arrow-left'></i>
+                    <span class="nav_name">Deslogar</span>
+                </a>
+            </nav>
+        </div>
+        <div id="page-content-wrapper">
+            <!--BODY da página-->
+            <div class="row">
+
+                <div class="row">
+                    <div class="col mt-4 py-2 pt-3 px-3 bg-white rounded-4 shadow">
+                        <div class="row text-end">
+                            <div class="col-auto text-start">
+                                <h3 id="title">Nome do Container Docker</h2>
+                            </div>
+                            <div class="col text-start" style="color: rgb(21, 255, 0);">
+                                <h3 id="status">OK</h3>
+                            </div>
+
+                            <div class="col-auto">
+                                <h3 id="user">Usuário</h3>
+                            </div>
+
+                            <div class="col-auto">
+                                <h3 id="user">dd/mm/yyyy hh:MM</h3>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-primary" id="btnSave">Salvar</button>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-secondary" id="btnCancel">Cancelar</button>
+                            </div>
+                            <div class="col-auto">
+                                <div class="form-check">
+                                    <input class="form-check-input big-checkbox" type="checkbox" value=""
+                                        id="AtivoCheck" checked>
+                                    <label class="form-check-label textSize px-2" for="AtivoCheck">
+                                        Ativo
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col mt-4 py-2 pt-3 px-3 bg-white rounded-4 shadow">
+                        <div class="row fullSize">
+                            <div class="col fullSize">
+                                <h3 id="description">Descrição</h3>
+                                <textarea class="form-control textAreaSize"
+                                    placeholder="Esse Script é em --- e acessa o --- para --- ..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mt-4 mx-4 py-2 pt-3 px-3 bg-white rounded-4 shadow">
+                        <div class="row">
+                            <div class="col">
+                                <h3 id="configDocker">Configuração do Docker</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col py-3">
+                                <div class="py-2">
+                                    <label for="basic-url" class="form-label">Imagem no Docker Hub</label>
+                                    <input type="text" class="form-control" placeholder="ewabi/Script1:latest">
+                                </div>
+                                <div class="py-2">
+                                    <label for="basic-url" class="form-label">Porta(s)</label>
+                                    <input type="text" class="form-control" placeholder="-p 80:80 -p 443:443">
+                                </div>
+                                <div class="py-2">
+                                    <label for="basic-url" class="form-label">Volume(s)</label>
+                                    <input type="text" class="form-control" placeholder="-v /home/ewa/pasta:/root">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mt-4 py-2 pt-3 px-3 bg-white rounded-4 shadow">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <h3 id="timer">Sempre Ligado</h3>
+                                    </div>
+                                    <div class="col form-check">
+                                        <input class="form-check-input big-checkbox" type="checkbox" value=""
+                                            id="fullTime">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- Terminar de Fazer a pag-->
+                                    <div class="col p-3">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="basic-url" class="form-label">Horário de
+                                                    Inicilização</label>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-auto text-start">
+                                                    <input class="form-control" type="text" id="datetime"
+                                                        placeholder="00:00 AM" />
+                                                    <script>
+                                                        $('#datetime').datetimepicker({
+                                                            format: 'hh:mm A'
+                                                        });
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input big-checkbox" type="checkbox" value=""
+                                                id="SegundaCheck">
+                                            <label class="form-check-label textSize px-2" for="SegundaCheck">
+                                                Segunda
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input big-checkbox" type="checkbox" value=""
+                                                id="TerçaCheck">
+                                            <label class="form-check-label textSize px-2" for="TerçaCheck">
+                                                Terça
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input big-checkbox" type="checkbox" value=""
+                                                id="QuartaCheck">
+                                            <label class="form-check-label textSize px-2" for="QuartaCheck">
+                                                Quarta
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input big-checkbox" type="checkbox" value=""
+                                                id="QuintaCheck">
+                                            <label class="form-check-label textSize px-2" for="QuintaCheck">
+                                                Quinta
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input big-checkbox" type="checkbox" value=""
+                                                id="SextaCheck">
+                                            <label class="form-check-label textSize px-2" for="SextaCheck">
+                                                Sexta
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input big-checkbox" type="checkbox" value=""
+                                                id="SabadoCheck">
+                                            <label class="form-check-label textSize px-2" for="SabadoCheck">
+                                                Sabado
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input big-checkbox" type="checkbox" value=""
+                                                id="DomingoCheck">
+                                            <label class="form-check-label textSize px-2" for="DomingoCheck">
+                                                Domingo
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row fullSize">
+                    <div class="col mt-4 me-4 py-2 pt-3 px-3 bg-white rounded-4 shadow">
+                        <div class="row fullSize">
+                            <div class="col fullSize">
+                                <div class="row">
+                                    <div class="col">
+                                        <h3 id="log">Log do Docker</h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button class="btn btn-primary" id="btnSave">Atualizar</button>
+                                    </div>
+                                </div>
+                                <textarea disabled readonly class="form-control textAreaSize" rows="12"
+                                    placeholder="Log..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5 mt-4 py-2 pt-3 px-3 bg-white rounded-4 shadow">
+                        <div class="row fullSize">
+                            <div class="col fullSize">
+                                <div class="row">
+                                    <div class="col">
+                                        <h3 id="status">Status do Container</h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button class="btn btn-primary" id="btnSave">Atualizar</button>
+                                    </div>
+                                </div>
+                                <div class="col fullSize">
+                                    <textarea disabled readonly class="form-control textAreaSize"
+                                        placeholder="Status..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </main>
+
+    <script src="./app.js"></script>
+
+    <script src="./js/bootstrap.min.js"></script>
+</body>
+
+</html>

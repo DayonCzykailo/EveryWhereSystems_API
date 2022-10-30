@@ -21,6 +21,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import br.com.api.everywheresystems.models.AccontModel;
 import br.com.api.everywheresystems.services.AccontService;
+import br.com.api.everywheresystems.util.Endpoints;
 import br.com.api.everywheresystems.util.Erro;
 
 public class JWTValidarFilter extends BasicAuthenticationFilter {
@@ -48,7 +49,6 @@ public class JWTValidarFilter extends BasicAuthenticationFilter {
                 response.getWriter().write(new Erro("Não autorizado", "Falta Autorização").toString());
                 response.getWriter().flush();
 
-                chain.doFilter(request, response);
                 return;
             }
 
@@ -59,14 +59,12 @@ public class JWTValidarFilter extends BasicAuthenticationFilter {
                 response.getWriter().write(new Erro("Não autorizado", "Tipo de Autorização inválida").toString());
                 response.getWriter().flush();
 
-                chain.doFilter(request, response);
                 return;
             }
 
             SecurityContextHolder.getContext()
                     .setAuthentication(getAuthenticationToken(atributo.replace(BEARER_ATRIBUTO, "")));
 
-            chain.doFilter(request, response);
         } catch (Exception e) {
             if (e instanceof TokenExpiredException) {
                 response.setStatus(401);
@@ -74,8 +72,6 @@ public class JWTValidarFilter extends BasicAuthenticationFilter {
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(new Erro("Token Expirado", "Não autorizado").toString());
                 response.getWriter().flush();
-
-                chain.doFilter(request, response);
                 return;
             }
             if (e instanceof JWTDecodeException) {
@@ -100,7 +96,10 @@ public class JWTValidarFilter extends BasicAuthenticationFilter {
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(new Erro("Ops... Algo deu errado.", e, "Erro interno").toString());
             response.getWriter().flush();
+            return;
         }
+
+        chain.doFilter(request, response);
     }
 
     private UsernamePasswordAuthenticationToken getAuthenticationToken(String token) {
@@ -118,5 +117,22 @@ public class JWTValidarFilter extends BasicAuthenticationFilter {
         }
 
         return new UsernamePasswordAuthenticationToken(usuario, null, accontModel.get().getRoles());
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+
+        if (path.startsWith(Endpoints.auth)) {
+            return true;
+        }
+
+        for (String endpoint : Endpoints.authAutorization) {
+            if (endpoint.equals(path)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

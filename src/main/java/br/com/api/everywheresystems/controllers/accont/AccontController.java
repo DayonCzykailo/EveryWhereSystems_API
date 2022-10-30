@@ -3,11 +3,14 @@ package br.com.api.everywheresystems.controllers.accont;
 import java.util.Arrays;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -73,12 +76,14 @@ public class AccontController {
 
     @PostMapping(value = Endpoints.createAccontUser)
     public ResponseEntity<Object> postCriarContaAdmin(@RequestBody AccontDto accontDto) {
-        return accontService.saveAccont(accontDto, encoder, imageService, empresaService, rolesService, Role.ROLE_ADMIN);
+        return accontService.saveAccont(accontDto, encoder, imageService, empresaService, rolesService,
+                Role.ROLE_ADMIN);
     }
 
     @PostMapping(value = Endpoints.createAccontSubUser)
     public ResponseEntity<Object> postCriarContaSubUser(@RequestBody AccontDto accontDto) {
-        return accontService.saveAccont(accontDto, encoder, imageService, empresaService, rolesService, Role.ROLE_SUB_USER);
+        return accontService.saveAccont(accontDto, encoder, imageService, empresaService, rolesService,
+                Role.ROLE_SUB_USER);
     }
 
     @PutMapping(value = Endpoints.accontDisable)

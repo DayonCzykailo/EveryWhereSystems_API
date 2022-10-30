@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS -->
+  <link th:href="@{/bootstrap-icons-1.9.1/bootstrap-icons.css}" rel="stylesheet" type="text/css">
+ 
+  <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
+  
+    <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+    <script th:src="@{/js/menu.js}" type="text/javascript"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+  <title id="Title">Usuário</title>
+</head>
+
+<body id="body-pd">
+  <script th:src="@{/js/menuTamplate.js}" type="text/javascript"></script>
+
+  <div class="ms-5" id="page-content-wrapper row">
+    <!--BODY da página-->
+    <div class="col-auto pt-3">
+      <div class="p-4 border lightMode">
+
+        <form class="needs-validation" novalidate>
+
+          <div class="form-row">
+            <h1>Cadastro de Usuários</h1>
+          </div>
+
+          <div class="form-check p-3">
+            <input checked class="form-check-input" type="checkbox" id="ativoCheckBox">
+            <label class="form-check-label" for="ativoCheckBox">
+              Ativo
+            </label>
+          </div>
+
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="validationNome">Nome</label>
+              <input type="text" class="form-control lightMode" id="validationNome" placeholder="Nome" required>
+              <div class="valid-feedback">
+                Nome válido!
+              </div>
+
+              <div class="invalid-feedback">
+                Nome Inválido!.
+              </div>
+            </div>
+
+            <div class="form-row" novalidate>
+              <div class="col-md-4 mb-3">
+                <label for="validationEmail">E-mail</label>
+                <input type="text" class="form-control lightMode" id="validationEmail" placeholder="exemplo@email.com"
+                  required>
+                <div class="valid-feedback">
+                  E-mail válido!
+                </div>
+
+                <div class="invalid-feedback">
+                  E-mail Inválido!.
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label for="validationSenha">Senha</label>
+                <input type="password" class="form-control lightMode" id="validationSenha" placeholder="********"
+                  required>
+                <div class="valid-feedback">
+                  Senha Válida!
+                </div>
+
+                <div class="invalid-feedback">
+                  Senha Inválida!.
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label for="validationSenhaConf">Confirmação da Senha</label>
+                <input type="password" class="form-control lightMode" id="validationSenhaConf" placeholder="********"
+                  required>
+                <div class="valid-feedback">
+                  Senha Válida!
+                </div>
+
+                <div class="invalid-feedback">
+                  Senha Inválida!.
+                </div>
+              </div>
+
+
+              <div class="col-md-4 mb-3">
+                <label for="validationCelular">Celular</label>
+                <div class="input-group">
+                  <span class="input-group-text lightMode" id="inputGroupPrepend3">+55</span>
+                  <input type="text" class="form-control lightMode" id="validationCelular" placeholder="(12) 12345-6789"
+                    aria-describedby="inputGroupPrepend3">
+                  <div class="valid-feedback">
+                    Preenchido corretamente!
+                  </div>
+                  <div class="invalid-feedback">
+                    Por favor, preencha corretamente.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="validationAtuacao">Atuação</label>
+                <input type="text" class="form-control lightMode" id="validationAtuacao"
+                  placeholder="Gerente de Marketing">
+                <div class="valid-feedback">
+                  Atuação Válida!
+                </div>
+                <div class="invalid-feedback">
+                  Por favor, Insira uma Atuação válida.
+                </div>
+              </div>
+
+              <div class="form-row py-3">
+                <h2>Tipo de Acesso ao Sistema</h2>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="dashCheckBox">
+                  <label class="form-check-label" for="dashCheckBox">
+                    Acesso ao Dashboard
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="formCheckBox">
+                  <label class="form-check-label" for="formCheckBox">
+                    Acesso ao Formulário
+                  </label>
+                </div>
+              </div>
+
+              <div class="row mx-4 d-flex">
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+              </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+  </div>
+  <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">
+    </script>
+
+  <script th:src="@{/js/validationUsuario.js}" type="text/javascript"></script>
+</body>
+
+</html>
