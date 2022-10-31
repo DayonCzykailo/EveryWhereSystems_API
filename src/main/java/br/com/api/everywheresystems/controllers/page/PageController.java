@@ -7,12 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageController {
-
-    @GetMapping("/favicon.ico")
-    public String favicon(HttpServletRequest request) {
-        return "favicon";
-    }
-
+    
     @GetMapping("/dash.html")
     public String teste(HttpServletRequest request) {
         request.setAttribute("teste", "retorno teste");

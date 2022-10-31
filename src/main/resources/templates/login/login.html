@@ -6,7 +6,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS v5.2.0-beta1 -->
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
 
@@ -24,35 +23,40 @@
         </div>
 
 
-        <div class="row">
-            <div class="col">
-                <label for="exampleFormControlInput1" class="form-label">Email</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="email@exemplo.com">
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="mt-2 mb-3">
-                    <label for="examplePassword" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="******">
+        <form action="/auth/login/entrar" method="post">
+            <div class="row">
+                <div class="col">
+                    <label for="exampleFormControlInput1" class="form-label">Email</label>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="mt-4 mb-3 text-end">
-                    <a class="btn btn-primary btnSize" href="dash.html" role="button">Entrar</a>
-                    <a class="btn btn-light" href="index.html" role="button">Voltar</a>
+    
+            <div class="row">
+                <div class="col">
+                    <input type="email" class="form-control" id="email" name="senha" placeholder="email@exemplo.com">
                 </div>
             </div>
-        </div>
+    
+            <div class="row">
+                <div class="col">
+                    <div class="mt-2 mb-3">
+                        <label for="examplePassword" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="senha" name="senha"placeholder="******">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="mt-4 mb-3 text-end">
+                        <a class="btn btn-primary btnSize" role="button">Entrar</a>
+                        <!--<input type="submit" value="login">-->
+                        <a class="btn btn-light" href="index.html" role="button">Voltar</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        
 
         <div class="row">
             <div class="col text-end">

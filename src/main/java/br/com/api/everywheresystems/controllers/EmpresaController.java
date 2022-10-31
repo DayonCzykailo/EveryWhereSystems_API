@@ -1,4 +1,4 @@
-package br.com.api.everywheresystems.controllers.login;
+package br.com.api.everywheresystems.controllers;
 
 import java.util.Optional;
 

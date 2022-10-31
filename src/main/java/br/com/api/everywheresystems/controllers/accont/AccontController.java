@@ -57,6 +57,9 @@ public class AccontController {
 
     @PostMapping(path = "/auth/login/entrar")
     public ResponseEntity<Object> singIn(@RequestParam String email, @RequestParam String senha) {
+        System.out.println(email);
+        System.out.println(senha);
+        System.out.println("_______");
 
         Optional<AccontModel> accont = accontService.findByEmail(email);
 

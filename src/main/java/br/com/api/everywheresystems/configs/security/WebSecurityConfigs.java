@@ -60,12 +60,29 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
          * .addFilter(new JWTValidarFilter(authenticationManager(), loginService))
          * .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
          */
-        http
+
+         http
                 .csrf()
                 .disable()
                 .httpBasic()
                 .and()
-                .authorizeRequests().antMatchers("favicon.ico").permitAll().and().authorizeRequests().anyRequest().permitAll().and();
+                .authorizeRequests().and().authorizeRequests().anyRequest().permitAll();
+
+                /*http
+                .csrf()
+                .disable()
+                .httpBasic()
+                .and()
+                .authorizeRequests().anyRequest().authenticated().and()
+                .formLogin().loginPage("/login.html")
+                .usernameParameter("email")
+                .permitAll()
+                .and()
+                .logout().permitAll()
+                //.and()
+                //.rememberMe()
+                //.tokenRepository(PersistentTokenRepository)
+                ; */
     }
 
     @Bean
