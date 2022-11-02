@@ -42,7 +42,7 @@ function dataGenerator() {
     let line = {};
     let dado = [];
     let maxDataDia = 0;
-    let range = getDates(new Date('2021-01-02'), new Date('2021-02-02'));
+    let range = getDates(new Date('2021-01-02'), new Date('2021-02-25'));
     range.forEach(element => {
         maxDataDia = Math.round(randGenerator(10));
         for (let i = 0; i < maxDataDia; i++) {
@@ -50,7 +50,7 @@ function dataGenerator() {
             dado.push(line);
         }
     })
-    
+
     return (dado);
 }
 
@@ -276,6 +276,7 @@ function getLocais() {
 
 let dado = dataGenerator()
 
+
 function initGraph() {
     let impacto = getImpacto();
     let audiencia = getAudiencia();
@@ -388,6 +389,7 @@ function initGraph() {
     };
 
     const options = {
+        maintainAspectRatio: false, // default is `true`, default `aspectRatio` is 2
         animation: {
             onComplete: () => {
                 delayed = true;
@@ -403,6 +405,7 @@ function initGraph() {
     };
 
     const options2 = {
+        maintainAspectRatio: false, // default is `true`, default `aspectRatio` is 2
         indexAxis: 'y',
         scales: {
             x: {
@@ -445,6 +448,7 @@ function initGraph() {
         },
     };
     const options3 = {
+        maintainAspectRatio: false, // default is `true`, default `aspectRatio` is 2
         legend: {
             display: false,
         },
@@ -501,5 +505,32 @@ function initGraph() {
         data: data3,
         options: options3,
     });
+
+
+    // **** Tamanho do grafico baseado na quantidade de dados ****
+    if (screen.width > 800){
+        var tam = parseInt(screen.width) - 150;
+
+        var container1 = document.getElementById('container1');
+        console.log("width:" + (tam / 2) + "px");
+        container1.setAttribute("style", "width:" + (tam / 2) + "px");
+        var container2 = document.getElementById('container2');
+        container2.setAttribute("style", "width:" + (tam / 2) + "px");
+        var container3 = document.getElementById('container3');
+        container3.setAttribute("style", "width:" + (tam / 2) + "px");
+        var container4 = document.getElementById('container4');
+        container4.setAttribute("style", "width:" + (tam / 2) + "px");
+    }
+
+
+    var grafico1Container = document.getElementById('grafico1Container');
+    if (semLabel.length > 25) {
+        grafico1Container.setAttribute("style", "width:" + semLabel.length * 50 + "px")
+    }
+    var grafico3Container = document.getElementById('grafico3Container');
+    if (semLabel.length > 5) {
+        grafico3Container.setAttribute("style", "height:" + semLabel.length * 50 + "px")
+    }
+
 
 }
