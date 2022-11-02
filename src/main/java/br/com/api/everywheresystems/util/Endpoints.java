@@ -8,7 +8,11 @@ public class Endpoints {
     public static final String auth ="/auth";
     public static final String authInit ="/auth/init";//temporario, apenas cria uma conta master se o banco estiver vazio
     //Gerar autorização
-    public static final List<String> authAutorization = Arrays.asList("/auth**","/auth/**", "/", "webjars");
+    public static final List<String> authAutorization = Arrays.asList(
+        "/auth**","/auth/**", "/", "webjars",
+         "/css/**","/npm/**","/assets/**","/bootstrap-icons-1.9.1/**",
+         "/index.html","/index","/status" ,"/**/favicon.ico"
+        );
 
 
     //criar conta

@@ -154,7 +154,7 @@ navDocker.append(spanDocker);
 
 /* \/ Logout \/ */
 const navLogout = document.createElement("a");
-navLogout.href = "index.html";
+navLogout.href = "/logout";
 if (tela === "Desconectar") {
     navLogout.className = "nav_link active";
 } else {

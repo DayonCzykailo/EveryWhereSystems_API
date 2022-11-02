@@ -40,7 +40,7 @@ public class PageController {
         return "forms/gerenciarFormularios";
     }
 
-    @GetMapping("/index.html")
+    @GetMapping(value = {"/index.html","/"})
     public String testeIndex(HttpServletRequest request) {
         return "index/index";
     }

@@ -34,6 +34,10 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+         auth.inMemoryAuthentication()
+         .withUser("email@email.com")
+         .password(encoder.encode("senha"))
+         .authorities("USER");
 
         auth.userDetailsService(permissoesServiceConfigsImpl).passwordEncoder(encoder);
     }
@@ -61,28 +65,46 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
          * .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
          */
 
-         http
+        http
                 .csrf()
                 .disable()
                 .httpBasic()
                 .and()
-                .authorizeRequests().and().authorizeRequests().anyRequest().permitAll();
-
-                /*http
-                .csrf()
-                .disable()
-                .httpBasic()
+                .authorizeRequests()
+                .antMatchers(Endpoints.authAutorization.toArray(new String[0])).permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .authorizeRequests().anyRequest().authenticated().and()
+                // login
                 .formLogin().loginPage("/login.html")
-                .usernameParameter("email")
+                .loginProcessingUrl("/login.html")
+                .defaultSuccessUrl("/gerenciarDash.html", true)
                 .permitAll()
                 .and()
-                .logout().permitAll()
-                //.and()
-                //.rememberMe()
-                //.tokenRepository(PersistentTokenRepository)
-                ; */
+                // logout
+                .logout()
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")//limpa alguns cookie de sessão
+                .logoutSuccessUrl("/index.html");
+        ;
+
+        /*
+         * http
+         * .csrf()
+         * .disable()
+         * .httpBasic()
+         * .and()
+         * .authorizeRequests().anyRequest().authenticated().and()
+         * .formLogin().loginPage("/login.html")
+         * .usernameParameter("email")
+         * .permitAll()
+         * .and()
+         * .logout().permitAll()
+         * //.and()
+         * //.rememberMe()
+         * //.tokenRepository(PersistentTokenRepository)
+         * ;
+         */
     }
 
     @Bean

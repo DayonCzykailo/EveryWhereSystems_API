@@ -16,7 +16,7 @@ public class EverywheresystemsApplication {
 		SpringApplication.run(EverywheresystemsApplication.class, args);
 	}
 
-	@GetMapping("/")
+	@GetMapping("/status")
 	public String status(){
 		return "ONLINE, segue o baile";//saber se o String está funcionando
 	}
