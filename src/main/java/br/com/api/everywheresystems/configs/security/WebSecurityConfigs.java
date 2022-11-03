@@ -3,6 +3,7 @@ package br.com.api.everywheresystems.configs.security;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,6 +16,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import br.com.api.everywheresystems.configs.LoginSuccessHandler;
 import br.com.api.everywheresystems.services.AccontService;
 import br.com.api.everywheresystems.util.Endpoints;
 
@@ -25,19 +27,23 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder encoder;
     private final AccontService loginService;
 
+    @Autowired
+     private LoginSuccessHandler loginSuccessHandler;
+
     public WebSecurityConfigs(PermissoesServiceConfigsImpl permissoesServiceConfigsImpl, PasswordEncoder encoder,
-            AccontService loginService) {
+            AccontService loginService,  LoginSuccessHandler loginSuccessHandler) {
         this.permissoesServiceConfigsImpl = permissoesServiceConfigsImpl;
         this.encoder = encoder;
         this.loginService = loginService;
+        this.loginSuccessHandler = loginSuccessHandler;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
          auth.inMemoryAuthentication()
-         .withUser("email@email.com")
+         .withUser("dayon@teste.com.br")
          .password(encoder.encode("senha"))
-         .authorities("USER");
+         .authorities("ADMIN");
 
         auth.userDetailsService(permissoesServiceConfigsImpl).passwordEncoder(encoder);
     }
@@ -77,7 +83,7 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
                 // login
                 .formLogin().loginPage("/login.html")
                 .loginProcessingUrl("/login.html")
-                .defaultSuccessUrl("/gerenciarDash.html", true)
+                .successHandler(loginSuccessHandler)
                 .permitAll()
                 .and()
                 // logout
