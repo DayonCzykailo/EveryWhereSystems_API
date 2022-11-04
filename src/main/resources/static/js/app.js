@@ -27,13 +27,40 @@ function locaisGenerator() {
     lista = [];
     let i = Math.round(randGenerator(2));
     if (i == 1) {
-        return 'Praça de Alimentação';
+        return 'Rua Rio Grande do Sul N199';
     }
     if (i == 2) {
-        return 'Entrada Rua';
+        return 'Rua Joaquim N23';
     }
     if (i == 3) {
-        return 'Entrada Estacionamento';
+        return 'Avenida Paulista N98';
+    }
+}
+function cidadeGenerator() {
+    lista = [];
+    let i = Math.round(randGenerator(2));
+    if (i == 1) {
+        return 'Curitiba';
+    }
+    if (i == 2) {
+        return 'São Paulo';
+    }
+    if (i == 3) {
+        return 'Florianópolis';
+    }
+}
+
+function painelGenerator() {
+    lista = [];
+    let i = Math.round(randGenerator(2));
+    if (i == 1) {
+        return 'Led';
+    }
+    if (i == 2) {
+        return 'Outdoor';
+    }
+    if (i == 3) {
+        return 'Totem';
     }
 }
 
@@ -42,11 +69,11 @@ function dataGenerator() {
     let line = {};
     let dado = [];
     let maxDataDia = 0;
-    let range = getDates(new Date('2021-01-02'), new Date('2021-02-25'));
+    let range = getDates(new Date('2022-11-02'), new Date('2022-11-15'));
     range.forEach(element => {
-        maxDataDia = Math.round(randGenerator(10));
+        maxDataDia = Math.round(randGenerator(5));
         for (let i = 0; i < maxDataDia; i++) {
-            line = { 'data': element, 'mac': `${i}${Math.round(randGenerator(99999))}`, 'local': locaisGenerator(), 'cidade': 'Curitiba', 'painel': 'indoor', 'impacto': Math.round(randGenerator(3)) }
+            line = { 'data': element, 'mac': `${i}${Math.round(randGenerator(99999))}`, 'local': locaisGenerator(), 'cidade': cidadeGenerator(), 'painel': painelGenerator(), 'impacto': Math.round(randGenerator(5)) }
             dado.push(line);
         }
     })
@@ -274,37 +301,124 @@ function getLocais() {
     return valor;
 }
 
-let dado = dataGenerator()
+let dadoBruto = dataGenerator()
+let dado = dadoBruto;
 
 
-function initGraph() {
-    let impacto = getImpacto();
-    let audiencia = getAudiencia();
-    let audHtml = document.getElementById('audiencia');
+function filtro() {
+    cidades = document.getElementById("cidades").value;
+    locais = document.getElementById("local").value;
+    paineis = document.getElementById("painel").value;
+    inicio = new Date(document.getElementById("startDate").value);
+    fim = new Date(document.getElementById("endDate").value);
+         
+    dado = dadoBruto;
+    dadotemp2 = dado;
+    let line = {};
+    console.log('bruto',dadotemp2)
+
+
+
+    if(document.getElementById("startDate").value != ''){
+        dadotemp = dadotemp2;
+        dadotemp2 = [];
+        dadotemp.forEach(element => {
+            if (element['data'] > inicio) {
+                line = element;
+                dadotemp2.push(line);
+            }
+        })
+    }
+    
+    if(document.getElementById("endDate").value != ''){
+        dadotemp = dadotemp2;
+        dadotemp2 = [];
+        dadotemp.forEach(element => {
+            if (element['data'] < fim) {
+                line = element;
+                dadotemp2.push(line);
+            }
+        })
+        console.log('fim',dadotemp2)
+    }
+
+    if (!(cidades == "Todos")) {
+        dadotemp = dadotemp2;
+        dadotemp2 = [];
+        dadotemp.forEach(element => {
+            if (element['cidade'] == cidades) {
+                line = element;
+                dadotemp2.push(line);
+            }
+        })
+    }
+
+    if (!(locais == "Todos")) {
+        dadotemp = dadotemp2;
+        dadotemp2 = [];
+        dadotemp.forEach(element => {
+            if (element['local'] == locais) {
+                line = element;
+                dadotemp2.push(line);
+            }
+        })
+    }
+
+    if (!(paineis == "Todos")) {
+        dadotemp = dadotemp2;
+        dadotemp2 = [];
+        dadotemp.forEach(element => {
+            if (element['painel'] == paineis) {
+                line = element;
+                dadotemp2.push(line);
+            }
+        })
+    }
+    if ((cidades == "Todos") && (locais == "Todos") && (paineis == "Todos")&&(document.getElementById("startDate").value == '')&&(document.getElementById("endDate").value == '')) {
+        dado = dadoBruto;
+    } else {
+        dado = dadotemp2;
+    }
+    atualizaGrafico();
+}
+
+let data2 = {};
+let data3 = {};
+let data1 = {};
+let data4 = {};
+let chart1 = null;
+let chart2 = null;
+let chart3 = null;
+let chart4 = null;
+
+function carregaDados() {
+    var impacto = getImpacto();
+    var audiencia = getAudiencia();
+    var audHtml = document.getElementById('audiencia');
     audHtml.innerHTML = audiencia;
-    let impHtml = document.getElementById('impacto');
+    var impHtml = document.getElementById('impacto');
     impHtml.innerHTML = impacto;
-    let freqHtml = document.getElementById('freq');
-    let freq = Math.round((impacto / audiencia) * 100) / 100;
+    var freqHtml = document.getElementById('freq');
+    var freq = Math.round((impacto / audiencia) * 100) / 100;
     freqHtml.innerHTML = freq;
 
-    let diaSemanaAudiencia = getDiaSemanaAudiencia();
-    let diaSemanaImpacto = getDiaSemanaImpacto();
-    let diaImpacto = diaDadosImpacto();
-    let diaAudiencia = diaDadosAudiencia();
-    let semLabel = diaLabel();
-    let locais = getLocais();
+    var diaSemanaAudiencia = getDiaSemanaAudiencia();
+    var diaSemanaImpacto = getDiaSemanaImpacto();
+    var diaImpacto = diaDadosImpacto();
+    var diaAudiencia = diaDadosAudiencia();
+    var semLabel = diaLabel();
+    var locais = getLocais();
 
-    let medDias = document.getElementById('medDia');
+    var medDias = document.getElementById('medDia');
     medDias.innerHTML = semLabel.length;
-    let nLocais = document.getElementById('locais');
+    var nLocais = document.getElementById('locais');
     nLocais.innerHTML = Object.keys(locais).length;
 
     const color = ["#f4804f"];
     const alternativeColor = ["#2e75b5"];
     const subColor = ["#abc8e1"];
 
-    const data2 = {
+    data2 = {
         labels: ['Domingo', 'Segunda-feira', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
         datasets: [
             {
@@ -326,7 +440,7 @@ function initGraph() {
         ]
     };
 
-    const data3 = {
+    data3 = {
         labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
         datasets: [
             {
@@ -344,7 +458,7 @@ function initGraph() {
         ]
     };
 
-    const data1 = {
+    data1 = {
         labels: semLabel,
         datasets: [
             {
@@ -366,7 +480,7 @@ function initGraph() {
         ]
     };
 
-    const data4 = {
+    data4 = {
         labels: semLabel,
         datasets: [
             {
@@ -387,6 +501,76 @@ function initGraph() {
             }
         ]
     };
+    var grafico1Container = document.getElementById('grafico1Container');
+    if (semLabel.length > 25) {
+        grafico1Container.setAttribute("style", "width:" + semLabel.length * 50 + "px")
+    }
+    var grafico3Container = document.getElementById('grafico3Container');
+    if (semLabel.length > 5) {
+        grafico3Container.setAttribute("style", "height:" + semLabel.length * 50 + "px")
+    }
+
+}
+
+function atualizaGrafico() {
+    carregaDados();
+    chart1.data = data1;
+    chart2.data = data2;
+    chart3.data = data4;
+    chart4.data = data3;
+    chart1.update();
+    chart2.update();
+    chart3.update();
+    chart4.update();
+
+}
+
+
+function initGraph() {
+    carregaDados()
+
+    //  \/--Carrega Cidades--\/
+    let valor = [];
+
+    dado.forEach(element => {
+        if (!(valor.includes(element['cidade']))) {
+            valor.push(element['cidade']);
+        }
+    })
+    cidades = document.getElementById("cidades");
+    for (var i = 0; i < valor.length; i++) {
+        var row = `<option value="${valor[i]}">${valor[i]}</option>`
+        cidades.innerHTML += row
+    }
+    //  /\--Carrega Cidades--/\
+    //  \/--Carrega Local--\/
+    valor = [];
+
+    dado.forEach(element => {
+        if (!(valor.includes(element['local']))) {
+            valor.push(element['local']);
+        }
+    })
+    local = document.getElementById("local");
+    for (var i = 0; i < valor.length; i++) {
+        var row = `<option value="${valor[i]}">${valor[i]}</option>`
+        local.innerHTML += row
+    }
+    //  /\--Carrega Local--/\
+    //  \/--Carrega painel--\/
+    valor = [];
+
+    dado.forEach(element => {
+        if (!(valor.includes(element['painel']))) {
+            valor.push(element['painel']);
+        }
+    })
+    painel = document.getElementById("painel");
+    for (var i = 0; i < valor.length; i++) {
+        var row = `<option value="${valor[i]}">${valor[i]}</option>`
+        painel.innerHTML += row
+    }
+    //  /\--Carrega painel--/\
 
     const options = {
         maintainAspectRatio: false, // default is `true`, default `aspectRatio` is 2
@@ -483,36 +667,37 @@ function initGraph() {
 
 
     const grafico1 = document.getElementById('grafico1').getContext('2d');
-    const chart1 = new Chart(grafico1, {
+    chart1 = new Chart(grafico1, {
         data: data1,
         options
     });
 
     const grafico2 = document.getElementById('grafico2').getContext('2d');
-    const chart2 = new Chart(grafico2, {
+    chart2 = new Chart(grafico2, {
         data: data2,
         options
     });
 
     const grafico3 = document.getElementById('grafico3').getContext('2d');
-    const chart3 = new Chart(grafico3, {
+    chart3 = new Chart(grafico3, {
         data: data4,
         options: options2
     });
 
     const grafico4 = document.getElementById('grafico4').getContext('2d');
-    const chart4 = new Chart(grafico4, {
+    chart4 = new Chart(grafico4, {
         data: data3,
         options: options3,
     });
 
 
     // **** Tamanho do grafico baseado na quantidade de dados ****
-    if (screen.width > 800){
+    if (screen.width > 1000) {
         var tam = parseInt(screen.width) - 150;
 
         var container1 = document.getElementById('container1');
         console.log("width:" + (tam / 2) + "px");
+        console.log("screen:" + screen.width + "px");
         container1.setAttribute("style", "width:" + (tam / 2) + "px");
         var container2 = document.getElementById('container2');
         container2.setAttribute("style", "width:" + (tam / 2) + "px");
@@ -520,16 +705,6 @@ function initGraph() {
         container3.setAttribute("style", "width:" + (tam / 2) + "px");
         var container4 = document.getElementById('container4');
         container4.setAttribute("style", "width:" + (tam / 2) + "px");
-    }
-
-
-    var grafico1Container = document.getElementById('grafico1Container');
-    if (semLabel.length > 25) {
-        grafico1Container.setAttribute("style", "width:" + semLabel.length * 50 + "px")
-    }
-    var grafico3Container = document.getElementById('grafico3Container');
-    if (semLabel.length > 5) {
-        grafico3Container.setAttribute("style", "height:" + semLabel.length * 50 + "px")
     }
 
 

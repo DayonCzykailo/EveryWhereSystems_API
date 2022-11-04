@@ -25,159 +25,153 @@
 <!--<body id="body-pd" style="background: #dfe0e6">-->
 
 <body id="body-pd">
-    <div id="loader"></div>
+
+    <div id="loader">
+    </div>
     <div id="content">
         <script th:src="@{/js/menuTamplate.js}" type="text/javascript"></script>
 
         <div id="page-content-wrapper">
+
             <div class="flex-grow-1">
-                <div class="px-4 text-start bgBlue" style="width: 100%; height: 95%; color: #f5f6fa;">
-                    <div class="row">
-                        <div class="col-md-auto py-3">
-                            <p>Início</p>
-                            <div>
-                                <input id="startDate" class="form-control lightMode" type="date" />
-                                <input type="range" class="form-range" id="customRange1">
-                            </div>
-                        </div>
-                        <div class="col-md-auto py-3">
-                            <p>Fim</p>
-                            <div>
-                                <input id="startDate" class="form-control lightMode" type="date" />
-                                <input type="range" class="form-range" id="customRange1">
-                            </div>
-                        </div>
-
-                        <div class="col-md py-3">
-                            <p>Cidade</p>
-                            <select class="form-select lightMode">
-                                <option selected>Todos</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md py-3">
-                            <p>Local</p>
-                            <select class="form-select lightMode">
-                                <option selected>Todos</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                        <div class="col-md py-3">
-                            <p>Tipo de Painel</p>
-                            <select class="form-select lightMode">
-                                <option selected>Todos</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="m-0 row">
-                    <div class="mx-0 mb-3 p-0 row">
-                        <div class="col-md mx-0 pe-0">
-                            <div class="text-center rounded-4" style="width: 98%; height: 150px;">
-                                <div class="row">
-                                    <div class="mt-2">
-                                        <h3>Análise Semanal e Diário</h3>
-                                    </div>
+
+                    <div class="pb-2 text-start bgBlue" style="width: 100%; color: #f5f6fa;">
+                        <div class="row">
+                            <div class="col-md-auto py-1">
+                                <p>Início</p>
+                                <div>
+                                    <input id="startDate" class="form-control lightMode" type="date" onchange="filtro()" />
+                                    <!--<input type="range" class="form-range" id="customRange1">-->
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md">
-                                        <div class="p-1 fw-bold fs-5 rounded-4 shadow lightMode">
-                                            <p id="audiencia"></p>
-                                            <p>Audiência</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md">
-                                        <div class="p-1 fw-bold fs-5 rounded-4 shadow lightMode">
-                                            <p id="impacto"></p>
-                                            <p>Impactos</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md">
-                                        <div class="p-1 fw-bold fs-5 rounded-4 shadow lightMode">
-                                            <p id="freq"></p>
-                                            <p>Frequência</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md">
-                                        <div class="p-1 fw-bold fs-5 rounded-4 shadow lightMode">
-                                            <p id="medDia"></p>
-                                            <p>Dias monitorados</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md">
-                                        <div class="p-1 fw-bold fs-5 rounded-4 shadow lightMode">
-                                            <p id="locais"></p>
-                                            <p>N° Locais</p>
-                                        </div>
-                                    </div>
-
+                            </div>
+                            <div class="col-md-auto py-1">
+                                <p>Fim</p>
+                                <div>
+                                    <input id="endDate" class="form-control lightMode" type="date" onchange="filtro()" />
+                                    <!--<input type="range" class="form-range" id="customRange1">-->
                                 </div>
+                            </div>
+
+                            <div class="col-md py-1">
+                                <p>Cidade</p>
+                                <select id="cidades" class="form-select lightMode" onchange="filtro()">
+                                    <option value="Todos" selected>Todos</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md py-1">
+                                <p>Local</p>
+                                <select id="local" class="form-select lightMode" onchange="filtro()">
+                                    <option selected>Todos</option>
+                                </select>
+                            </div>
+                            <div class="col-md py-1">
+                                <p>Tipo de Painel</p>
+                                <select id="painel" class="form-select lightMode" onchange="filtro()">
+                                    <option selected>Todos</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="mt-4 mx-0 p-0 row flex-grow-1">
-                        <div class="col-md ">
-                            <div id="container1" class="my-2 p-2 text-center rounded-4 shadow lightMode">
-                                <div class="p-1">
-                                    <p>Análise Diária Audiência X Impactos</p>
+                    <div class="mx-0 mb-3 p-0 text-center rounded-4" style="width: 100%;">
+                        <div class="row mx-0 pe-0">
+                            <div class="row">
+                                <div class="mt-2">
+                                    <h3>Análise Semanal e Diário</h3>
                                 </div>
-                                <div class="px-4 overflow-auto">
-                                    <div class="minHeight" id="grafico1Container">
-                                        <canvas width="70px" height="10px" id="grafico1" class=""></canvas>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md my-2">
+                                    <div class="p-1 fw-bold fs-5 rounded-4 shadow lightMode">
+                                        <p id="audiencia"></p>
+                                        <p>Audiência</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md my-2">
+                                    <div class="p-1 fw-bold fs-5 rounded-4 shadow lightMode">
+                                        <p id="impacto"></p>
+                                        <p>Impactos</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md my-2">
+                                    <div class="p-1 fw-bold fs-5 rounded-4 shadow lightMode">
+                                        <p id="freq"></p>
+                                        <p>Frequência</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md my-2">
+                                    <div class="p-1 fw-bold fs-5 rounded-4 shadow lightMode">
+                                        <p id="medDia"></p>
+                                        <p>Dias monitorados</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md my-2">
+                                    <div class="p-1 fw-bold fs-5 rounded-4 shadow lightMode">
+                                        <p id="locais"></p>
+                                        <p>N° Locais</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mx-0 p-0">
+                        <div class="mx-0 p-0 row flex-grow-1">
+                            <div class="col-md ">
+                                <div id="container1" class="my-2 p-2 text-center rounded-4 shadow lightMode">
+                                    <div class="p-1">
+                                        <p>Análise Diária Audiência X Impactos</p>
+                                    </div>
+                                    <div class="px-4 overflow-auto">
+                                        <div class="minHeight" id="grafico1Container">
+                                            <canvas width="70px" height="10px" id="grafico1" class=""></canvas>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md ">
+                                <div id="container2" class="my-2 p-2 text-center rounded-4 shadow lightMode">
+                                    <div class="px-4 maxHeight overflow-auto">
+                                        <div class="minHeight" id="grafico3Container">
+                                            <canvas width="13px" height="80px" id="grafico3" class=""></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div class="col-md ">
-                            <div id="container2" class="my-2 p-2 text-center rounded-4 shadow lightMode">
-                                <div class="px-4 maxHeight overflow-auto">
-                                    <div class="minHeight" id="grafico3Container">
-                                        <canvas width="13px" height="80px" id="grafico3" class=""></canvas>
+                        <div class="mx-0 p-0 row flex-grow-1">
+                            <div class="col-md ">
+                                <div id="container3" class="my-2 p-2 text-center rounded-4 shadow lightMode">
+                                    <div class="p-1">
+                                        <p>Análise Semana Audiência X Impactos</p>
+                                    </div>
+                                    <div class="px-4 minHeight">
+                                        <canvas width="70px" height="20px" id="grafico2" class=""></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md ">
+                                <div id="container4" class="my-2 p-2 text-center rounded-4 shadow lightMode">
+                                    <!--<div class="px-4 overflow-auto">-->
+                                    <div class="px-4">
+                                        <div class="minHeight">
+                                            <canvas width="70px" height="70px" id="grafico4" class=""></canvas>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                     </div>
-
-                    <div class="mx-0 p-0 row flex-grow-1">
-                        <div class="col-md ">
-                            <div id="container3" class="my-2 p-2 text-center rounded-4 shadow lightMode">
-                                <div class="p-1">
-                                    <p>Análise Semana Audiência X Impactos</p>
-                                </div>
-                                <div class="px-4 minHeight">
-                                    <canvas width="70px" height="20px" id="grafico2" class=""></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md ">
-                            <div id="container4" class="my-2 p-2 text-center rounded-4 shadow lightMode">
-                                <!--<div class="px-4 overflow-auto">-->
-                                <div class="px-4">
-                                    <div class="minHeight">
-                                        <canvas width="70px" height="70px" id="grafico4" class=""></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
             </div>
