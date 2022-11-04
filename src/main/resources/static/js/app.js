@@ -69,9 +69,9 @@ function dataGenerator() {
     let line = {};
     let dado = [];
     let maxDataDia = 0;
-    let range = getDates(new Date('2022-11-02'), new Date('2022-11-15'));
+    let range = getDates(new Date('2022-05-02'), new Date('2022-11-15'));
     range.forEach(element => {
-        maxDataDia = Math.round(randGenerator(5));
+        maxDataDia = Math.round(randGenerator(10));
         for (let i = 0; i < maxDataDia; i++) {
             line = { 'data': element, 'mac': `${i}${Math.round(randGenerator(99999))}`, 'local': locaisGenerator(), 'cidade': cidadeGenerator(), 'painel': painelGenerator(), 'impacto': Math.round(randGenerator(5)) }
             dado.push(line);
@@ -81,14 +81,6 @@ function dataGenerator() {
     return (dado);
 }
 
-//let options = {
-//    year: "numeric",
-//    month: "long",
-//    weekday: "long",
-//    hour: "numeric",
-//    minute: "numeric",
-//}
-//data.toLocaleDateString()
 let dateOp = {
     weekday: "long",
 }
@@ -311,15 +303,14 @@ function filtro() {
     paineis = document.getElementById("painel").value;
     inicio = new Date(document.getElementById("startDate").value);
     fim = new Date(document.getElementById("endDate").value);
-         
+
     dado = dadoBruto;
     dadotemp2 = dado;
     let line = {};
-    console.log('bruto',dadotemp2)
 
 
 
-    if(document.getElementById("startDate").value != ''){
+    if (document.getElementById("startDate").value != '') {
         dadotemp = dadotemp2;
         dadotemp2 = [];
         dadotemp.forEach(element => {
@@ -329,8 +320,8 @@ function filtro() {
             }
         })
     }
-    
-    if(document.getElementById("endDate").value != ''){
+
+    if (document.getElementById("endDate").value != '') {
         dadotemp = dadotemp2;
         dadotemp2 = [];
         dadotemp.forEach(element => {
@@ -339,7 +330,6 @@ function filtro() {
                 dadotemp2.push(line);
             }
         })
-        console.log('fim',dadotemp2)
     }
 
     if (!(cidades == "Todos")) {
@@ -374,11 +364,12 @@ function filtro() {
             }
         })
     }
-    if ((cidades == "Todos") && (locais == "Todos") && (paineis == "Todos")&&(document.getElementById("startDate").value == '')&&(document.getElementById("endDate").value == '')) {
+    if ((cidades == "Todos") && (locais == "Todos") && (paineis == "Todos") && (document.getElementById("startDate").value == '') && (document.getElementById("endDate").value == '')) {
         dado = dadoBruto;
     } else {
         dado = dadotemp2;
     }
+
     atualizaGrafico();
 }
 
@@ -388,8 +379,8 @@ let data1 = {};
 let data4 = {};
 let chart1 = null;
 let chart2 = null;
-let chart3 = null;
-let chart4 = null;
+//let chart3 = null;
+//let chart4 = null;
 
 function carregaDados() {
     var impacto = getImpacto();
@@ -418,6 +409,30 @@ function carregaDados() {
     const alternativeColor = ["#2e75b5"];
     const subColor = ["#abc8e1"];
 
+    var table = document.getElementById('tab1')
+    table.innerHTML = ''
+    for (var i = 0; i < semLabel.length; i++) {
+        var row = `<tr>
+        <td>${semLabel[i]}</td>
+        <td>${diaAudiencia[i]}</td>
+        <td>${diaImpacto[i]}</td>
+                    </tr>`
+        table.innerHTML += row
+        // console.log(data[i].id)
+    }
+    var table2 = document.getElementById('tab2')
+    sem = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado']
+    table2.innerHTML = ''
+    for (var i = 0; i < sem.length; i++) {
+        var row = `<tr>
+        <td>${sem[i]}</td>
+        <td>${diaAudiencia[i]}</td>
+        <td>${diaImpacto[i]}</td>
+                    </tr>`
+        table2.innerHTML += row
+        // console.log(data[i].id)
+    }
+
     data2 = {
         labels: ['Domingo', 'Segunda-feira', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
         datasets: [
@@ -440,23 +455,23 @@ function carregaDados() {
         ]
     };
 
-    data3 = {
-        labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
-        datasets: [
-            {
-                type: 'radar',
-                label: 'Audiência',
-                backgroundColor: color,
-                data: diaSemanaAudiencia,
-            },
-            {
-                type: 'radar',
-                label: 'Impactos',
-                backgroundColor: alternativeColor,
-                data: diaSemanaImpacto,
-            }
-        ]
-    };
+    //data3 = {
+    //    labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+    //    datasets: [
+    //        {
+    //            type: 'radar',
+    //            label: 'Audiência',
+    //            backgroundColor: color,
+    //            data: diaSemanaAudiencia,
+    //        },
+    //        {
+    //            type: 'radar',
+    //            label: 'Impactos',
+    //            backgroundColor: alternativeColor,
+    //            data: diaSemanaImpacto,
+    //        }
+    //    ]
+    //};
 
     data1 = {
         labels: semLabel,
@@ -480,48 +495,52 @@ function carregaDados() {
         ]
     };
 
-    data4 = {
-        labels: semLabel,
-        datasets: [
-            {
-                type: 'bar',
-                label: 'Audiencia',
-                backgroundColor: color,
-                borderColor: subColor,
-                data: diaImpacto,
-                tension: 0.5
-            },
-            {
-                type: 'bar',
-                label: 'Impacto',
-                backgroundColor: alternativeColor,
-                borderColor: subColor,
-                data: diaAudiencia,
-                tension: 0.5
-            }
-        ]
-    };
+    //data4 = {
+    //    labels: semLabel,
+    //    datasets: [
+    //        {
+    //            type: 'bar',
+    //            label: 'Audiencia',
+    //            backgroundColor: color,
+    //            borderColor: subColor,
+    //            data: diaImpacto,
+    //            tension: 0.5
+    //        },
+    //        {
+    //            type: 'bar',
+    //            label: 'Impacto',
+    //            backgroundColor: alternativeColor,
+    //            borderColor: subColor,
+    //            data: diaAudiencia,
+    //            tension: 0.5
+    //        }
+    //    ]
+    //};
     var grafico1Container = document.getElementById('grafico1Container');
-    if (semLabel.length > 25) {
+    console.log(semLabel.length)
+    if (semLabel.length > 10) {
         grafico1Container.setAttribute("style", "width:" + semLabel.length * 50 + "px")
+    }else{
+        grafico1Container.setAttribute("style", "width:" + semLabel.length * 90 + "px")
     }
-    var grafico3Container = document.getElementById('grafico3Container');
-    if (semLabel.length > 5) {
-        grafico3Container.setAttribute("style", "height:" + semLabel.length * 50 + "px")
-    }
+    //var grafico3Container = document.getElementById('grafico3Container');
+    //if (semLabel.length > 5) {
+    //    grafico3Container.setAttribute("style", "height:" + semLabel.length * 50 + "px")
+    //}
 
 }
 
 function atualizaGrafico() {
     carregaDados();
+
     chart1.data = data1;
     chart2.data = data2;
-    chart3.data = data4;
-    chart4.data = data3;
+    //chart3.data = data4;
+    //chart4.data = data3;
     chart1.update();
     chart2.update();
-    chart3.update();
-    chart4.update();
+    //chart3.update();
+    //chart4.update();
 
 }
 
@@ -615,7 +634,6 @@ function initGraph() {
             datalabels: {
                 display: true,
                 formatter: function (value, context) {
-                    console.log(value);
                     return '< ' + value;
                 },
                 color: function (context) {
@@ -678,17 +696,17 @@ function initGraph() {
         options
     });
 
-    const grafico3 = document.getElementById('grafico3').getContext('2d');
-    chart3 = new Chart(grafico3, {
-        data: data4,
-        options: options2
-    });
+    //const grafico3 = document.getElementById('grafico3').getContext('2d');
+    //chart3 = new Chart(grafico3, {
+    //    data: data4,
+    //    options: options2
+    //});
 
-    const grafico4 = document.getElementById('grafico4').getContext('2d');
-    chart4 = new Chart(grafico4, {
-        data: data3,
-        options: options3,
-    });
+    //const grafico4 = document.getElementById('grafico4').getContext('2d');
+    //chart4 = new Chart(grafico4, {
+    //    data: data3,
+    //    options: options3,
+    //});
 
 
     // **** Tamanho do grafico baseado na quantidade de dados ****
@@ -696,8 +714,6 @@ function initGraph() {
         var tam = parseInt(screen.width) - 150;
 
         var container1 = document.getElementById('container1');
-        console.log("width:" + (tam / 2) + "px");
-        console.log("screen:" + screen.width + "px");
         container1.setAttribute("style", "width:" + (tam / 2) + "px");
         var container2 = document.getElementById('container2');
         container2.setAttribute("style", "width:" + (tam / 2) + "px");
