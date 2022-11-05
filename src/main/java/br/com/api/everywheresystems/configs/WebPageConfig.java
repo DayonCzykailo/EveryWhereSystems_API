@@ -3,10 +3,14 @@ package br.com.api.everywheresystems.configs;
 import java.util.Arrays;
 import java.util.Collections;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -37,5 +41,7 @@ public class WebPageConfig extends WebMvcConfigurerAdapter{                     
     public void addViewControllers(ViewControllerRegistry registry) {//adireciona para uma pagina dependendo do erro Htpp
         registry.addViewController("/404.html").setViewName("404");
         registry.addViewController("/login.html").setViewName("401");
+        registry.addViewController("/login.html").setViewName("403");
     }
+    
 }

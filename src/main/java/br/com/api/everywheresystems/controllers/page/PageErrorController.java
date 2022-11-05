@@ -11,6 +11,11 @@ public class PageErrorController {
     public String render404(Model model) {
         return "error/404";
     }
+
+    @RequestMapping("/403.html")
+    public String render403(Model model) {
+        return "error/403";
+    }
    
 }
 

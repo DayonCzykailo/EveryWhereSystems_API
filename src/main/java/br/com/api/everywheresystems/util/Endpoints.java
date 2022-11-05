@@ -6,9 +6,10 @@ import java.util.List;
 public class Endpoints {
     //Sem autorização
     public static final String auth ="/auth";
-    public static final String authInit ="/auth/init";//temporario, apenas cria uma conta master se o banco estiver vazio
+    public static final String authInit ="/auth/init";//temporario, apenas cria uma conta master se o banco estiver vazio //NAO USAR
+
     //Gerar autorização
-    public static final List<String> authAutorization = Arrays.asList(
+    public static final List<String> authAutorization = Arrays.asList(//url que nao precisa de autorização ou estar logado
         "/auth**","/auth/**", "/", "webjars",
          "/css/**","/npm/**","/assets/**","/bootstrap-icons-1.9.1/**",
          "/index.html","/index","/status" ,"/**/favicon.ico"

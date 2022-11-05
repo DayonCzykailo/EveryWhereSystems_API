@@ -18,7 +18,7 @@ public class EverywheresystemsApplication {
 
 	@GetMapping("/status")
 	public String status(){
-		return "ONLINE, segue o baile";//saber se o String está funcionando
+		return "ONLINE, segue o baile";//saber se o Spring está funcionando
 	}
 
 	@Bean

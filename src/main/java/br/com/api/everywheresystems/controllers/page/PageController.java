@@ -2,15 +2,16 @@ package br.com.api.everywheresystems.controllers.page;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageController {
-    
     @GetMapping("/dash.html")
-    public String teste(HttpServletRequest request) {
+    public String teste(HttpServletRequest request, Authentication authentication) {
         request.setAttribute("teste", "retorno teste");
+
         return "dash/dash";
     }
 

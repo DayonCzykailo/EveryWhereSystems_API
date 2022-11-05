@@ -15,19 +15,19 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response) {
         String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
 
-        String targetUrl = "";
         if(role.contains("USER")) {
-            targetUrl = "dash.html";
+            return "dash.html";
         } 
 
         if(role.contains("SUBUSER")) {
-            targetUrl = "dash.html";
+            return "dash.html";
         } 
         
         if(role.contains("ADMIN")) {
-            targetUrl = "docker.html";
+            return "gerenciarDocker.html";
         }
-        return targetUrl;
+
+        return "login.html";
     }
  
 }
