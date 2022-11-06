@@ -1,6 +1,8 @@
 package br.com.api.everywheresystems.services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.api.everywheresystems.dto.AccontDto;
 import br.com.api.everywheresystems.models.AccontModel;
+import br.com.api.everywheresystems.models.RoleModel;
 import br.com.api.everywheresystems.models.enums.Ativo;
 import br.com.api.everywheresystems.models.enums.Atuacao;
 import br.com.api.everywheresystems.models.enums.Role;
@@ -32,48 +35,49 @@ import br.com.api.everywheresystems.util.Util;
 public class AccontService {
 
     @Autowired
-    AccontRepository loginRepository;
+    final AccontRepository usuarioService;
 
-    public AccontService(AccontRepository loginRepository) {
-        this.loginRepository = loginRepository;
+    public AccontService(AccontRepository usuarioService) {
+        this.usuarioService = usuarioService;
+
     }
 
     @Transactional
     public void delete(AccontModel accont) {
-        loginRepository.delete(accont);
+        usuarioService.delete(accont);
     }
 
     @Transactional
     public AccontModel save(AccontModel accont) {
-        return loginRepository.save(accont);
+        return usuarioService.save(accont);
     }
 
     public Page<AccontModel> findAll(Pageable pageable) {// nao sei se vai ter
-        return loginRepository.findAll(pageable);
+        return usuarioService.findAll(pageable);
     }
 
     public List<AccontModel> findAll() {
-        return loginRepository.findAll();
+        return usuarioService.findAll();
     }
 
     public Optional<AccontModel> findById(String id) {
-        return loginRepository.findById(id);
+        return usuarioService.findById(id);
     }
 
     public Optional<AccontModel> findByEmail(String email) {
-        return loginRepository.findByEmail(email);
+        return usuarioService.findByEmail(email);
     }
 
     public boolean existsByCelular(String celular) {
-        return loginRepository.existsByCelular(celular);
+        return usuarioService.existsByCelular(celular);
     }
 
     public boolean existsByEmail(String email) {
-        return loginRepository.existsByEmail(email);
+        return usuarioService.existsByEmail(email);
     }
 
-    public ResponseEntity<Object> saveAccont(AccontDto accontDto, PasswordEncoder encoder, ImageService imageService,
-            EmpresaService empresaService, RolesService rolesService, Role role) {
+    public ResponseEntity<Object> saveAccont(AccontDto accontDto, ImageService imageService, RolesService rolesService,
+            PasswordEncoder encoder, EmpresaService empresaService) {
         AccontModel accontModel = new AccontModel();
 
         if (existsByCelular(accontDto.getCelular())) {
@@ -95,11 +99,12 @@ public class AccontService {
             BeanUtils.copyProperties(accontDto, accontModel);
 
             accontModel.setUltimoAcesso(Util.getDataHoraAgora());
-            accontModel.setAtuacao(Util.getStringParaEnum(Atuacao.class, accontDto.getAtuacao()));
             accontModel.setAtivo(Ativo.ATIVO);
 
-            if (!imageService.findById(accontDto.getIdImagem()).isEmpty()) {
-                accontModel.setImagem(imageService.findById(accontDto.getIdImagem()).get());
+            if (accontDto.getIdImagem() != null) {
+                if (!imageService.findById(accontDto.getIdImagem()).isEmpty()) {
+                    accontModel.setImagem(imageService.findById(accontDto.getIdImagem()).get());
+                }
             }
 
         } catch (Exception e) {
@@ -108,14 +113,77 @@ public class AccontService {
         }
 
         try {
-            accontModel.setEmpresa(empresaService.findById(accontDto.getEmpresa()).get());
+            if (accontDto.getEmpresa() != null) {
+                accontModel.setEmpresa(empresaService.findById(accontDto.getEmpresa()).get());
+            }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("ERRO : não foi possível cadastrar empresa  : " + e.getMessage());
         }
 
-        accontModel.setRoles(Arrays.asList(rolesService.findByRole(role)));
-
+        accontModel.setRoles(rolesForUser(accontDto, rolesService));
         return ResponseEntity.status(HttpStatus.OK).body(accontModel);
+        // return ResponseEntity.status(HttpStatus.OK).body(save(accontModel));
+    }
+
+    public List<RoleModel> rolesForUser(AccontDto accont, RolesService rolesService) {
+        List<RoleModel> lista = new ArrayList<RoleModel>();
+
+        if (accont.getRoleAcess() == null) {
+            lista.add(rolesService.findByRole(Role.ROLE_SUB_USER));
+        }else if (accont.getRoleAcess().equals("USER")) {
+            lista.add(rolesService.findByRole(Role.ROLE_USER));
+        }else if (accont.getRoleAcess().equals("ADMIN")) {
+            lista.add(rolesService.findByRole(Role.ROLE_ADMIN));
+        }
+
+        if (accont.isAccessDash()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_DASH));
+        }
+        if (accont.isAccessManageDash()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_MANAGE_DASH));
+        }
+
+        if (accont.isAccessDocker()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_DOCKER));
+        }
+        if (accont.isAccessManageDocker()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_MANAGE_DOCKER));
+        }
+        if (accont.isAccessManageDocker()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_MANAGE_DOCKER));
+        }
+
+        if (accont.isAccessForms()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_FORMS));
+        }
+        if (accont.isAccessManageForms()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_MANAGE_FORMS));
+        }
+        if (accont.isAccessRegisterForms()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_REGISTER_FORMS));
+        }
+
+        if (accont.isAccessManageUser()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_MANAGE_USERS));
+        }
+        if (accont.isAccessRegisterUser()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_REGISTER_USERS));
+        }
+        if (accont.isAccessUsers()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_USERS));
+        }
+
+        if (accont.isAccessClients()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_CLIENTS));
+        }
+        if (accont.isAccessManageClients()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_MANAGE_CLIENTS));
+        }
+        if (accont.isAccessRegisterClients()) {
+            lista.add(rolesService.findByRole(Role.ROLE_ACCESS_MANAGE_CLIENTS));
+        }
+
+        return lista;
     }
 }

@@ -38,15 +38,17 @@ public class AccontModel {
     @GeneratedValue(generator = "generator")
     private String id;
 
+    @Column(nullable = false, length = 100)
+    private String nome;
+
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
     @Column(nullable = false)
     private String senha;
 
-    @Enumerated(EnumType.STRING)
     @Column
-    private Atuacao atuacao;
+    private String atuacao;
 
     @Column(length = 13, unique = true)
     private String celular;

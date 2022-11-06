@@ -25,6 +25,7 @@ public class PermissoesServiceConfigsImpl implements UserDetailsService {
         if (accont.isEmpty()) {
             throw new UsernameNotFoundException("Usuário [" + email + "] não encontrado !!!");
         }
+
         return new PermissoesConfigs(accont);
     }
 

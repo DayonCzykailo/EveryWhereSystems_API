@@ -71,23 +71,30 @@ public class AccontController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(new Erro("Não Autorizado : E-mail e/ou Senha incorretos.", "Não Autorizado"));
     }
-
-    @PostMapping(value = Endpoints.createAccontAdmin)
-    public ResponseEntity<Object> postACriarContaUser(@RequestBody AccontDto accontDto) {
-        return accontService.saveAccont(accontDto, encoder, imageService, empresaService, rolesService, Role.ROLE_USER);
-    }
-
-    @PostMapping(value = Endpoints.createAccontUser)
-    public ResponseEntity<Object> postCriarContaAdmin(@RequestBody AccontDto accontDto) {
-        return accontService.saveAccont(accontDto, encoder, imageService, empresaService, rolesService,
-                Role.ROLE_ADMIN);
-    }
-
-    @PostMapping(value = Endpoints.createAccontSubUser)
-    public ResponseEntity<Object> postCriarContaSubUser(@RequestBody AccontDto accontDto) {
-        return accontService.saveAccont(accontDto, encoder, imageService, empresaService, rolesService,
-                Role.ROLE_SUB_USER);
-    }
+    /*
+     * @PostMapping(value = Endpoints.createAccontAdmin)
+     * public ResponseEntity<Object> postACriarContaUser(@RequestBody AccontDto
+     * accontDto) {
+     * return accontService.saveAccont(accontDto, encoder, imageService,
+     * empresaService, rolesService, Role.ROLE_USER);
+     * }
+     * 
+     * @PostMapping(value = Endpoints.createAccontUser)
+     * public ResponseEntity<Object> postCriarContaAdmin(@RequestBody AccontDto
+     * accontDto) {
+     * return accontService.saveAccont(accontDto, encoder, imageService,
+     * empresaService, rolesService,
+     * Role.ROLE_ADMIN);
+     * }
+     * 
+     * @PostMapping(value = Endpoints.createAccontSubUser)
+     * public ResponseEntity<Object> postCriarContaSubUser(@RequestBody AccontDto
+     * accontDto) {
+     * return accontService.saveAccont(accontDto, encoder, imageService,
+     * empresaService, rolesService,
+     * Role.ROLE_SUB_USER);
+     * }
+     */
 
     @PutMapping(value = Endpoints.accontDisable)
     public ResponseEntity<Object> putDesativarConta(@RequestParam String id) {
@@ -116,7 +123,7 @@ public class AccontController {
         accontModel.setEmail("MASTER");
         accontModel.setSenha("MASTER");
         accontModel.setUltimoAcesso(Util.getDataHoraAgora());
-        accontModel.setAtuacao(Atuacao.ATUACAO);
+        accontModel.setAtuacao("Atuacao.ATUACAO");
         accontModel.setAtivo(Ativo.ATIVO);
 
         accontModel.setRoles(Arrays.asList(new RoleModel(Role.ROLE_ADMIN)));

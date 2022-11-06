@@ -25,7 +25,8 @@
         <div class="pt-3">
             <div class="p-4 border lightMode">
 
-                <form>
+                <form  class="needs-validation" action="#" th:object="${usuario}" th:action="@{/cadastroCliente/save}"
+                method="post" novalidate>
 
                     <div class="form-row">
                         <h1>Cadastro de Cliente</h1>
@@ -136,6 +137,12 @@
                         </div>
                     </div>
 
+                    <div class="form-check" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                        <select th:field="*{roleAcess}">
+                          <option th:value="'ADMIN'" th:text="Acesso Administrador"></option>
+                          <option th:value="'USER'" th:text="Acesso Usuário" selected></option>
+                      </select>
+                      </div>
 
                     <div class="row mx-4 d-flex justify-content-center">
                         <button class="btn btn-primary" type="submit">Cadastrar</button>

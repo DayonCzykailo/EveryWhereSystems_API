@@ -8,12 +8,12 @@
 
   <!-- Bootstrap CSS -->
   <link th:href="@{/bootstrap-icons-1.9.1/bootstrap-icons.css}" rel="stylesheet" type="text/css">
- 
+
   <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
   <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
-  
-    <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
-    <script th:src="@{/js/menu.js}" type="text/javascript"></script>
+
+  <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+  <script th:src="@{/js/menu.js}" type="text/javascript"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
@@ -21,14 +21,16 @@
 </head>
 
 <body id="body-pd">
-  <div th:insert="components/menuTamplate :: menuTamplate(tela='usuario')"></div><!--MENU-->
+  <div th:insert="components/menuTamplate :: menuTamplate(tela='usuario')"></div>
+  <!--MENU-->
 
   <div class="ms-5" id="page-content-wrapper row">
     <!--BODY da página-->
     <div class="col-auto pt-3">
       <div class="p-4 border lightMode">
 
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" action="#" th:object="${usuario}" th:action="@{/cadastroUsuario/save}"
+          method="post" novalidate>
 
           <div class="form-row">
             <h1>Cadastro de Usuários</h1>
@@ -44,7 +46,8 @@
           <div class="form-row">
             <div class="col-md-4 mb-3">
               <label for="validationNome">Nome</label>
-              <input type="text" class="form-control lightMode" id="validationNome" placeholder="Nome" required>
+              <input type="text" class="form-control lightMode" id="validationNome" placeholder="Nome"
+                th:field="*{nome}">
               <div class="valid-feedback">
                 Nome válido!
               </div>
@@ -58,7 +61,7 @@
               <div class="col-md-4 mb-3">
                 <label for="validationEmail">E-mail</label>
                 <input type="text" class="form-control lightMode" id="validationEmail" placeholder="exemplo@email.com"
-                  required>
+                  th:field="*{email}">
                 <div class="valid-feedback">
                   E-mail válido!
                 </div>
@@ -71,7 +74,7 @@
               <div class="col-md-4 mb-3">
                 <label for="validationSenha">Senha</label>
                 <input type="password" class="form-control lightMode" id="validationSenha" placeholder="********"
-                  required>
+                  th:field="*{senha}">
                 <div class="valid-feedback">
                   Senha Válida!
                 </div>
@@ -100,7 +103,7 @@
                 <div class="input-group">
                   <span class="input-group-text lightMode" id="inputGroupPrepend3">+55</span>
                   <input type="text" class="form-control lightMode" id="validationCelular" placeholder="(12) 12345-6789"
-                    aria-describedby="inputGroupPrepend3">
+                    aria-describedby="inputGroupPrepend3" th:field="*{celular}">
                   <div class="valid-feedback">
                     Preenchido corretamente!
                   </div>
@@ -115,7 +118,7 @@
               <div class="col-md-6 mb-3">
                 <label for="validationAtuacao">Atuação</label>
                 <input type="text" class="form-control lightMode" id="validationAtuacao"
-                  placeholder="Gerente de Marketing">
+                  placeholder="Gerente de Marketing" th:field="*{atuacao}">
                 <div class="valid-feedback">
                   Atuação Válida!
                 </div>
@@ -123,26 +126,107 @@
                   Por favor, Insira uma Atuação válida.
                 </div>
               </div>
-
+              <!--DASH-->
               <div class="form-row py-3">
                 <h2>Tipo de Acesso ao Sistema</h2>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="dashCheckBox">
+                  <input class="form-check-input" type="checkbox" id="dashCheckBox" th:field="*{accessDash}">
                   <label class="form-check-label" for="dashCheckBox">
                     Acesso ao Dashboard
                   </label>
                 </div>
+
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="formCheckBox">
-                  <label class="form-check-label" for="formCheckBox">
-                    Acesso ao Formulário
+                  <input class="form-check-input" type="checkbox" id="dashCheckBox" th:field="*{accessManageDash}">
+                  <label class="form-check-label" for="dashCheckBox">
+                    Acesso ao Listar Dashboard
                   </label>
                 </div>
-              </div>
-
-              <div class="row mx-4 d-flex">
-                <button class="btn btn-primary" type="submit">Cadastrar</button>
-              </div>
+                <!--DASH-->
+                <!--DOCKER-->
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="formCheckBox" th:field="*{accessDocker}">
+                  <label class="form-check-label" for="formCheckBox">
+                    Acesso ao Listar Docker
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="formCheckBox" th:field="*{accessManageDocker}">
+                  <label class="form-check-label" for="formCheckBox">
+                    Acesso ao Visualizar Docker
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="formCheckBox" th:field="*{accessResgisterDocker}">
+                  <label class="form-check-label" for="formCheckBox">
+                    Acesso ao Cadastro Docker
+                  </label>
+                </div>
+                <!--DOCKER-->
+                <!--Formulário-->
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="formCheckBox" th:field="*{accessForms}">
+                  <label class="form-check-label" for="formCheckBox">
+                    Acesso ao Listar Formulário
+                  </label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="formCheckBox" th:field="*{accessManageForms}">
+                    <label class="form-check-label" for="formCheckBox">
+                      Acesso ao Visualizar Formulário
+                    </label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="formCheckBox"
+                        th:field="*{accessRegisterForms}">
+                      <label class="form-check-label" for="formCheckBox">
+                        Acesso ao Cadastro Formulário
+                      </label>
+                    </div>
+                    <!--Formulário-->
+                    <!--Usuário-->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="formCheckBox" th:field="*{accessUsers}">
+                      <label class="form-check-label" for="formCheckBox">
+                        Acesso ao Listar Usuário
+                      </label>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="formCheckBox"
+                          th:field="*{accessManageUser}">
+                        <label class="form-check-label" for="formCheckBox">
+                          Acesso ao Visualizar Usuário
+                        </label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="formCheckBox"
+                            th:field="*{accessRegisterUser}">
+                          <label class="form-check-label" for="formCheckBox">
+                            Acesso ao Cadastro Usuário
+                          </label>
+                        </div>
+                        <!--Usuário-->
+                        <!--Clientes-->
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="formCheckBox" th:field="*{accessClients}">
+                          <label class="form-check-label" for="formCheckBox">
+                            Acesso ao Listar Clientes
+                          </label>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="formCheckBox"
+                              th:field="*{accessManageClients}">
+                            <label class="form-check-label" for="formCheckBox">
+                              Acesso ao Visualizar Clientes
+                            </label>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="formCheckBox"
+                                th:field="*{accessRegisterClients}">
+                              <label class="form-check-label" for="formCheckBox">
+                                Acesso ao Cadastro Clientes
+                              </label>
+                            </div>
+                            <!--Clientes-->
+                          
+                          </div>
+                          <div class="row mx-4 d-flex">
+                            <button class="btn btn-primary" type="submit">Cadastrar</button>
+                          </div>
         </form>
       </div>
 
@@ -155,7 +239,8 @@
     integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">
     </script>
 
-  <script th:src="@{/js/validationUsuario.js}" type="text/javascript"></script>
+  <!--  <script th:src="@{/js/validationUsuario.js}" type="text/javascript"></script>
+-->
 </body>
 
 </html>

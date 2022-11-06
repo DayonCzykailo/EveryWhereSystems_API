@@ -26,6 +26,7 @@ import br.com.api.everywheresystems.configs.LoginSuccessHandler;
 import br.com.api.everywheresystems.models.enums.Role;
 import br.com.api.everywheresystems.services.AccontService;
 import br.com.api.everywheresystems.util.Endpoints;
+import br.com.api.everywheresystems.util.Roles;
 
 @EnableWebSecurity
 public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
@@ -48,17 +49,17 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("adm@email.com")
                 .password(encoder.encode("senha"))
-                .authorities("ADMIN");// Vai ficar por enquanto, ai tu nao precisa cadastrar no banco de dados
+                .authorities("ROLE_ADMIN");// Vai ficar por enquanto, ai tu nao precisa cadastrar no banco de dados
 
         auth.inMemoryAuthentication()
                 .withUser("subuser@email.com")
                 .password(encoder.encode("senha"))
-                .authorities("SUB_USER");
+                .authorities("ROLE_SUB_USER");
 
         auth.inMemoryAuthentication()
                 .withUser("user@email.com")
                 .password(encoder.encode("senha"))
-                .authorities("USER");
+                .authorities("ROLE_USER");
 
         auth.userDetailsService(permissoesServiceConfigsImpl).passwordEncoder(encoder);// pega os usuario do banco e
                                                                                        // cria a sessão
@@ -69,24 +70,24 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(delegatingEntryPoint());
 
         /*
-          http
-          .csrf()
-          .disable()
-          .httpBasic()
-          .and()
-          .authorizeRequests().antMatchers(Endpoints.authAutorization.toArray(new
-          String[0])).permitAll()
-          .antMatchers(HttpMethod.POST,
-          Endpoints.createAccontAdmin).hasAuthority("ROLE_ADMIN")
-          .antMatchers(HttpMethod.POST,
-          Endpoints.createAccontUser).hasAuthority("ROLE_ADMIN")
-          .antMatchers(HttpMethod.POST,
-          Endpoints.createAccontSubUser).hasAuthority("ROLE_USER")
-          .anyRequest().authenticated()
-          .and()
-          .addFilter(new JWTAutenticarFilter(authenticationManager()))
-          .addFilter(new JWTValidarFilter(authenticationManager(), loginService))
-          .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+         * http
+         * .csrf()
+         * .disable()
+         * .httpBasic()
+         * .and()
+         * .authorizeRequests().antMatchers(Endpoints.authAutorization.toArray(new
+         * String[0])).permitAll()
+         * .antMatchers(HttpMethod.POST,
+         * Endpoints.createAccontAdmin).hasAuthority("ROLE_ADMIN")
+         * .antMatchers(HttpMethod.POST,
+         * Endpoints.createAccontUser).hasAuthority("ROLE_ADMIN")
+         * .antMatchers(HttpMethod.POST,
+         * Endpoints.createAccontSubUser).hasAuthority("ROLE_USER")
+         * .anyRequest().authenticated()
+         * .and()
+         * .addFilter(new JWTAutenticarFilter(authenticationManager()))
+         * .addFilter(new JWTValidarFilter(authenticationManager(), loginService))
+         * .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
          */
 
         http
@@ -100,20 +101,20 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
                                                                                            // logado
                 .and()
                 .authorizeRequests()
-                .antMatchers("/dash.html").hasAnyAuthority(Role.listDash.toArray(new String[0]))
-                .antMatchers("/gerenciarDash.html").hasAnyAuthority(Role.listManageDash.toArray(new String[0]))
+                .antMatchers("/dash.html").hasAnyAuthority(Roles.listDash.toArray(new String[0]))
+                .antMatchers("/gerenciarDash.html").hasAnyAuthority(Roles.listManageDash.toArray(new String[0]))
 
-                .antMatchers("/docker.html").hasAnyAuthority(Role.listDocker.toArray(new String[0]))
-                .antMatchers("/gerenciarDocker.html").hasAnyAuthority(Role.listManageDocker.toArray(new String[0]))
+                .antMatchers("/docker.html").hasAnyAuthority(Roles.listDocker.toArray(new String[0]))
+                .antMatchers("/gerenciarDocker.html").hasAnyAuthority(Roles.listManageDocker.toArray(new String[0]))
 
-                .antMatchers("/formularios.html").hasAnyAuthority(Role.listForms.toArray(new String[0]))
-                .antMatchers("/gerenciarFormularios.html").hasAnyAuthority(Role.listManageForms.toArray(new String[0]))
+                .antMatchers("/formularios.html").hasAnyAuthority(Roles.listForms.toArray(new String[0]))
+                .antMatchers("/gerenciarFormularios.html").hasAnyAuthority(Roles.listManageForms.toArray(new String[0]))
 
-                .antMatchers("/gerenciarUsuarios.html").hasAnyAuthority(Role.listManageUser.toArray(new String[0]))
-                .antMatchers("/cadastroUsuario.html").hasAnyAuthority(Role.listRegisterUser.toArray(new String[0]))
+                .antMatchers("/gerenciarUsuarios.html").hasAnyAuthority(Roles.listManageUser.toArray(new String[0]))
+                .antMatchers("/cadastroUsuario.html").hasAnyAuthority(Roles.listRegisterUser.toArray(new String[0]))
 
-                .antMatchers("/gerenciarClientes.html").hasAnyAuthority(Role.listManageClients.toArray(new String[0]))
-                .antMatchers("/cadastroCliente.html").hasAnyAuthority(Role.listRegisterClients.toArray(new String[0]))
+                .antMatchers("/gerenciarClientes.html").hasAnyAuthority(Roles.listManageClients.toArray(new String[0]))
+                .antMatchers("/cadastroCliente.html").hasAnyAuthority(Roles.listRegisterClients.toArray(new String[0]))
 
                 .anyRequest().authenticated()
                 .and()
