@@ -2,7 +2,7 @@
 const tela = document.getElementById("Title").textContent;// $("#Title").text()
 /*Menu Template*/
 const header = document.createElement("header");
-header.className = "header mx-0 row shadow lightMode";
+header.className = "header mx-0 row lightMode";
 header.id = "header";
 const headerToggle = document.createElement("div");
 const iList = document.createElement("i");
@@ -154,7 +154,7 @@ navDocker.append(spanDocker);
 
 /* \/ Logout \/ */
 const navLogout = document.createElement("a");
-navLogout.href = "/logout";
+navLogout.href = "index.html";
 if (tela === "Desconectar") {
     navLogout.className = "nav_link active";
 } else {

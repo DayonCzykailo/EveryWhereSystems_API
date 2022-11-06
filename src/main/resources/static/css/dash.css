@@ -1,11 +1,26 @@
 .minHeight {
-    min-height: 220px;
+    min-height: 250px;
+}
+
+.maxHeight {
+    max-height: 300px;
 }
 
 .minWidth {
-    min-width: 350px;
+    min-width: 700px;
+}
+
+.maxWidth {
+    max-width: 800px;
 }
 
 .minWidthBarra {
-    min-width: 200px;
+    min-width: 300px;
+}
+.maxWidthBarra {
+    max-width: 30px;
+}
+
+div{
+    white-space: nowrap
 }

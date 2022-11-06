@@ -53,7 +53,7 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("subuser@email.com")
                 .password(encoder.encode("senha"))
-                .authorities("SUBUSER");
+                .authorities("SUB_USER");
 
         auth.inMemoryAuthentication()
                 .withUser("user@email.com")
@@ -69,24 +69,24 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(delegatingEntryPoint());
 
         /*
-         * http
-         * .csrf()
-         * .disable()
-         * .httpBasic()
-         * .and()
-         * .authorizeRequests().antMatchers(Endpoints.authAutorization.toArray(new
-         * String[0])).permitAll()
-         * .antMatchers(HttpMethod.POST,
-         * Endpoints.createAccontAdmin).hasAuthority("ROLE_ADMIN")
-         * .antMatchers(HttpMethod.POST,
-         * Endpoints.createAccontUser).hasAuthority("ROLE_ADMIN")
-         * .antMatchers(HttpMethod.POST,
-         * Endpoints.createAccontSubUser).hasAuthority("ROLE_USER")
-         * .anyRequest().authenticated()
-         * .and()
-         * .addFilter(new JWTAutenticarFilter(authenticationManager()))
-         * .addFilter(new JWTValidarFilter(authenticationManager(), loginService))
-         * .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+          http
+          .csrf()
+          .disable()
+          .httpBasic()
+          .and()
+          .authorizeRequests().antMatchers(Endpoints.authAutorization.toArray(new
+          String[0])).permitAll()
+          .antMatchers(HttpMethod.POST,
+          Endpoints.createAccontAdmin).hasAuthority("ROLE_ADMIN")
+          .antMatchers(HttpMethod.POST,
+          Endpoints.createAccontUser).hasAuthority("ROLE_ADMIN")
+          .antMatchers(HttpMethod.POST,
+          Endpoints.createAccontSubUser).hasAuthority("ROLE_USER")
+          .anyRequest().authenticated()
+          .and()
+          .addFilter(new JWTAutenticarFilter(authenticationManager()))
+          .addFilter(new JWTValidarFilter(authenticationManager(), loginService))
+          .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
          */
 
         http

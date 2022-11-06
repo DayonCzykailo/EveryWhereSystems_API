@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function (event) {
 
     const showNavbar = (toggleId, navId, bodyId, headerId, nightModeId, nightSwitch) => {
@@ -28,6 +27,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 // add padding to header
                 headerpd.classList.toggle('body-pd')
             })
+        }else{
+            console.log('DEU MERDAAAA');
         }
 
         // Validate that all variables exist
