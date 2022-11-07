@@ -11,40 +11,30 @@
 
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-   
+
     <script th:src="@{/js/menu.js}" type="text/javascript"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script th:src="@{/js/bootstrap/bootstrap.bundle.js}" type="text/javascript"></script>
+
+
 
     <!--
-
-        <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu5OFjNafTgdt2Uz3G7-KvnFfFQ27SfsA&libraries=drawing,localContext"></script>
-        <script type="text/javascript">
-            function initialize() {
-                var mapOptions = {
-                    center: new google.maps.LatLng(-25.447384, -49.259586),
-                    zoom: 10,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                var map = new google.maps.Map(document.getElementById("map_canvas"),
-                mapOptions);
-            }
-        </script>
+            <script async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu5OFjNafTgdt2Uz3G7-KvnFfFQ27SfsA&libraries=drawing,localContext"></script>
+            
     -->
     <title id="Title">Formulário</title>
 </head>
 
-<!--<body id="body-pd" style="background: #ebebf0" onload="initialize()">-->
-
 <body id="body-pd">
     <script th:src="@{/js/menuTamplate.js}" type="text/javascript"></script>
-    <div class="ms-5" id="page-content-wrapper">
+    <div id="page-content-wrapper">
         <!--BODY da página-->
-        <div class="pt-3">
-            <div class="p-4 border lightMode">
+        <div>
+            <div class="p-4 lightMode">
 
                 <form class="needs-validation" novalidate>
 
@@ -54,98 +44,112 @@
 
                     <div class="form-row">
                         <div class="col-md-auto mb-3">
-                            <label for="Date">Data da Troca</label>
-                            <div>
-                                <label for="Date" style="font-size: 0.8rem;">Data de instalação do sensor
-                                </label>
-                            </div>
+                            <label for="Date">Data da Troca (Obrigatório)</label>
+                            <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Sensor"
+                                data-bs-content="Data de instalação do sensor">?</button>
                             <input id="Date" class="form-control lightMode" type="date" required>
                             <div class="invalid-feedback">
                                 Selecione uma data!
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="col-md-auto mb-3">
-                                <label for="sensor">Número do Sensor</label>
-                                <div>
-                                    <label for="sensor" style="font-size: 0.8rem;">Número que está no aparelho
-                                    </label>
-                                </div>
+                        <div class="row-row">
+                            <div class="col-md mb-3">
+                                <label for="sensor">Número do Sensor (Obrigatório)</label>
+                                <button type="button" class="btn btn-sm" data-bs-toggle="popover"
+                                    title="Identificação do aparelho"
+                                    data-bs-content="Número que está no aparelho">?</button>
                                 <input type="text" class="form-control lightMode" id="sensor"
                                     placeholder="Exemplo: 0000" required>
                             </div>
                         </div>
 
+
                         <div class="form-row">
-                            <div class="col-md-auto mb-3">
-                                <label for="endPredInst">Endereço Predia de Instalação</label>
-                                <div>
-                                    <label for="Date" style="font-size: 0.8rem;">Adicione aqui o endereço predial da
-                                        instalação do sensor. Favor colocar apenas o nome
-                                        da rua e o número correspondente. Exemplo: R. Camões, 258
-                                    </label>
+                            <div class="row">
+                                <div class="col-md mb-3">
+                                    <label for="endPredInst">Endereço Predial de Instalação (Obrigatório)</label>
+                                    <button type="button" class="btn btn-sm" data-bs-toggle="popover"
+                                        title="Local real em que o sensor está"
+                                        data-bs-content="Por favor colocar apenas o nome da rua e o número correspondente. Exemplo: R. Camões, 258">?</button>
+                                    <input type="text" class="form-control lightMode" id="endPredInst"
+                                        placeholder="Exemplo: R. Camões, 258" required>
+                                    <div class="valid-feedback">
+                                        Nome válido!
+                                    </div>
+                                    <div class="invalid-feedback" id="invalidRuaInst">
+                                    </div>
                                 </div>
-                                <input type="text" class="form-control lightMode" id="endPredInst"
-                                    placeholder="Exemplo: R. Camões, 258" required>
-                                <div class="valid-feedback">
-                                    Nome válido!
-                                </div>
-                                <div class="invalid-feedback" id="invalidRuaInst">
+                                <div class="col-md mb-3">
+                                    <label for="endComRel">Endereço de Exibição no Relatório
+                                        (Obrigatório)</label>
+                                    <button type="button" class="btn btn-sm" data-bs-toggle="popover"
+                                        title="Nome que aparecerá no relatório"
+                                        data-bs-content="Pode colocar o nome que preferir para o relatório. Exemplo: Rua Camões, Próximo ao Mercado.">?</button>
+                                    <input type="text" class="form-control lightMode" id="endComRel"
+                                        placeholder="Exemplo: Rua Camões, Próximo ao Mercado." required>
+                                    <div class="valid-feedback">
+                                        Nome válido!
+                                    </div>
+                                    <div class="invalid-feedback" id="invalidRuaRel">
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <div class="col-md-auto mb-3">
-                                <label for="endComRel">Endereço Comercial para Exibição no Relatório</label>
-                                <div>
-                                    <label for="endComRel" style="font-size: 0.8rem;">Adicione aqui o endereço comercial
-                                        para
-                                        exibição no relatório. Esse será o nome que
-                                        aparecerá no relatório. Número máximo de caracteres: 48. Exemplo: R. Camões
-                                        X R.
-                                        Prof.
-                                        Brandão
-                                    </label>
+                            <div class="row">
+                                <div class="col-md mb-3">
+                                    <label for="cidade">Cidade (Obrigatório)</label>
+                                    <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Cidade"
+                                        data-bs-content="Nome da cidade em que o sensor está instalado">?</button>
+                                    <input type="text" class="form-control lightMode" id="cidade"
+                                        placeholder="Exemplo: Curitiba" required>
                                 </div>
-                                <input type="text" class="form-control lightMode" id="endComRel"
-                                    placeholder="Exemplo: Rua Camões" required>
-                                <div class="valid-feedback">
-                                    Nome válido!
-                                </div>
-                                <div class="invalid-feedback" id="invalidRuaRel">
+                                <div class="col-md mb-3">
+                                    <label for="estado">Estado (Obrigatório)</label>
+                                    <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Estado"
+                                        data-bs-content="Nome do estado em que o sensor está instalado">?</button>
+                                    <input type="text" class="form-control lightMode" id="estado"
+                                        placeholder="Exemplo: Paraná" required>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="col-md-auto mb-3">
-                                <label for="cidade">Cidade</label>
-                                <input type="text" class="form-control lightMode" id="cidade"
-                                    placeholder="Exemplo: Curitiba" required>
-                            </div>
-                        </div>
 
                         <div class="form-row">
                             <div class="col-md-auto mb-3">
-                                <label for="estado">Estado</label>
-                                <input type="text" class="form-control lightMode" id="estado"
-                                    placeholder="Exemplo: Paraná" required>
+                                <!-- src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54159.14412129146!2d-49.30594329385649!3d-25.428217412074606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x10b241d64142cbb9!2sEverywhere%20Analytics!5e0!3m2!1spt-BR!2sbr!4v1665091389735!5m2!1spt-BR!2sbr"-->
+                                <iframe id="maps"
+                                    src="https://maps.google.com/maps?q=everywhere%20curitiba&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <!--
+                                <div id="map_canvas" style="width:400px; height:400px"></div>
+                                <script type="text/javascript">
+                                    function initialize() {
+                                        var mapOptions = {
+                                            center: new google.maps.LatLng(-25.447384, -49.259586),
+                                            zoom: 10,
+                                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                                        };
+                                        var map = new google.maps.Map(document.getElementById("map_canvas"),
+                                        mapOptions);
+                                    }
+                                    </script>
+                                -->
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="col-md-auto mb-3">
                                 <label for="codPainel">Código Interno do Painel</label>
-                                <div>
-                                    <label for="Date" style="font-size: 0.8rem;">OPCIONAL: Opção de código interno
+                                <button type="button" class="btn btn-sm" data-bs-toggle="popover"
+                                    title="Código do Painel" data-bs-content="Opção de código interno
                                         da empresa a ser adicionado nos relatórios. Exemplo:
-                                        1234 - Everywhere Analytics
-                                    </label>
-                                </div>
+                                        1234 - Everywhere Analytics">?</button>
                                 <input type="text" class="form-control lightMode" id="codPainel"
-                                    placeholder="Exemplo: 1234 - Everywhere Analytics" required>
+                                    placeholder="Exemplo: 1234 - Everywhere Analytics">
                             </div>
                         </div>
 
@@ -204,20 +208,17 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="col-md-auto mb-3">
-                                <!--<iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54159.14412129146!2d-49.30594329385649!3d-25.428217412074606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x10b241d64142cbb9!2sEverywhere%20Analytics!5e0!3m2!1spt-BR!2sbr!4v1665091389735!5m2!1spt-BR!2sbr"
-                                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>-->
-                                <!--<div id="map_canvas" style="width:400px; height:400px"></div>-->
-                            </div>
-                        </div>
-
 
                         <div class=" row mx-4 d-flex justify-content-center">
                             <button class="btn btn-primary" type="submit">Cadastrar</button>
                         </div>
+
+                        <script>
+                            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+                            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                                return new bootstrap.Popover(popoverTriggerEl)
+                            })
+                        </script>
                 </form>
             </div>
 
@@ -226,7 +227,7 @@
     </div>
     </div>
 
-    <script src="@{/js/validationForm.js}"></script>
+    <script th:src="@{/js/validationForm.js}" type="text/javascript"></script>
     <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
 </body>
 

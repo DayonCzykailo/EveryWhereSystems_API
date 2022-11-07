@@ -8,14 +8,16 @@
 
   <!-- Bootstrap CSS -->
   <link th:href="@{/bootstrap-icons-1.9.1/bootstrap-icons.css}" rel="stylesheet" type="text/css">
- 
+
   <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
   <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
-  
-    <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
-    <script th:src="@{/js/menu.js}" type="text/javascript"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script th:src="@{/js/menu.js}" type="text/javascript"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+  <script th:src="@{/js/validationUsuario.js}" type="text/javascript"></script>
+  <script th:src="@{/js/bootstrap/bootstrap.bundle.js}" type="text/javascript"></script>
 
   <title id="Title">Usuário</title>
 </head>
@@ -23,10 +25,10 @@
 <body id="body-pd">
   <script th:src="@{/js/menuTamplate.js}" type="text/javascript"></script>
 
-  <div class="ms-5" id="page-content-wrapper row">
+  <div id="page-content-wrapper row">
     <!--BODY da página-->
-    <div class="col-auto pt-3">
-      <div class="p-4 border lightMode">
+    <div class="col">
+      <div class="p-4 lightMode">
 
         <form class="needs-validation" novalidate>
 
@@ -42,8 +44,9 @@
           </div>
 
           <div class="form-row">
-            <div class="col-md-4 mb-3">
-              <label for="validationNome">Nome</label>
+            <div class="col-md mb-3">
+              <label for="validationNome">Nome (Obrigatório)</label>
+              <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome" data-bs-content="Escolha um nome para o Usuário">?</button>
               <input type="text" class="form-control lightMode" id="validationNome" placeholder="Nome" required>
               <div class="valid-feedback">
                 Nome válido!
@@ -55,8 +58,9 @@
             </div>
 
             <div class="form-row" novalidate>
-              <div class="col-md-4 mb-3">
-                <label for="validationEmail">E-mail</label>
+              <div class="col-md mb-3">
+                <label for="validationEmail">E-mail (Obrigatório)</label>
+                <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome" data-bs-content="Coloque o email utilizado pelo funcionário">?</button>
                 <input type="text" class="form-control lightMode" id="validationEmail" placeholder="exemplo@email.com"
                   required>
                 <div class="valid-feedback">
@@ -68,8 +72,9 @@
                 </div>
               </div>
 
-              <div class="col-md-4 mb-3">
-                <label for="validationSenha">Senha</label>
+              <div class="col-md mb-3">
+                <label for="validationSenha">Senha (Obrigatório)</label>
+                <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome" data-bs-content="A senha deve conter caracteres especiais (!@#$), letras maiúsculas, minúsculas e números">?</button>
                 <input type="password" class="form-control lightMode" id="validationSenha" placeholder="********"
                   required>
                 <div class="valid-feedback">
@@ -81,8 +86,9 @@
                 </div>
               </div>
 
-              <div class="col-md-4 mb-3">
-                <label for="validationSenhaConf">Confirmação da Senha</label>
+              <div class="col-md mb-3">
+                <label for="validationSenhaConf">Confirmação da Senha (Obrigatório)</label>
+                <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome" data-bs-content="A confirmação de senha deve ser igual a senha digitada">?</button>
                 <input type="password" class="form-control lightMode" id="validationSenhaConf" placeholder="********"
                   required>
                 <div class="valid-feedback">
@@ -93,27 +99,28 @@
                   Senha Inválida!.
                 </div>
               </div>
+            </div>
 
-
-              <div class="col-md-4 mb-3">
-                <label for="validationCelular">Celular</label>
-                <div class="input-group">
-                  <span class="input-group-text lightMode" id="inputGroupPrepend3">+55</span>
-                  <input type="text" class="form-control lightMode" id="validationCelular" placeholder="(12) 12345-6789"
-                    aria-describedby="inputGroupPrepend3">
-                  <div class="valid-feedback">
-                    Preenchido corretamente!
-                  </div>
-                  <div class="invalid-feedback">
-                    Por favor, preencha corretamente.
-                  </div>
+            <div class="col-md mb-3">
+              <label for="validationCelular">Celular</label>
+              <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome" data-bs-content="Colocar o telefone de contato caso necessário">?</button>
+              <div class="input-group">
+                <span class="input-group-text lightMode" id="inputGroupPrepend3">+55</span>
+                <input type="text" class="form-control lightMode" id="validationCelular" placeholder="(12) 12345-6789"
+                  aria-describedby="inputGroupPrepend3">
+                <div class="valid-feedback">
+                  Preenchido corretamente!
+                </div>
+                <div class="invalid-feedback">
+                  Por favor, preencha corretamente.
                 </div>
               </div>
-
             </div>
+
             <div class="form-row">
-              <div class="col-md-6 mb-3">
+              <div class="col-md mb-3">
                 <label for="validationAtuacao">Atuação</label>
+                <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome" data-bs-content="Colocar uma descrição da atuação do usuário para facilitar o gerenciamento posterior">?</button>
                 <input type="text" class="form-control lightMode" id="validationAtuacao"
                   placeholder="Gerente de Marketing">
                 <div class="valid-feedback">
@@ -150,11 +157,14 @@
 
   </div>
   </div>
-  <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
-    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">
-    </script>
 
+  <script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+      return new bootstrap.Popover(popoverTriggerEl)
+    }) 
+  </script>
+  <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
   <script th:src="@{/js/validationUsuario.js}" type="text/javascript"></script>
 </body>
 

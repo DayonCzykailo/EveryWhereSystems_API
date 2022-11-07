@@ -7,6 +7,7 @@ function valida() {
     var info1 = document.getElementById('invalidRuaInst')
     var ruaRel = document.getElementById('endComRel')
     var info2 = document.getElementById('invalidRuaRel')
+    var cidade = document.getElementById('cidade')
 
     // Loop over them and prevent submission
     Array.prototype.slice.call(forms)
@@ -24,14 +25,26 @@ function valida() {
                     event.preventDefault()
                     event.stopPropagation()
                 }
+                if (validRua(ruaRel) === false) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                if (validRua(cidade) === false) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
             }, false)
         })
 
     sensor.addEventListener('keyup', function () {
         validSensor(sensor)
     }, false)
+    cidade.addEventListener('keyup', function () {
+        validCidade(cidade)
+    }, false)
     rua.addEventListener('keyup', function () {
         validRua(rua, info1)
+        attMaps(rua.value, cidade.value)
     }, false)
 
     ruaRel.addEventListener('keyup', function () {
@@ -51,6 +64,13 @@ $("#sensor").mask("0000");
 //}
 //);
 //==== /\Mascaras/\ =====
+
+function attMaps(rua, cidade) {
+    link = `https://maps.google.com/maps?q=${rua.replace(" ", "%20")},%20${cidade.replace(" ", "%20")})&t=&z=13&ie=UTF8&iwloc=&output=embed`
+    console.log(link)
+    maps = document.getElementById('maps')
+    maps.src = link
+}
 
 //==== \/Validações\/ =====
 function validData(item) {
@@ -80,7 +100,9 @@ function validRua(item, item2) {
         item.classList.add('is-valid')
         return true
     }
-    item2.innerHTML = `${item.value.length} de 5`
+    try {
+        item2.innerHTML = `${item.value.length} de 5 Caracteres mínimos`
+    } catch { }
     item.classList.remove('is-valid')
     item.classList.add('is-invalid')
     return false
@@ -92,6 +114,16 @@ function validRuaRel(item, item2) {
         return true
     }
     item2.innerHTML = `${item.value.length} de 5`
+    item.classList.remove('is-valid')
+    item.classList.add('is-invalid')
+    return false
+}
+function validCidade(item) {
+    if (item.value.length > 5) {
+        item.classList.remove('is-invalid')
+        item.classList.add('is-valid')
+        return true
+    }
     item.classList.remove('is-valid')
     item.classList.add('is-invalid')
     return false

@@ -27,10 +27,6 @@ function valida() {
                     event.preventDefault()
                     event.stopPropagation()
                 }
-                if (validPhone(phone) === false) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
             }, false)
         })
 
@@ -57,11 +53,11 @@ valida()
 
 //==== \/Mascaras\/ =====
 $("#validationCelular").mask("(00) 00000-0000");
-$('#validationNome').bind('keyup blur', function () {
-    var node = $(this);
-    node.val(node.val().replace(/[^a-zA-Z ]/g, ''));
-}
-);
+//$('#validationNome').bind('keyup blur', function () {
+//    var node = $(this);
+//    node.val(node.val().replace(/[^a-zA-Z ]/g, ''));
+//}
+//);
 //==== /\Mascaras/\ =====
 
 //==== \/Validações\/ =====
@@ -103,7 +99,7 @@ function validSenha(senha) {
 }
 
 function validSenhaConf(senha, senhaConf) {
-    if (senhaConf.value == senha.value) {
+    if (senhaConf.value == senha.value && senhaConf.value.length != 0) {
         senhaConf.classList.remove('is-invalid')
         senhaConf.classList.add('is-valid')
         return true
