@@ -11,21 +11,22 @@
 
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script th:src="@{/js/menu.js}" type="text/javascript"></script>
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+    <script th:src="@{/js/bootstrap/bootstrap.bundle.js}" type="text/javascript"></script>
+
     <title id="Title">Cliente</title>
 </head>
 
 <body id="body-pd">
     <script th:src="@{/js/menuTamplate.js}" type="text/javascript"></script>
 
-    <div class="ms-5" id="page-content-wrapper">
+    <div id="page-content-wrapper">
         <!--BODY da página-->
-        <div class="pt-3">
-            <div class="p-4 border lightMode">
-
-                <form>
+        <div class="m-4 pt-4">
+            <div class="p-4 rounded-4 lightMode">
+                <form class="needs-validation" novalidate>
 
                     <div class="form-row">
                         <h1>Cadastro de Cliente</h1>
@@ -39,7 +40,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md mb-3">
                             <label for="nomeFantasia">Nome Fantasia</label>
                             <!--is-valid-->
                             <input type="text" class="form-control lightMode" id="nomeFantasia" placeholder="Empresa..."
@@ -55,7 +56,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md mb-3">
                             <label for="nomeRasaoSocial">Nome Razão Social</label>
                             <!--is-valid-->
                             <input type="text" class="form-control lightMode" id="nomeRasaoSocial"
@@ -71,7 +72,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md mb-3">
                             <label for="validationCNPJ">CNPJ</label>
                             <!--is-valid-->
                             <input type="text" class="form-control lightMode" id="validationCNPJ"
@@ -87,10 +88,10 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="validationPassword">Senha</label>
+                        <div class="col-md mb-3">
+                            <label for="validationSenha">Senha</label>
                             <!--is-valid-->
-                            <input type="password" class="form-control lightMode" id="validationPassword"
+                            <input type="password" class="form-control lightMode" id="validationSenha"
                                 placeholder="*******" required>
                             <div class="valid-feedback">
                                 Senha válida!
@@ -104,10 +105,10 @@
 
 
                     <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="validationPassword2">Confirme a Senha</label>
+                        <div class="col-md mb-3">
+                            <label for="validationSenhaConf">Confirme a Senha</label>
                             <!--is-valid-->
-                            <input type="password" class="form-control lightMode" id="validationPassword2"
+                            <input type="password" class="form-control lightMode" id="validationSenhaConf"
                                 placeholder="*******" required>
                             <div class="valid-feedback">
                                 Senha válida!
@@ -121,28 +122,30 @@
 
 
                     <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="campoEmail">Email</label>
+                        <div class="col-md mb-3">
+                            <label for="validationEmail">Email</label>
                             <!--is-valid-->
-                            <input type="email" class="form-control lightMode" id="campoEmail"
+                            <input type="email" class="form-control lightMode" id="validationEmail"
                                 placeholder="email@exemplo.com.br" required>
                             <div class="valid-feedback">
-                                Função válido!
+                                Email válido!
                             </div>
 
                             <div class="invalid-feedback">
-                                Função Inválida!.
+                                Email Inválida!.
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="row mx-4 d-flex justify-content-center">
+                    <div class="row mx-4 d-flex">
                         <button class="btn btn-primary" type="submit">Cadastrar</button>
-                    </div>
+                      </div>
                 </form>
             </div>
             <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
+            <script th:src="@{/js/validationCliente.js}" type="text/javascript"></script>
+
 </body>
 
 

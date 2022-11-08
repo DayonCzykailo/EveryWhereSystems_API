@@ -33,8 +33,8 @@
     <script th:src="@{/js/menuTamplate.js}" type="text/javascript"></script>
     <div id="page-content-wrapper">
         <!--BODY da página-->
-        <div>
-            <div class="p-4 lightMode">
+        <div class="m-4 pt-4">
+            <div class="p-4 rounded-4 lightMode">
 
                 <form class="needs-validation" novalidate>
 
@@ -44,7 +44,7 @@
 
                     <div class="form-row">
                         <div class="col-md-auto mb-3">
-                            <label for="Date">Data da Troca (Obrigatório)</label>
+                            <label for="Date">Data da Troca (Obrigatório):</label>
                             <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Sensor"
                                 data-bs-content="Data de instalação do sensor">?</button>
                             <input id="Date" class="form-control lightMode" type="date" required>
@@ -55,7 +55,7 @@
 
                         <div class="row-row">
                             <div class="col-md mb-3">
-                                <label for="sensor">Número do Sensor (Obrigatório)</label>
+                                <label for="sensor">Número do Sensor (Obrigatório):</label>
                                 <button type="button" class="btn btn-sm" data-bs-toggle="popover"
                                     title="Identificação do aparelho"
                                     data-bs-content="Número que está no aparelho">?</button>
@@ -68,31 +68,23 @@
                         <div class="form-row">
                             <div class="row">
                                 <div class="col-md mb-3">
-                                    <label for="endPredInst">Endereço Predial de Instalação (Obrigatório)</label>
+                                    <label for="endPredInst">Endereço Predial de Instalação (Obrigatório):</label>
                                     <button type="button" class="btn btn-sm" data-bs-toggle="popover"
                                         title="Local real em que o sensor está"
                                         data-bs-content="Por favor colocar apenas o nome da rua e o número correspondente. Exemplo: R. Camões, 258">?</button>
                                     <input type="text" class="form-control lightMode" id="endPredInst"
                                         placeholder="Exemplo: R. Camões, 258" required>
-                                    <div class="valid-feedback">
-                                        Nome válido!
-                                    </div>
-                                    <div class="invalid-feedback" id="invalidRuaInst">
-                                    </div>
+                                    
                                 </div>
                                 <div class="col-md mb-3">
                                     <label for="endComRel">Endereço de Exibição no Relatório
-                                        (Obrigatório)</label>
+                                        (Obrigatório):</label>
                                     <button type="button" class="btn btn-sm" data-bs-toggle="popover"
                                         title="Nome que aparecerá no relatório"
                                         data-bs-content="Pode colocar o nome que preferir para o relatório. Exemplo: Rua Camões, Próximo ao Mercado.">?</button>
                                     <input type="text" class="form-control lightMode" id="endComRel"
                                         placeholder="Exemplo: Rua Camões, Próximo ao Mercado." required>
-                                    <div class="valid-feedback">
-                                        Nome válido!
-                                    </div>
-                                    <div class="invalid-feedback" id="invalidRuaRel">
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -100,14 +92,14 @@
                         <div class="form-row">
                             <div class="row">
                                 <div class="col-md mb-3">
-                                    <label for="cidade">Cidade (Obrigatório)</label>
+                                    <label for="cidade">Cidade (Obrigatório):</label>
                                     <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Cidade"
                                         data-bs-content="Nome da cidade em que o sensor está instalado">?</button>
                                     <input type="text" class="form-control lightMode" id="cidade"
                                         placeholder="Exemplo: Curitiba" required>
                                 </div>
                                 <div class="col-md mb-3">
-                                    <label for="estado">Estado (Obrigatório)</label>
+                                    <label for="estado">Estado (Obrigatório):</label>
                                     <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Estado"
                                         data-bs-content="Nome do estado em que o sensor está instalado">?</button>
                                     <input type="text" class="form-control lightMode" id="estado"
@@ -119,27 +111,27 @@
 
                         <div class="form-row">
                             <div class="col-md-auto mb-3">
-                                <!-- src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54159.14412129146!2d-49.30594329385649!3d-25.428217412074606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x10b241d64142cbb9!2sEverywhere%20Analytics!5e0!3m2!1spt-BR!2sbr!4v1665091389735!5m2!1spt-BR!2sbr"-->
                                 <iframe id="maps"
-                                    src="https://maps.google.com/maps?q=everywhere%20curitiba&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                <!--
-                                <div id="map_canvas" style="width:400px; height:400px"></div>
-                                <script type="text/javascript">
-                                    function initialize() {
-                                        var mapOptions = {
-                                            center: new google.maps.LatLng(-25.447384, -49.259586),
-                                            zoom: 10,
-                                            mapTypeId: google.maps.MapTypeId.ROADMAP
-                                        };
-                                        var map = new google.maps.Map(document.getElementById("map_canvas"),
-                                        mapOptions);
-                                    }
-                                    </script>
-                                -->
+                                src="https://maps.google.com/maps?q=everywhere%20curitiba&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
                         </div>
+                        <!-- src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54159.14412129146!2d-49.30594329385649!3d-25.428217412074606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x10b241d64142cbb9!2sEverywhere%20Analytics!5e0!3m2!1spt-BR!2sbr!4v1665091389735!5m2!1spt-BR!2sbr"-->
+                        <!--
+                        <div id="map_canvas" style="width:400px; height:400px"></div>
+                        <script type="text/javascript">
+                            function initialize() {
+                                var mapOptions = {
+                                    center: new google.maps.LatLng(-25.447384, -49.259586),
+                                    zoom: 10,
+                                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                                };
+                                var map = new google.maps.Map(document.getElementById("map_canvas"),
+                                mapOptions);
+                            }
+                            </script>
+                        -->
 
                         <div class="form-row">
                             <div class="col-md-auto mb-3">
