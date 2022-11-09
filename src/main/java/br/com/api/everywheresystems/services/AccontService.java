@@ -2,7 +2,6 @@ package br.com.api.everywheresystems.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +17,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.api.everywheresystems.dto.AccontDto;
+import br.com.api.everywheresystems.dto.EnterpriseDto;
 import br.com.api.everywheresystems.models.AccontModel;
+import br.com.api.everywheresystems.models.EmpresaModel;
 import br.com.api.everywheresystems.models.RoleModel;
 import br.com.api.everywheresystems.models.enums.Ativo;
-import br.com.api.everywheresystems.models.enums.Atuacao;
 import br.com.api.everywheresystems.models.enums.Role;
 import br.com.api.everywheresystems.repositories.AccontRepository;
 import br.com.api.everywheresystems.util.Erro;
@@ -36,10 +36,22 @@ public class AccontService {
 
     @Autowired
     final AccontRepository usuarioService;
+    @Autowired
+    final ImageService imageService;
+    @Autowired
+    final RolesService rolesService;
+    @Autowired
+    private final PasswordEncoder encoder;
+    @Autowired
+    final EmpresaService empresaService;
 
-    public AccontService(AccontRepository usuarioService) {
+    public AccontService(AccontRepository usuarioService, ImageService imageService, RolesService rolesService,
+            PasswordEncoder encoder, EmpresaService empresaService) {
         this.usuarioService = usuarioService;
-
+        this.imageService = imageService;
+        this.rolesService = rolesService;
+        this.encoder = encoder;
+        this.empresaService = empresaService;
     }
 
     @Transactional
@@ -76,8 +88,7 @@ public class AccontService {
         return usuarioService.existsByEmail(email);
     }
 
-    public ResponseEntity<Object> saveAccont(AccontDto accontDto, ImageService imageService, RolesService rolesService,
-            PasswordEncoder encoder, EmpresaService empresaService) {
+    public ResponseEntity<Object> saveAccont(AccontDto accontDto) {
         AccontModel accontModel = new AccontModel();
 
         if (existsByCelular(accontDto.getCelular())) {
@@ -131,9 +142,9 @@ public class AccontService {
 
         if (accont.getRoleAcess() == null) {
             lista.add(rolesService.findByRole(Role.ROLE_SUB_USER));
-        }else if (accont.getRoleAcess().equals("USER")) {
+        } else if (accont.getRoleAcess().equals("USER")) {
             lista.add(rolesService.findByRole(Role.ROLE_USER));
-        }else if (accont.getRoleAcess().equals("ADMIN")) {
+        } else if (accont.getRoleAcess().equals("ADMIN")) {
             lista.add(rolesService.findByRole(Role.ROLE_ADMIN));
         }
 
@@ -186,4 +197,180 @@ public class AccontService {
 
         return lista;
     }
+
+    public String saveEnterprise(EnterpriseDto empresa) {
+        EmpresaModel empresaModel = new EmpresaModel();
+        AccontModel accont = new AccontModel();
+
+        if (empresaService.existsByCnpj(empresa.getCnpj())) {
+            return "CNPJ já existente";
+        }
+
+        if (existsByEmail(empresa.getEmail())) {
+            return "E-mail já existente";
+        }
+
+        try {
+            BeanUtils.copyProperties(empresa, empresaModel);
+        } catch (Exception e) {
+            return "Falha em converter os dados";
+        }
+
+        try {
+            if (empresaService.existsByCnpj(empresaModel.getCnpj())) {
+                accont.setEmpresa(empresaService.findByCnpj(empresaModel.getCnpj()).get());
+            } else {
+                accont.setEmpresa(empresaModel);
+
+            }
+        } catch (Exception e) {
+            return "Falha em salvar a empresa";
+        }
+
+        if (empresa.getSenha() == null || empresa.getSenha().isBlank()) {
+            return "Senha Vazio";
+        }
+
+        try {
+            accont.setSenha(encoder.encode(empresa.getSenha()));
+        } catch (Exception e) {
+            return "Falha em gerar senha";
+        }
+
+        try {
+            accont.setNome(empresa.getNomeFantasia());
+            accont.setEmail(empresaModel.getEmail());
+            accont.setAtuacao("Empresa");
+            accont.setUltimoAcesso(Util.getDataHoraAgora());
+            accont.setAtivo(Ativo.ATIVO);
+        } catch (Exception e) {
+            return "Falha em gerar usuário";
+        }
+
+        try {
+            accont.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
+        } catch (Exception e) {
+            return "Não Foi possível gerar a autorização do usuário";
+        }
+
+        if (accont.getEmail() == null || accont.getEmail().isBlank()) {
+            return "EMAIL Vazio";
+        }
+
+        if (accont.getNome() == null || accont.getNome().isBlank()) {
+            return "NOME Vazio";
+        }
+
+        if (accont.getEmpresa() == null || accont.getEmpresa().getCnpj().isBlank()) {
+            return "Empresa Vazio";
+        }
+
+        if (accont.getRoles().isEmpty() || accont.getRoles().size() < 1) {
+            return "Regras Vazio";
+        }
+
+        try {
+            save(accont);
+        } catch (Exception e) {
+            return "Não foi possivel salvar o usuário";
+        }
+
+        return "SUCESSO";
+    }
+    /*
+     * public String putEnterprise(EnterpriseDto empresa) {
+     * EmpresaModel empresaModel = new EmpresaModel();
+     * AccontModel accont = new AccontModel();
+     * 
+     * if (!(accont.get().getEmail().equals(empresa.getEmail()))
+     * && !(accont.get().getEmpresa().getCnpj().equals(empresa.getCnpj()))) {
+     * 
+     * if (existsByEmail(empresa.getEmail()) &&
+     * empresaService.existsByCnpj(empresa.getCnpj())) {
+     * if (!(usuarioService.countByEmail(accont.get().getEmail()) < 2)) {
+     * return "E-mail já utilizado";
+     * }
+     * if (!(usuarioService.countByCnpj(accont.get().getEmpresa().getCnpj()) < 2)) {
+     * return "E-mail já utilizado";
+     * }
+     * }
+     * }
+     * 
+     * if (empresaService.existsByCnpj(empresa.getCnpj())) {
+     * return "CNPJ já existente";
+     * }
+     * 
+     * if (existsByEmail(empresa.getEmail())) {
+     * return "E-mail já existente";
+     * }
+     * 
+     * try {
+     * BeanUtils.copyProperties(empresa, empresaModel);
+     * } catch (Exception e) {
+     * return "Falha em converter os dados";
+     * }
+     * 
+     * try {
+     * if (empresaService.existsByCnpj(empresaModel.getCnpj())) {
+     * accont.setEmpresa(empresaService.findByCnpj(empresaModel.getCnpj()).get());
+     * } else {
+     * accont.setEmpresa(empresaModel);
+     * 
+     * }
+     * } catch (Exception e) {
+     * return "Falha em salvar a empresa";
+     * }
+     * 
+     * if (empresa.getSenha() == null || empresa.getSenha().isBlank()) {
+     * return "Senha Vazio";
+     * }
+     * 
+     * try {
+     * accont.setSenha(encoder.encode(empresa.getSenha()));
+     * } catch (Exception e) {
+     * return "Falha em gerar senha";
+     * }
+     * 
+     * try {
+     * accont.setNome(empresa.getNomeFantasia());
+     * accont.setEmail(empresaModel.getEmail());
+     * accont.setAtuacao("Empresa");
+     * accont.setUltimoAcesso(Util.getDataHoraAgora());
+     * accont.setAtivo(Ativo.ATIVO);
+     * } catch (Exception e) {
+     * return "Falha em gerar usuário";
+     * }
+     * 
+     * try {
+     * accont.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
+     * } catch (Exception e) {
+     * return "Não Foi possível gerar a autorização do usuário";
+     * }
+     * 
+     * if (accont.getEmail() == null || accont.getEmail().isBlank()) {
+     * return "EMAIL Vazio";
+     * }
+     * 
+     * if (accont.getNome() == null || accont.getNome().isBlank()) {
+     * return "NOME Vazio";
+     * }
+     * 
+     * if (accont.getEmpresa() == null || accont.getEmpresa().getCnpj().isBlank()) {
+     * return "Empresa Vazio";
+     * }
+     * 
+     * if (accont.getRoles().isEmpty() || accont.getRoles().size() < 1) {
+     * return "Regras Vazio";
+     * }
+     * 
+     * try {
+     * save(accont);
+     * } catch (Exception e) {
+     * return "Não foi possivel salvar o usuário";
+     * }
+     * 
+     * return "SUCESSO";
+     * }
+     */
+
 }

@@ -8,17 +8,18 @@
 
     <!-- Bootstrap CSS -->
     <link th:href="@{/bootstrap-icons-1.9.1/bootstrap-icons.css}" rel="stylesheet" type="text/css">
-    
+
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script th:src="@{/js/menu.js}" type="text/javascript"></script>
     <title id="Title">Cliente</title>
 </head>
 
 <body id="body-pd">
-    <div th:insert="components/menuTamplate :: menuTamplate(tela='cliente')"></div><!--MENU-->
+    <div th:insert="components/menuTamplate :: menuTamplate(tela='cliente')"></div>
+    <!--MENU-->
 
     <div class="ms-5" id="page-content-wrapper">
         <div class="pt-3">
@@ -31,65 +32,42 @@
                             <h1>Clientes Cadastrados</h1>
                         </div>
                         <div class="col-auto">
-                            <a class="btn btn-primary" href="./cadastroCliente.html" role="button"
+                            <a class="btn btn-primary" href="cadastroCliente.html" role="button"
                                 id="cadastrarCliente">Novo</a>
                         </div>
                     </div>
                     <div class="form-row">
-                        <table class="table table-striped">
+
+
+                    </div>
+
+
+                    <div th:switch="${clientes}">
+                        <h3 th:case="null">Sem Clientes Cadastrados!!!</h3>
+                        <table th:case="*" class="table table-striped">
                             <tr>
                                 <th>Nome</th>
                                 <th>Email</th>
                                 <th>Status</th>
                                 <th>Opção</th>
                             </tr>
-
-                            <tbody id="usuarios">
-
-                            </tbody>
-
+                            <tr th:each="cliente : ${clientes}">
+                                <h2 th:case="null">No users yet!</h2>
+                                <td th:text="${cliente.nome}">...</td>
+                                <td th:text="${cliente.email}">...</td>
+                                <td th:text="${cliente.ativo}">...</td>
+                                <td>
+                                    <a class="btn btn-primary" th:href="@{cadastroCliente/{id}(id=${cliente.id})}"
+                                        role="button">Editar</a>
+                                </td>
+                            </tr>
                         </table>
-
-
-
-                        <script>
-                            //var colName = [];
-                            //for (let i = 0; i < document.getElementsByTagName("th").length; i++) {
-                            //    colName = colName.concat($(`#colName${i}`).text());
-                            //}
-                            //console.log(colName)
-
-
-                            var dados = [
-                                { 'id': '1', 'Nome': 'Empresa', 'Email': 'empresa@email.com', 'Status': 'Ativo' },
-                                { 'id': '2', 'Nome': 'Empresa', 'Email': 'empresa@email.com', 'Status': 'Ativo' },
-                                { 'id': '3', 'Nome': 'Empresa', 'Email': 'empresa@email.com', 'Status': 'Ativo' },
-                                { 'id': '4', 'Nome': 'Empresa', 'Email': 'empresa@email.com', 'Status': 'Ativo' },
-                            ]
-
-                            buildTable(dados)
-
-                            function buildTable(data) {
-                                var table = document.getElementById('usuarios')
-
-                                for (var i = 0; i < data.length; i++) {
-                                    var row = `<tr>
-                                            <td>${data[i].Nome}</td>
-                                            <td>${data[i].Email}</td>
-                                            <td>${data[i].Status}</td>
-                                            <td><a class="btn btn-primary" href="./cadastroCliente.html" role="button" id="${data[i].id}">Editar</a></td>
-                                            </tr>`
-                                    table.innerHTML += row
-                                    // console.log(data[i].id)
-                                }
-                            }
-                        </script>
-
                     </div>
-
-
             </div>
+
+
         </div>
+    </div>
     </div>
     <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
 </body>

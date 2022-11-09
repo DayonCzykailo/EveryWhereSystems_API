@@ -22,7 +22,6 @@ public class EmpresaService {
     @Autowired
     EmpresaRepository empresaRepository;
 
-
     public EmpresaService(EmpresaRepository empresaRepository) {
         this.empresaRepository = empresaRepository;
     }
@@ -44,9 +43,12 @@ public class EmpresaService {
     public Optional<EmpresaModel> findById(String id) {
         return empresaRepository.findById(id);
     }
+
     public Optional<EmpresaModel> findByCnpj(String cpnj) {
         return empresaRepository.findByCnpj(cpnj);
     }
 
-
+    public boolean existsByCnpj(String cpnj) {
+        return empresaRepository.existsByCnpj(cpnj);
+    }
 }

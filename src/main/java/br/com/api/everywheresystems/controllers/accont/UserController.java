@@ -57,7 +57,7 @@ public class UserController {
     public String save(HttpServletRequest request, Model model,
             @ModelAttribute("usuario") AccontDto accont) {
 
-        System.out.println(usuarioService.saveAccont(accont, imageService, rolesService, encoder, empresaService));
+        System.out.println(usuarioService.saveAccont(accont));
 
         return "user/cadastroUsuario";
     }

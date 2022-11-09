@@ -11,5 +11,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface EmpresaRepository extends JpaRepository<EmpresaModel, String> {
     Optional<EmpresaModel> findById(String id);
+
     Optional<EmpresaModel> findByCnpj(String cnpj);
+
+    boolean existsByCnpj(String cnpj);
 }

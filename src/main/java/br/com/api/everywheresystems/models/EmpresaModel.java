@@ -24,7 +24,7 @@ public class EmpresaModel {
     private String id;
 
 
-    @Column(nullable = false,  length = 13)
+    @Column(nullable = false,  length = 14)
     private String cnpj;
 
     @Column(nullable = false,  length = 100)

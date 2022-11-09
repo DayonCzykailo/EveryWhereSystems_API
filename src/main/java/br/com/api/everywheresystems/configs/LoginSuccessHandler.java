@@ -20,8 +20,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         final String role = SecurityContextHolder.getContext().getAuthentication()
                 .getAuthorities().toString();
 
-        System.out.println(role);
-
         if (role.contains("ROLE_USER")) {
             return "dash.html";
         }

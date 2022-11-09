@@ -50,15 +50,4 @@ public class PageController {
     public String testeLogin(HttpServletRequest request) {
         return "login/login";
     }
-    
-    @GetMapping("/gerenciarClientes.html")
-    public String testeGerenciarCliente(HttpServletRequest request) {
-        return "clients/gerenciarClientes";
-    }
-
-    @GetMapping("/cadastroCliente.html")
-    public String testeCadastroCliente(HttpServletRequest request) {
-        return "clients/cadastroCliente";
-    }
-
 }

@@ -25,7 +25,7 @@ public class AccontDto {
 
     private String atuacao;
 
-    @Size(max = 13)
+    @Size(max = 14)
     private String celular;
 
     private String empresa;
@@ -45,7 +45,7 @@ public class AccontDto {
     private boolean accessManageDocker;
     private boolean accessResgisterDocker;
 
-    private boolean accessForms; 
+    private boolean accessForms;
     private boolean accessManageForms;
     private boolean accessRegisterForms;
 
