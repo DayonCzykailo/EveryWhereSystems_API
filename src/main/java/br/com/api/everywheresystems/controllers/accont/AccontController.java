@@ -101,7 +101,7 @@ public class AccontController {
         AccontModel accont = null;
         try {
             accont = accontService.findById(id).get();
-            accont.setAtivo(Ativo.INATIVO);
+            accont.setAtivo(true);
             return ResponseEntity.status(HttpStatus.CREATED).body(accontService.save(accont));
         } catch (Exception e) {
             if (accont == null) {
@@ -124,7 +124,7 @@ public class AccontController {
         accontModel.setSenha("MASTER");
         accontModel.setUltimoAcesso(Util.getDataHoraAgora());
         accontModel.setAtuacao("Atuacao.ATUACAO");
-        accontModel.setAtivo(Ativo.ATIVO);
+        accontModel.setAtivo(true);
 
         accontModel.setRoles(Arrays.asList(new RoleModel(Role.ROLE_ADMIN)));
 

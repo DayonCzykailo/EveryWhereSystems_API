@@ -51,34 +51,15 @@ public class ClientController {
         return "clients/cadastroCliente";
     }
 
-    @GetMapping(value = { "/cadastroCliente/{id}" })
-    public String showCadastroClientByID(HttpServletRequest request, Model model, @PathVariable("id") String id) {
-        System.out.println(id);// TODO
-        model.addAttribute("empresa", clientService.findById(id).get());
-        model.addAttribute("erro", "");
-
-        return "clients/cadastroCliente";
-    }
-
     @PostMapping("/cadastroCliente/save")
     public String saveClient(HttpServletRequest request, Model model,
             @ModelAttribute("empresa") AccontModel empresa) {
-                System.out.println(empresa);
-        clientService.save(empresa);
+        empresa.getEmpresa()
+                .setCnpj("123");
+        System.out.println(empresa.toString());
+        // clientService.save(empresa);
 
         return "clients/cadastroCliente";
-    }
-
-    @PostMapping("/cadastroCliente/save/{id}")
-    public String saveClientById(HttpServletRequest request, Model model,
-            @ModelAttribute("empresa") AccontModel empresa) {
-                System.out.println(empresa);
-
-        clientService.save(empresa);
-
-        return "clients/cadastroCliente";
-
-        // return "redirect:/clients/cadastroCliente";
     }
 
 }

@@ -110,7 +110,7 @@ public class AccontService {
             BeanUtils.copyProperties(accontDto, accontModel);
 
             accontModel.setUltimoAcesso(Util.getDataHoraAgora());
-            accontModel.setAtivo(Ativo.ATIVO);
+            accontModel.setAtivo(true);
 
             if (accontDto.getIdImagem() != null) {
                 if (!imageService.findById(accontDto.getIdImagem()).isEmpty()) {
@@ -242,7 +242,7 @@ public class AccontService {
             accont.setEmail(empresaModel.getEmail());
             accont.setAtuacao("Empresa");
             accont.setUltimoAcesso(Util.getDataHoraAgora());
-            accont.setAtivo(Ativo.ATIVO);
+            accont.setAtivo(true);
         } catch (Exception e) {
             return "Falha em gerar usuário";
         }

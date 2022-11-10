@@ -26,14 +26,14 @@
         <!--BODY da página-->
         <div class="m-4 pt-4">
             <div class="p-4 rounded-4 lightMode">
-                <form class="needs-validation" novalidate>
+                <form th:object="${empresa}" th:action="@{/cadastroCliente/save}" class="needs-validation" method="post" novalidate>
 
                     <div class="form-row">
                         <h1>Cadastro de Cliente</h1>
                     </div>
 
                     <div class="form-check p-3">
-                        <input checked class="form-check-input " type="checkbox" id="ativoCheckBox">
+                        <input th:field="*{ativo}" checked class="form-check-input " type="checkbox" id="ativoCheckBox">
                         <label class="form-check-label" for="ativoCheckBox">
                             Ativo
                         </label>
@@ -43,7 +43,7 @@
                         <div class="col-md mb-3">
                             <label for="nomeFantasia">Nome Fantasia</label>
                             <!--is-valid-->
-                            <input type="text" class="form-control lightMode" id="nomeFantasia" placeholder="Empresa..."
+                            <input th:field="*{nome}" type="text" class="form-control lightMode" id="nomeFantasia" placeholder="Empresa..."
                                 required>
                             <div class="valid-feedback">
                                 Nome válido!
@@ -57,9 +57,9 @@
 
                     <div class="form-row">
                         <div class="col-md mb-3">
-                            <label for="nomeRasaoSocial">Nome Razão Social</label>
+                            <label for="nomeRazaoSocial">Nome Razão Social</label>
                             <!--is-valid-->
-                            <input type="text" class="form-control lightMode" id="nomeRasaoSocial"
+                            <input th:field="*{empresa.nomeRazaoSocial}" type="text" class="form-control lightMode" id="nomeRazaoSocial"
                                 placeholder="Empresa..." required>
                             <div class="valid-feedback">
                                 Nome válido!
@@ -75,7 +75,7 @@
                         <div class="col-md mb-3">
                             <label for="validationCNPJ">CNPJ</label>
                             <!--is-valid-->
-                            <input type="text" class="form-control lightMode" id="validationCNPJ"
+                            <input th:field="*{empresa.cnpj}" type="text" class="form-control lightMode" id="validationCNPJ"
                                 placeholder="XX.XXX.XXX/0001-XX" required>
                             <div class="valid-feedback">
                                 CNPJ válido!
@@ -91,7 +91,7 @@
                         <div class="col-md mb-3">
                             <label for="validationSenha">Senha</label>
                             <!--is-valid-->
-                            <input type="password" class="form-control lightMode" id="validationSenha"
+                            <input th:field="*{senha}" type="password" class="form-control lightMode" id="validationSenha"
                                 placeholder="*******" required>
                             <div class="valid-feedback">
                                 Senha válida!
@@ -125,7 +125,7 @@
                         <div class="col-md mb-3">
                             <label for="validationEmail">Email</label>
                             <!--is-valid-->
-                            <input type="email" class="form-control lightMode" id="validationEmail"
+                            <input th:field="*{email}" type="email" class="form-control lightMode" id="validationEmail"
                                 placeholder="email@exemplo.com.br" required>
                             <div class="valid-feedback">
                                 Email válido!

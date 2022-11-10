@@ -3,7 +3,7 @@ function valida() {
     var forms = document.querySelectorAll('.needs-validation')
     var email = document.getElementById('validationEmail')
     var nomeFantasia = document.getElementById('nomeFantasia')
-    var razaoSocial = document.getElementById('nomeRasaoSocial')
+    var razaoSocial = document.getElementById('nomeRazaoSocial')
     var senha = document.getElementById('validationSenha')
     var senhaConf = document.getElementById('validationSenhaConf')
     var validationCNPJ = document.getElementById('validationCNPJ')

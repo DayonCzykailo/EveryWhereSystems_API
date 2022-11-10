@@ -53,9 +53,9 @@ public class AccontModel {
   @Column(length = 13, nullable = true)
   private String celular;
 
-  @Enumerated(EnumType.STRING)
+//@Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private Ativo ativo;
+  private boolean ativo;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = {
       CascadeType.PERSIST,
