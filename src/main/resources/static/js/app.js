@@ -517,7 +517,6 @@ function carregaDados() {
     //    ]
     //};
     var grafico1Container = document.getElementById('grafico1Container');
-    console.log(semLabel.length)
     if (semLabel.length > 10) {
         grafico1Container.setAttribute("style", "width:" + semLabel.length * 50 + "px")
     }else{
