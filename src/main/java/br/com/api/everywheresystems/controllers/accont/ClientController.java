@@ -36,10 +36,7 @@ public class ClientController {
         // final User usuario = (User)
         // SecurityContextHolder.getContext().getAuthentication()
         // .getPrincipal();
-
-        List<AccontModel> listaCliente = clientService.findAll();
-        System.out.println(listaCliente);
-        model.addAttribute("clientes", listaCliente);
+        model.addAttribute("clientes", clientService.findAll());
 
         return "clients/gerenciarClientes";
     }
@@ -53,10 +50,31 @@ public class ClientController {
         return "clients/cadastroCliente";
     }
 
-    @PostMapping("/cadastroCliente/save")
+    @GetMapping(value = { "/cadastroCliente.html/{id}", "/cadastroCliente/{id}" })
+    public String showCadastroClientByID(HttpServletRequest request, Model model, @PathVariable("id") String id) {
+        System.out.println(id);// TODO
+        model.addAttribute("empresa", clientService.findById(id).get());
+        model.addAttribute("erro", "");
+
+        return "clients/cadastroCliente";
+    }
+
+    @PostMapping(value = { "/cadastroCliente.html/save/{id}", "/cadastroCliente/save/{id}" })
+    public String showCadastroClientByID(HttpServletRequest request, Model model,
+            @ModelAttribute("empresa") AccontModel empresa, @PathVariable("id") String id) {
+        System.out.println(id);// TODO
+        model.addAttribute("empresa", clientService.findById(id).get());
+        model.addAttribute("erro", "");
+
+        clientService.saveEnterprise(empresa);
+
+        return "clients/cadastroCliente";
+    }
+
+    @PostMapping(value = { "/cadastroCliente/save" })
     public String saveClient(HttpServletRequest request, Model model,
             @ModelAttribute("empresa") AccontModel empresa) {
-
+        System.out.println(empresa.toString());
         clientService.saveEnterprise(empresa);
 
         return "clients/cadastroCliente";

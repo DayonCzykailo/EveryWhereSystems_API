@@ -37,54 +37,28 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <table class="table table-striped">
-                            <tr>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Opção</th>
-                            </tr>
-
-                            <tbody id="usuarios">
-
-                            </tbody>
-
-                        </table>
-
-
-
-                        <script>
-                            //var colName = [];
-                            //for (let i = 0; i < document.getElementsByTagName("th").length; i++) {
-                            //    colName = colName.concat($(`#colName${i}`).text());
-                            //}
-                            //console.log(colName)
-
-
-                            var dados = [
-                                { 'id': '1', 'Nome': 'Empresa', 'Email': 'empresa@email.com', 'Status': 'Ativo' },
-                                { 'id': '2', 'Nome': 'Empresa', 'Email': 'empresa@email.com', 'Status': 'Ativo' },
-                                { 'id': '3', 'Nome': 'Empresa', 'Email': 'empresa@email.com', 'Status': 'Ativo' },
-                                { 'id': '4', 'Nome': 'Empresa', 'Email': 'empresa@email.com', 'Status': 'Ativo' },
-                            ]
-
-                            buildTable(dados)
-
-                            function buildTable(data) {
-                                var table = document.getElementById('usuarios')
-
-                                for (var i = 0; i < data.length; i++) {
-                                    var row = `<tr>
-                                            <td>${data[i].Nome}</td>
-                                            <td>${data[i].Email}</td>
-                                            <td>${data[i].Status}</td>
-                                            <td><a class="btn btn-primary" href="./cadastroCliente.html" role="button" id="${data[i].id}">Editar</a></td>
-                                            </tr>`
-                                    table.innerHTML += row
-                                    // console.log(data[i].id)
-                                }
-                            }
-                        </script>
+                        <div th:switch="${clientes}">
+                            <h3 th:case="null">Sem Clientes Cadastrados!!!</h3>
+                            <table th:case="*" class="table table-striped">
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Opção</th>
+                                </tr>
+                                <tr th:each="cliente : ${clientes}">
+                                    <h2 th:case="null">Sem clientes, ainda.</h2>
+                                    <td th:text="${cliente.nome}">...</td>
+                                    <td th:text="${cliente.email}">...</td>
+                                    <td th:if="${cliente.ativo}">ATIVO</td>
+                                    <td th:unless="${cliente.ativo}">INATIVO</td>
+                                    <td>
+                                        <a class="btn btn-primary" th:href="@{cadastroCliente/{id}(id=${cliente.id})}"
+                                            role="button">Editar</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
 
                     </div>
 

@@ -27,7 +27,7 @@
         <!--BODY da página-->
         <div class="m-4 pt-4">
             <div class="p-4 rounded-4 lightMode">
-                <form class="needs-validation" action="#" th:action="@{/cadastroCliente/save}" th:object="${empresa}" method="post"
+                <form  th:object="${empresa}" class="needs-validation" action="#" th:action="@{/cadastroCliente/save/{id}(id=${empresa.id})}"  method="post"
                     novalidate>
 
                     <div class="form-row">

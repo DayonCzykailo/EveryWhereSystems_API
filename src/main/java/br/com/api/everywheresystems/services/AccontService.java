@@ -214,7 +214,7 @@ public class AccontService {
         System.out.println(empresa.toString());
         System.out.println("-----");
 
-        if (empresaService.existsByCnpj(empresa.getEmpresa().getCnpj())
+        /*if (empresaService.existsByCnpj(empresa.getEmpresa().getCnpj())
                 || !Util.validarString(empresa.getEmpresa().getCnpj())) {
             System.out.println("erro1");
             return false;
@@ -231,7 +231,7 @@ public class AccontService {
         if (!Util.validarString(empresa.getEmpresa().getNomeRazaoSocial())) {
             System.out.println("erro4");
             return false;
-        }
+        }*/
         try {
             empresa.setSenha(encoder.encode(empresa.getSenha()));
         } catch (Exception e) {
@@ -239,7 +239,7 @@ public class AccontService {
             return false;
         }
 
-        if (empresa.getEmpresa() == null || empresa.getEmpresa().getCnpj().isBlank()) {
+       /*  if (empresa.getEmpresa() == null || empresa.getEmpresa().getCnpj().isBlank()) {
             System.out.println("erro6");
             return false;
         }
@@ -247,7 +247,7 @@ public class AccontService {
         if (empresa.getRoles().isEmpty() || empresa.getRoles().size() == 0) {
             System.out.println("erro7");
             return false;
-        }
+        }*/
         empresa.getEmpresa().setCnpj(Util.unformatedCnpj(empresa.getEmpresa().getCnpj()));
         System.out.println(save(empresa).toString());
         return true;
