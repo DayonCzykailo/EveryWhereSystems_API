@@ -21,32 +21,32 @@ import br.com.api.everywheresystems.repositories.RolesRepository;
 public class RolesService {
 
     @Autowired
-    RolesRepository loginRepository;
+    RolesRepository roleRepository;
 
-
-    public RolesService(RolesRepository loginRepository) {
-        this.loginRepository = loginRepository;
+    public RolesService(RolesRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
 
     @Transactional
     public void delete(RoleModel role) {
-        loginRepository.delete(role);
+        roleRepository.delete(role);
     }
 
     @Transactional
     public RoleModel save(RoleModel role) {
-        return loginRepository.save(role);
+        return roleRepository.save(role);
     }
 
     public Page<RoleModel> findAll(Pageable pageable) {
-        return loginRepository.findAll(pageable);
+        return roleRepository.findAll(pageable);
     }
 
     public Optional<RoleModel> findById(String id) {
-        return loginRepository.findById(id);
+        return roleRepository.findById(id);
     }
+
     public RoleModel findByRole(Role role) {
-        return loginRepository.findByRole(role);
+        return roleRepository.findByRole(role);
     }
 
 }

@@ -1,9 +1,3 @@
-
-
-
-
-
-
 SELECT * from tb_accont
 SELECT * from tb_empresa
 SELECT * from tb_role_accont

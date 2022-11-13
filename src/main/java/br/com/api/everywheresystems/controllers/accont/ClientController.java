@@ -20,6 +20,7 @@ import br.com.api.everywheresystems.configs.security.PermissoesConfigs;
 import br.com.api.everywheresystems.dto.AccontDto;
 import br.com.api.everywheresystems.dto.EnterpriseDto;
 import br.com.api.everywheresystems.models.AccontModel;
+import br.com.api.everywheresystems.models.enums.Role;
 import br.com.api.everywheresystems.services.AccontService;
 
 @Controller
@@ -36,7 +37,7 @@ public class ClientController {
         // final User usuario = (User)
         // SecurityContextHolder.getContext().getAuthentication()
         // .getPrincipal();
-        model.addAttribute("clientes", clientService.findAll());
+        model.addAttribute("clientes", clientService.findAllByRoleModels(Role.ROLE_USER));
 
         return "clients/gerenciarClientes";
     }

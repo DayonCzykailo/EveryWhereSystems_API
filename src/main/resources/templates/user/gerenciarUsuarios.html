@@ -12,13 +12,14 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/dash.css}" type="text/css">
-   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
     <script th:src="@{/js/menu.js}" type="text/javascript"></script>
     <title id="Title">Usuário</title>
 </head>
 
 <body id="body-pd">
-    <div th:insert="components/menuTamplate :: menuTamplate(tela='usuario')"></div><!--MENU-->
+    <div th:insert="components/menuTamplate :: menuTamplate(tela='usuario')"></div>
+    <!--MENU-->
 
     <div id="page-content-wrapper">
         <!--BODY da página-->
@@ -37,64 +38,73 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <table class="table table-striped">
-                            <tr>
-                                <th id="colName0">Nome</th>
-                                <th id="colName1">Email</th>
-                                <th id="colName2">Permições</th>
-                                <th id="colName3">Status</th>
-                                <th id="colName4">Opção</th>
-                            </tr>
+                        <div th:switch="${usuarios}">
+                            <h3 th:case="null">Sem Usuários Cadastrados!!!</h3>
+                            <table th:case="*" class="table table-striped">
+                                <tr>
+                                    <th id="colName0">Nome</th>
+                                    <th id="colName1">Email</th>
+                                    <th id="colName2">Permições</th>
+                                    <th id="colName3">Status</th>
+                                    <th id="colName4">Opção</th>
+                                </tr>
+                                <tr th:each="usuario : ${usuarios}">
+                                    <h2 th:case="null">Sem clientes, ainda.</h2>
+                                    <td th:text="${usuario.nome}">...</td>
+                                    <td th:text="${usuario.email}">...</td>
+                                    <td th:text="${usuario.roles}">...</td>
+                                    <td th:if="${usuario.ativo}">ATIVO</td>
+                                    <td th:unless="${usuario.ativo}">INATIVO</td>
+                                    <td>
+                                        <a class="btn btn-primary" th:href="@{cadastroUsuario/{id}(id=${usuario.id})}"
+                                            role="button">Editar</a>
+                                    </td>
+                                </tr>
+                            </table>
 
-                            <tbody id="usuarios">
-
-                            </tbody>
-
-                        </table>
 
 
+                            <script>
+                                //var colName = [];
+                                //for (let i = 0; i < document.getElementsByTagName("th").length; i++) {
+                                //    colName = colName.concat($(`#colName${i}`).text());
+                                //}
+                                //console.log(colName)
 
-                        <script>
-                            //var colName = [];
-                            //for (let i = 0; i < document.getElementsByTagName("th").length; i++) {
-                            //    colName = colName.concat($(`#colName${i}`).text());
-                            //}
-                            //console.log(colName)
 
+                                var dados = [
+                                    { 'id': '1', 'Nome': 'Gabriel Marusak', 'Email': 'gabrielmarusak@gmail.com', 'Permicao': 'Dash,Formulário', 'Status': 'Ativo' },
+                                    { 'id': '2', 'Nome': 'Gabriel Marusak', 'Email': 'gabrielmarusak@gmail.com', 'Permicao': 'Dash,Formulário', 'Status': 'Ativo' },
+                                    { 'id': '3', 'Nome': 'Gabriel Marusak', 'Email': 'gabrielmarusak@gmail.com', 'Permicao': 'Dash,Formulário', 'Status': 'Ativo' },
+                                    { 'id': '4', 'Nome': 'Gabriel Marusak', 'Email': 'gabrielmarusak@gmail.com', 'Permicao': 'Dash,Formulário', 'Status': 'Ativo' },
+                                ]
 
-                            var dados = [
-                                { 'id': '1', 'Nome': 'Gabriel Marusak', 'Email': 'gabrielmarusak@gmail.com', 'Permicao': 'Dash,Formulário', 'Status': 'Ativo' },
-                                { 'id': '2', 'Nome': 'Gabriel Marusak', 'Email': 'gabrielmarusak@gmail.com', 'Permicao': 'Dash,Formulário', 'Status': 'Ativo' },
-                                { 'id': '3', 'Nome': 'Gabriel Marusak', 'Email': 'gabrielmarusak@gmail.com', 'Permicao': 'Dash,Formulário', 'Status': 'Ativo' },
-                                { 'id': '4', 'Nome': 'Gabriel Marusak', 'Email': 'gabrielmarusak@gmail.com', 'Permicao': 'Dash,Formulário', 'Status': 'Ativo' },
-                            ]
+                                buildTable(dados)
 
-                            buildTable(dados)
+                                function buildTable(data) {
+                                    var table = document.getElementById('usuarios')
 
-                            function buildTable(data) {
-                                var table = document.getElementById('usuarios')
-
-                                for (var i = 0; i < data.length; i++) {
-                                    var row = `<tr>
+                                    for (var i = 0; i < data.length; i++) {
+                                        var row = `<tr>
                                             <td>${data[i].Nome}</td>
                                             <td>${data[i].Email}</td>
                                             <td>${data[i].Permicao}</td>
                                             <td>${data[i].Status}</td>
                                             <td><a class="btn btn-primary" href="./cadastroUsuario.html" role="button" id="${data[i].id}">Editar</a></td>
                                             </tr>`
-                                    table.innerHTML += row
-                                    // console.log(data[i].id)
+                                        table.innerHTML += row
+                                        // console.log(data[i].id)
+                                    }
                                 }
-                            }
-                        </script>
+                            </script>
+
+                        </div>
+
 
                     </div>
-
-
             </div>
         </div>
-    </div>
-    <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
+        <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
 </body>
 
 </html>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import br.com.api.everywheresystems.dto.AccontDto;
@@ -42,23 +43,47 @@ public class UserController {
         this.empresaService = empresaService;
     }
 
-    @GetMapping("/gerenciarUsuarios.html")
-    public String showGerenciarUser(HttpServletRequest request) {
+    @GetMapping(value = { "/gerenciarUsuarios.html", "/gerenciarUsuarios" })
+    public String showGerenciarUser(HttpServletRequest request, Model model) {
+        model.addAttribute("usuarios", usuarioService.findAllByRoleModels(Role.ROLE_SUB_USER));
         return "user/gerenciarUsuarios";
     }
 
+    // get Cadastro
     @GetMapping(value = { "/cadastroUsuario.html", "/cadastroUsuario" })
     public String showCadastroUser(HttpServletRequest request, Model model) {
         model.addAttribute("usuario", new AccontDto());
         return "user/cadastroUsuario";
     }
 
-    @PostMapping("/cadastroUsuario/save")
-    public String save(HttpServletRequest request, Model model,
-            @ModelAttribute("usuario") AccontDto accont) {
+    @GetMapping(value = { "/cadastroUsuario.html/{id}", "/cadastroUsuario/{id}" })
+    public String showCadastroUserById(HttpServletRequest request, Model model, @PathVariable("id") String id) {
+        model.addAttribute("usuario", usuarioService.findById(id).get());
+        return "user/cadastroUsuario";
+    }
 
-        System.out.println(usuarioService.saveAccont(accont));
+    // Post Cadastro
+    @PostMapping(value = { "/cadastroUsuario/save", "/cadastroUsuario.html/save" })
+    public String save(HttpServletRequest request, Model model,
+            @ModelAttribute("usuario") AccontModel usuario) {
+
+        System.out.println(usuario);
+        // System.out.println(usuarioService.save(usuario));
 
         return "user/cadastroUsuario";
+    }
+
+    @PostMapping(value = { "/cadastroUsuario.html/save/{id}", "/cadastroUsuario/save/{id}" })
+    public String saveByID(HttpServletRequest request, Model model,
+            @ModelAttribute("usuario") AccontModel usuario, @PathVariable("id") String id) {
+        System.out.println(id);// TODO
+        model.addAttribute("usuario", usuarioService.findById(id).get());
+        model.addAttribute("erro", "");
+
+        System.out.println(usuario);
+
+        // usuarioService.save(usuario);
+
+        return "clients/cadastroCliente";
     }
 }
