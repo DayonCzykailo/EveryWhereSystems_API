@@ -198,84 +198,59 @@ public class AccontService {
         return lista;
     }
 
-    public String saveEnterprise(EnterpriseDto empresa) {
-        EmpresaModel empresaModel = new EmpresaModel();
-        AccontModel accont = new AccontModel();
+    // AccontModel(id=null, nome=null, email=empresa@email.com, senha=senha,
+    // atuacao=null, celular=null, ativo=false,
+    // roles=null, empresa=EmpresaModel(id=null, cnpj=11.473.536/0001-40,
+    // nomeRazaoSocial=razao, nomeFantasia=empresa, email=null),
+    // ultimoAcesso=null, imagem=null)
+    public boolean saveEnterprise(AccontModel empresa) {
 
-        if (empresaService.existsByCnpj(empresa.getCnpj())) {
-            return "CNPJ já existente";
+        empresa.setNome(empresa.getEmpresa().getNomeRazaoSocial());
+        empresa.setAtuacao("EMPRESA");
+        empresa.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
+        empresa.setUltimoAcesso(Util.getDataHoraAgora());
+
+        System.out.println("EMPRESA");
+        System.out.println(empresa.toString());
+        System.out.println("-----");
+
+        if (empresaService.existsByCnpj(empresa.getEmpresa().getCnpj())
+                || !Util.validarString(empresa.getEmpresa().getCnpj())) {
+            System.out.println("erro1");
+            return false;
         }
 
-        if (existsByEmail(empresa.getEmail())) {
-            return "E-mail já existente";
+        if (existsByEmail(empresa.getEmail()) || (!Util.validarString(empresa.getEmail()))) {
+            System.out.println("erro2");
+            return false;
         }
-
+        if (!Util.validarString(empresa.getSenha())) {
+            System.out.println("erro3");
+            return false;
+        }
+        if (!Util.validarString(empresa.getEmpresa().getNomeRazaoSocial())) {
+            System.out.println("erro4");
+            return false;
+        }
         try {
-            BeanUtils.copyProperties(empresa, empresaModel);
+            empresa.setSenha(encoder.encode(empresa.getSenha()));
         } catch (Exception e) {
-            return "Falha em converter os dados";
+            System.out.println("erro5");
+            return false;
         }
 
-        try {
-            if (empresaService.existsByCnpj(empresaModel.getCnpj())) {
-                accont.setEmpresa(empresaService.findByCnpj(empresaModel.getCnpj()).get());
-            } else {
-                accont.setEmpresa(empresaModel);
-
-            }
-        } catch (Exception e) {
-            return "Falha em salvar a empresa";
+        if (empresa.getEmpresa() == null || empresa.getEmpresa().getCnpj().isBlank()) {
+            System.out.println("erro6");
+            return false;
         }
 
-        if (empresa.getSenha() == null || empresa.getSenha().isBlank()) {
-            return "Senha Vazio";
+        if (empresa.getRoles().isEmpty() || empresa.getRoles().size() == 0) {
+            System.out.println("erro7");
+            return false;
         }
-
-        try {
-            accont.setSenha(encoder.encode(empresa.getSenha()));
-        } catch (Exception e) {
-            return "Falha em gerar senha";
-        }
-
-        try {
-            accont.setNome(empresa.getNomeFantasia());
-            accont.setEmail(empresaModel.getEmail());
-            accont.setAtuacao("Empresa");
-            accont.setUltimoAcesso(Util.getDataHoraAgora());
-            accont.setAtivo(true);
-        } catch (Exception e) {
-            return "Falha em gerar usuário";
-        }
-
-        try {
-            accont.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
-        } catch (Exception e) {
-            return "Não Foi possível gerar a autorização do usuário";
-        }
-
-        if (accont.getEmail() == null || accont.getEmail().isBlank()) {
-            return "EMAIL Vazio";
-        }
-
-        if (accont.getNome() == null || accont.getNome().isBlank()) {
-            return "NOME Vazio";
-        }
-
-        if (accont.getEmpresa() == null || accont.getEmpresa().getCnpj().isBlank()) {
-            return "Empresa Vazio";
-        }
-
-        if (accont.getRoles().isEmpty() || accont.getRoles().size() < 1) {
-            return "Regras Vazio";
-        }
-
-        try {
-            save(accont);
-        } catch (Exception e) {
-            return "Não foi possivel salvar o usuário";
-        }
-
-        return "SUCESSO";
+        empresa.getEmpresa().setCnpj(Util.unformatedCnpj(empresa.getEmpresa().getCnpj()));
+        System.out.println(save(empresa).toString());
+        return true;
     }
     /*
      * public String putEnterprise(EnterpriseDto empresa) {

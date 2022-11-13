@@ -27,14 +27,15 @@
         <!--BODY da página-->
         <div class="m-4 pt-4">
             <div class="p-4 rounded-4 lightMode">
-                <form class="needs-validation" novalidate>
+                <form class="needs-validation" action="#" th:action="@{/cadastroCliente/save}" th:object="${empresa}" method="post"
+                    novalidate>
 
                     <div class="form-row">
                         <h1>Cadastro de Cliente</h1>
                     </div>
 
                     <div class="form-check p-3">
-                        <input checked class="form-check-input " type="checkbox" id="ativoCheckBox">
+                        <input checked="checked" class="form-check-input " type="checkbox" th:field="*{ativo}" id="ativoCheckBox">
                         <label class="form-check-label" for="ativoCheckBox">
                             Ativo
                         </label>
@@ -46,8 +47,8 @@
                             <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome"
                                 data-bs-content="Nome fantasia também chamado nome de marca, nome comercial ou nome de fachada, é a designação popular de título de estabelecimento utilizada por uma instituição.">?</button>
                             <!--is-valid-->
-                            <input type="text" class="form-control lightMode" id="nomeFantasia" placeholder="Empresa..."
-                                required>
+                            <input th:field="*{empresa.nomeFantasia}" type="text" class="form-control lightMode"
+                                id="nomeFantasia" placeholder="Empresa..." required>
                             <div class="valid-feedback">
                                 Nome válido!
                             </div>
@@ -64,8 +65,8 @@
                             <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome"
                                 data-bs-content="Razão social é o termo registrado sob o qual uma pessoa jurídica (PJ) se individualiza e exerce suas atividades.">?</button>
                             <!--is-valid-->
-                            <input type="text" class="form-control lightMode" id="nomeRasaoSocial"
-                                placeholder="Empresa..." required>
+                            <input th:field="*{empresa.nomeRazaoSocial}" type="text" class="form-control lightMode"
+                                id="nomeRasaoSocial" placeholder="Empresa..." required>
                             <div class="valid-feedback">
                                 Nome válido!
                             </div>
@@ -80,8 +81,8 @@
                         <div class="col-md mb-3">
                             <label for="validationCNPJ">CNPJ</label>
                             <!--is-valid-->
-                            <input type="text" class="form-control lightMode" id="validationCNPJ"
-                                placeholder="XX.XXX.XXX/0001-XX" required>
+                            <input th:field="*{empresa.cnpj}" type="text" class="form-control lightMode"
+                                id="validationCNPJ" placeholder="XX.XXX.XXX/0001-XX" required>
                             <div class="valid-feedback">
                                 CNPJ válido!
                             </div>
@@ -98,7 +99,7 @@
                             <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome"
                                 data-bs-content="A senha deve conter caracteres especiais (!@#$), letras maiúsculas, minúsculas e números">?</button>
                             <!--is-valid-->
-                            <input type="password" class="form-control lightMode" id="validationSenha"
+                            <input   th:field="*{senha}" type="password" class="form-control lightMode" id="validationSenha"
                                 placeholder="*******" required>
                             <div class="valid-feedback">
                                 Senha válida!
@@ -136,7 +137,7 @@
                             <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome"
                                 data-bs-content="Email de acesso do cliente.">?</button>
                             <!--is-valid-->
-                            <input type="email" class="form-control lightMode" id="validationEmail"
+                            <input  th:field="*{email}" type="email" class="form-control lightMode" id="validationEmail"
                                 placeholder="email@exemplo.com.br" required>
                             <div class="valid-feedback">
                                 Email válido!

@@ -46,7 +46,9 @@ public class ClientController {
 
     @GetMapping(value = { "/cadastroCliente.html", "/cadastroCliente" })
     public String showCadastroClient(HttpServletRequest request, Model model) {
-        model.addAttribute("empresa", new AccontModel());
+        AccontModel acc = new AccontModel();
+        acc.setAtivo(true);
+        model.addAttribute("empresa", acc);
         model.addAttribute("erro", "");
         return "clients/cadastroCliente";
     }
@@ -54,10 +56,8 @@ public class ClientController {
     @PostMapping("/cadastroCliente/save")
     public String saveClient(HttpServletRequest request, Model model,
             @ModelAttribute("empresa") AccontModel empresa) {
-        empresa.getEmpresa()
-                .setCnpj("123");
-        System.out.println(empresa.toString());
-        // clientService.save(empresa);
+
+        clientService.saveEnterprise(empresa);
 
         return "clients/cadastroCliente";
     }
