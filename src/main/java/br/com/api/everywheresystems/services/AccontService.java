@@ -258,7 +258,7 @@ public class AccontService {
          * return false;
          * }
          */
-        empresa.getEmpresa().setCnpj(Util.unformatedCnpj(empresa.getEmpresa().getCnpj()));
+        empresa.getEmpresa().setCnpj(Util.unformated(empresa.getEmpresa().getCnpj()));
         System.out.println(save(empresa).toString());
         return true;
     }

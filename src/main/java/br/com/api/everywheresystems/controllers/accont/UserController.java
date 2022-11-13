@@ -3,7 +3,9 @@ package br.com.api.everywheresystems.controllers.accont;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import br.com.api.everywheresystems.configs.security.PermissoesConfigs;
 import br.com.api.everywheresystems.dto.AccontDto;
 import br.com.api.everywheresystems.models.AccontModel;
 import br.com.api.everywheresystems.models.enums.Role;
@@ -19,6 +22,7 @@ import br.com.api.everywheresystems.services.AccontService;
 import br.com.api.everywheresystems.services.EmpresaService;
 import br.com.api.everywheresystems.services.ImageService;
 import br.com.api.everywheresystems.services.RolesService;
+import br.com.api.everywheresystems.util.Util;
 
 @Controller
 public class UserController {
@@ -58,32 +62,38 @@ public class UserController {
 
     @GetMapping(value = { "/cadastroUsuario.html/{id}", "/cadastroUsuario/{id}" })
     public String showCadastroUserById(HttpServletRequest request, Model model, @PathVariable("id") String id) {
-        model.addAttribute("usuario", usuarioService.findById(id).get());
+        model.addAttribute("usuario", new AccontDto(usuarioService.findById(id).get()));
         return "user/cadastroUsuario";
     }
 
     // Post Cadastro
     @PostMapping(value = { "/cadastroUsuario/save", "/cadastroUsuario.html/save" })
     public String save(HttpServletRequest request, Model model,
-            @ModelAttribute("usuario") AccontModel usuario) {
+            @ModelAttribute("usuario") AccontDto usuario) {
+        final PermissoesConfigs user = (PermissoesConfigs) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
 
-        System.out.println(usuario);
-        // System.out.println(usuarioService.save(usuario));
+        AccontModel accont = usuario.toAccontModel(empresaService, rolesService);
+        accont.setUltimoAcesso(Util.getDataHoraAgora());
+        accont.setEmpresa(usuarioService.findByEmail(user.getUsername()).get().getEmpresa());
+        System.out.println(usuarioService.save(accont));
 
         return "user/cadastroUsuario";
     }
 
     @PostMapping(value = { "/cadastroUsuario.html/save/{id}", "/cadastroUsuario/save/{id}" })
     public String saveByID(HttpServletRequest request, Model model,
-            @ModelAttribute("usuario") AccontModel usuario, @PathVariable("id") String id) {
+            @ModelAttribute("usuario") AccontDto usuario, @PathVariable("id") String id) {
+
         System.out.println(id);// TODO
-        model.addAttribute("usuario", usuarioService.findById(id).get());
+        model.addAttribute("usuario", new AccontDto(usuarioService.findById(id).get()));
         model.addAttribute("erro", "");
 
-        System.out.println(usuario);
+        AccontModel accont = usuario.toAccontModel(empresaService, rolesService);
+        accont.setUltimoAcesso(Util.getDataHoraAgora());
+        accont.setEmpresa(usuarioService.findById(id).get().getEmpresa());
+        System.out.println(usuarioService.save(accont));
 
-        // usuarioService.save(usuario);
-
-        return "clients/cadastroCliente";
+        return "user/cadastroUsuario";
     }
 }

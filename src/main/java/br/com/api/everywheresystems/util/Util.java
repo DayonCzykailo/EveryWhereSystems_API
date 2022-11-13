@@ -20,8 +20,8 @@ public class Util {
         return null;
     }
 
-    public static String unformatedCnpj(String cnpj) {
-        return cnpj.replaceAll("[^0-9]", "");//.replaceAll("[^\\d ]", "")
+    public static String unformated(String string) {
+        return string.replaceAll("[^0-9]", "");//.replaceAll("[^\\d ]", "")
     }
     public static boolean validarString(String campo) {
         if (campo == null) {
