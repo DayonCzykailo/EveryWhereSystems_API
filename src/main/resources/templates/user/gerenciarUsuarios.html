@@ -61,43 +61,6 @@
                                     </td>
                                 </tr>
                             </table>
-
-
-
-                            <script>
-                                //var colName = [];
-                                //for (let i = 0; i < document.getElementsByTagName("th").length; i++) {
-                                //    colName = colName.concat($(`#colName${i}`).text());
-                                //}
-                                //console.log(colName)
-
-
-                                var dados = [
-                                    { 'id': '1', 'Nome': 'Gabriel Marusak', 'Email': 'gabrielmarusak@gmail.com', 'Permicao': 'Dash,Formulário', 'Status': 'Ativo' },
-                                    { 'id': '2', 'Nome': 'Gabriel Marusak', 'Email': 'gabrielmarusak@gmail.com', 'Permicao': 'Dash,Formulário', 'Status': 'Ativo' },
-                                    { 'id': '3', 'Nome': 'Gabriel Marusak', 'Email': 'gabrielmarusak@gmail.com', 'Permicao': 'Dash,Formulário', 'Status': 'Ativo' },
-                                    { 'id': '4', 'Nome': 'Gabriel Marusak', 'Email': 'gabrielmarusak@gmail.com', 'Permicao': 'Dash,Formulário', 'Status': 'Ativo' },
-                                ]
-
-                                buildTable(dados)
-
-                                function buildTable(data) {
-                                    var table = document.getElementById('usuarios')
-
-                                    for (var i = 0; i < data.length; i++) {
-                                        var row = `<tr>
-                                            <td>${data[i].Nome}</td>
-                                            <td>${data[i].Email}</td>
-                                            <td>${data[i].Permicao}</td>
-                                            <td>${data[i].Status}</td>
-                                            <td><a class="btn btn-primary" href="./cadastroUsuario.html" role="button" id="${data[i].id}">Editar</a></td>
-                                            </tr>`
-                                        table.innerHTML += row
-                                        // console.log(data[i].id)
-                                    }
-                                }
-                            </script>
-
                         </div>
 
 

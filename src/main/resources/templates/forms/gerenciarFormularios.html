@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link th:href="@{/bootstrap-icons-1.9.1/bootstrap-icons.css}" rel="stylesheet" type="text/css">
-   
+
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
 
@@ -18,7 +18,8 @@
 </head>
 
 <body id="body-pd">
-    <div th:insert="components/menuTamplate :: menuTamplate(tela='formularios')"></div><!--MENU-->
+    <div th:insert="components/menuTamplate :: menuTamplate(tela='formularios')"></div>
+    <!--MENU-->
 
     <div id="page-content-wrapper">
         <!--BODY da página-->
@@ -32,67 +33,37 @@
                             <h1>Formulários</h1>
                         </div>
                         <div class="col-auto">
-                            <a class="btn btn-primary" href="./formularios.html" role="button"
+                            <a class="btn btn-primary" href="./formulario.html" role="button"
                                 id="cadastrarCliente">Novo</a>
                         </div>
                     </div>
                     <div class="form-row">
-                        <table class="table table-striped">
-                            <tr>
-                                <th id="colName0">Requisição</th>
-                                <th id="colName1">Data</th>
-                                <th id="colName2">Status</th>
-                                <th id="colName3">Opção</th>
-                            </tr>
+                        <div th:switch="${forms}">
+                            <h3 th:case="null">Sem Formulários Cadastrados!!!</h3>
+                            <table th:case="*" class="table table-striped">
+                                <tr>
+                                    <th id="colName0">Requisição</th>
+                                    <th id="colName1">Data</th>
+                                    <th id="colsName2">Endereço</th>
+                                    <th id="colName3">Opção</th>
+                                </tr>
+                                <tr th:each="form : ${forms}">
+                                    <h2 th:case="null">Sem Formulário, ainda.</h2>
+                                    <td th:text="${form.id}">...</td>
+                                    <td th:text="${form.date}">...</td>
+                                    <td th:text="${form.enderecoExibicaoSensor}">...</td>
+                                    <td>
+                                        <a class="btn btn-primary" th:href="@{formulario/{id}(id=${form.id})}"
+                                            role="button">Editar</a>
+                                    </td>
+                                </tr>
 
-                            <tbody id="usuarios">
-
-                            </tbody>
-
-                        </table>
-
-
-
-                        <script>
-                            //var colName = [];
-                            //for (let i = 0; i < document.getElementsByTagName("th").length; i++) {
-                            //    colName = colName.concat($(`#colName${i}`).text());
-                            //}
-                            //console.log(colName)
-
-
-                            var dados = [
-                                { 'id': '1', 'requisicao': '2j2j8w2', 'data': '11/10/2022', 'status': 'Solicitado' },
-                                { 'id': '2', 'requisicao': '2j2j8w2', 'data': '11/10/2022', 'status': 'Solicitado' },
-                                { 'id': '3', 'requisicao': '2j2j8w2', 'data': '11/10/2022', 'status': 'Solicitado' },
-                                { 'id': '4', 'requisicao': '2j2j8w2', 'data': '11/10/2022', 'status': 'Solicitado' },
-                            ]
-
-                            buildTable(dados)
-
-                            function buildTable(data) {
-                                var table = document.getElementById('usuarios')
-
-                                for (var i = 0; i < data.length; i++) {
-                                    var row = `<tr>
-                                            <td>${data[i].requisicao}</td>
-                                            <td>${data[i].data}</td>
-                                            <td>${data[i].status}</td>
-                                            <td><a class="btn btn-primary" href="./formularios.html" role="button" id="${data[i].id}">Visualizar</a></td>
-                                        </tr>`
-                                    table.innerHTML += row
-                                    // console.log(data[i].id)
-                                }
-                            }
-                        </script>
-
+                            </table>
+                        </div>
                     </div>
-
-
             </div>
         </div>
-    </div>
-    <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
+        <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
 </body>
 
 </html>

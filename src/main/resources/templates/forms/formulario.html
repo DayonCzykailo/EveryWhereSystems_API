@@ -35,8 +35,9 @@
         <!--BODY da página-->
         <div class="m-4 pt-4">
             <div class="p-4 rounded-4 lightMode">
-
-                <form class="needs-validation" novalidate>
+ 
+                <form th:object="${form}" action="#" th:action="@{/formulario/save/{id}(id=${form.id})}" method="post"
+                    class="needs-validation" novalidate>
 
                     <div class="form-row">
                         <h1>Formulário</h1>
@@ -47,7 +48,7 @@
                             <label for="Date">Data da Troca (Obrigatório):</label>
                             <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Sensor"
                                 data-bs-content="Data de instalação do sensor">?</button>
-                            <input id="Date" class="form-control lightMode" type="date" required>
+                            <input th:field="*{date}" id="Date" class="form-control lightMode" type="date" required>
                             <div class="invalid-feedback">
                                 Selecione uma data!
                             </div>
@@ -59,7 +60,7 @@
                                 <button type="button" class="btn btn-sm" data-bs-toggle="popover"
                                     title="Identificação do aparelho"
                                     data-bs-content="Número que está no aparelho">?</button>
-                                <input type="text" class="form-control lightMode" id="sensor"
+                                <input th:field="*{numeroSensor}" type="text" class="form-control lightMode" id="sensor"
                                     placeholder="Exemplo: 0000" required>
                             </div>
                         </div>
@@ -72,9 +73,9 @@
                                     <button type="button" class="btn btn-sm" data-bs-toggle="popover"
                                         title="Local real em que o sensor está"
                                         data-bs-content="Por favor colocar apenas o nome da rua e o número correspondente. Exemplo: R. Camões, 258">?</button>
-                                    <input type="text" class="form-control lightMode" id="endPredInst"
-                                        placeholder="Exemplo: R. Camões, 258" required>
-                                    
+                                    <input th:field="*{enderecoLocalSensor}" type="text" class="form-control lightMode"
+                                        id="endPredInst" placeholder="Exemplo: R. Camões, 258" required>
+
                                 </div>
                                 <div class="col-md mb-3">
                                     <label for="endComRel">Endereço de Exibição no Relatório
@@ -82,9 +83,10 @@
                                     <button type="button" class="btn btn-sm" data-bs-toggle="popover"
                                         title="Nome que aparecerá no relatório"
                                         data-bs-content="Pode colocar o nome que preferir para o relatório. Exemplo: Rua Camões, Próximo ao Mercado.">?</button>
-                                    <input type="text" class="form-control lightMode" id="endComRel"
+                                    <input th:field="*{enderecoExibicaoSensor}" type="text"
+                                        class="form-control lightMode" id="endComRel"
                                         placeholder="Exemplo: Rua Camões, Próximo ao Mercado." required>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -95,29 +97,29 @@
                                     <label for="cidade">Cidade (Obrigatório):</label>
                                     <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Cidade"
                                         data-bs-content="Nome da cidade em que o sensor está instalado">?</button>
-                                    <input type="text" class="form-control lightMode" id="cidade"
-                                        placeholder="Exemplo: Curitiba" required>
+                                    <input th:field="*{cidadeLocalSensor}" type="text" class="form-control lightMode"
+                                        id="cidade" placeholder="Exemplo: Curitiba" required>
                                 </div>
                                 <div class="col-md mb-3">
                                     <label for="estado">Estado (Obrigatório):</label>
                                     <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Estado"
                                         data-bs-content="Nome do estado em que o sensor está instalado">?</button>
-                                    <input type="text" class="form-control lightMode" id="estado"
-                                        placeholder="Exemplo: Paraná" required>
+                                    <input th:field="*{estadoLocalSensor}" type="text" class="form-control lightMode"
+                                        id="estado" placeholder="Exemplo: Paraná" required>
                                 </div>
                             </div>
                         </div>
 
 
-                        <div class="form-row">
+                       <!-- <div class="form-row">
                             <div class="col-md-auto mb-3">
                                 <iframe id="maps"
-                                src="https://maps.google.com/maps?q=everywhere%20curitiba&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    src="https://maps.google.com/maps?q=everywhere%20curitiba&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
                         </div>
-                        <!-- src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54159.14412129146!2d-49.30594329385649!3d-25.428217412074606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x10b241d64142cbb9!2sEverywhere%20Analytics!5e0!3m2!1spt-BR!2sbr!4v1665091389735!5m2!1spt-BR!2sbr"-->
+                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54159.14412129146!2d-49.30594329385649!3d-25.428217412074606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x10b241d64142cbb9!2sEverywhere%20Analytics!5e0!3m2!1spt-BR!2sbr!4v1665091389735!5m2!1spt-BR!2sbr"-->
                         <!--
                         <div id="map_canvas" style="width:400px; height:400px"></div>
                         <script type="text/javascript">
@@ -140,8 +142,8 @@
                                     title="Código do Painel" data-bs-content="Opção de código interno
                                         da empresa a ser adicionado nos relatórios. Exemplo:
                                         1234 - Everywhere Analytics">?</button>
-                                <input type="text" class="form-control lightMode" id="codPainel"
-                                    placeholder="Exemplo: 1234 - Everywhere Analytics">
+                                <input th:field="*{codigoInternoPainel}" type="text" class="form-control lightMode"
+                                    id="codPainel" placeholder="Exemplo: 1234 - Everywhere Analytics">
                             </div>
                         </div>
 
@@ -149,48 +151,48 @@
                             <div class="col-md-auto mb-3 py-3">
                                 <h5>Tipo de Painel</h5>
                                 <div class="form-check">
-                                    <input class="form-check-input lightMode" type="radio" name="radios" id="Outdoor"
-                                        value="option1" checked>
-                                    <label class="form-check-label" for="Outdoor">
+                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio" name="radios" id="Outdoor"
+                                        value="Outdoor" checked>
+                                    <label  class="form-check-label" value="Outdoor">
                                         Outdoor
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input lightMode" type="radio" name="radios"
+                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio" name="radios"
                                         id="Front Light" value="Front Light">
                                     <label class="form-check-label" for="Front Light">
                                         Front Light
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input lightMode" type="radio" name="radios"
+                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio" name="radios"
                                         id="Painel de LED" value="Painel de LED">
                                     <label class="form-check-label" for="Painel de LED">
                                         Painel de LED
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input lightMode" type="radio" name="radios" id="Mob Urbano"
+                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio" name="radios" id="Mob Urbano"
                                         value="Mob Urbano">
                                     <label class="form-check-label" for="Mob Urbano">
                                         Mob Urbano
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input lightMode" type="radio" name="radios" id="Empena"
+                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio" name="radios" id="Empena"
                                         value="Empena">
                                     <label class="form-check-label" for="Empena">
                                         Empena
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input lightMode" type="radio" name="radios" id="Indoor"
+                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio" name="radios" id="Indoor"
                                         value="Indoor">
                                     <label class="form-check-label" for="Indoor">
                                         Indoor
                                     </label>
                                 </div>
-                                <div class="form-check">
+                                <div th:field="*{tipoPainel}" class="form-check">
                                     <input class="form-check-input lightMode" type="radio" name="radios" id="Outro"
                                         value="Outro">
                                     <label class="form-check-label" for="Outro">
@@ -205,12 +207,7 @@
                             <button class="btn btn-primary" type="submit">Cadastrar</button>
                         </div>
 
-                        <script>
-                            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-                            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-                                return new bootstrap.Popover(popoverTriggerEl)
-                            })
-                        </script>
+                        
                 </form>
             </div>
 
@@ -219,7 +216,6 @@
     </div>
     </div>
 
-    <script th:src="@{/js/validationForm.js}" type="text/javascript"></script>
     <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
 </body>
 
