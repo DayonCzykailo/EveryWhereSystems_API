@@ -64,7 +64,7 @@ public class AccontModel {
   @JoinTable(name = "tb_role_accont", joinColumns = @JoinColumn(name = "tb_accont_id"), inverseJoinColumns = @JoinColumn(name = "tb_role_id"))
   private List<RoleModel> roles;
 
-  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = true)
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = true,fetch = FetchType.LAZY)
   private EmpresaModel empresa;
 
   @Column(nullable = false)
