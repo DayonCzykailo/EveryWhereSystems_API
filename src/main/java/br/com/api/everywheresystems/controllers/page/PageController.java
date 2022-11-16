@@ -31,17 +31,7 @@ public class PageController {
         return "docker/gerenciarDocker";
     }
 
-    @GetMapping("/formularios.html")
-    public String testeForms(HttpServletRequest request) {
-        return "forms/formularios";
-    }
-
-    @GetMapping("/gerenciarFormularios.html")
-    public String testeGerenciarForms(HttpServletRequest request) {
-        return "forms/gerenciarFormularios";
-    }
-
-    @GetMapping(value = {"/index.html","/"})
+    @GetMapping(value = { "/index.html", "/" })
     public String testeIndex(HttpServletRequest request) {
         return "index/index";
     }
