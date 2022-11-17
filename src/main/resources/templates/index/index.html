@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-      
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>EWA</title>
     <!-- Required meta tags -->
@@ -44,189 +44,60 @@
         </nav>
     </header>
     <main>
-        <div id="carouselExampleCaptions" class="carousel carousel-dark slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
-                    aria-label="Slide 4"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="py-4" style="background: #e4e4e4;"></div>
-                    <div class="py-5" >
-                        <div class="row justify-content-center">
-                            <div class="p-auto mx-5 col-md-4 text-center rounded-5 shadow-lg"
-                                style="width: 210px; height: 210px;">
-                                <img th:src="@{assets/icone-mobility-min.png}" alt="icone-mobility-min">
-                            </div>
-                            <div class="p-auto mx-5 col-md-4 text-center rounded-5 shadow-lg"
-                                style="width: 210px; height: 210px;">
-                                <img th:src="@{assets/icone-ooh-min.png}" alt="icone-ooh-min">
-                            </div>
-                            <div class="p-auto mx-5 col-md-4 text-center rounded-5 shadow-lg"
-                                style="width: 210px; height: 210px;">
-                                <img th:src="@{assets/icone-retail-min.png}" alt="icone-retail-min">
-                            </div>
-                        </div>
-                    </div>
+
+        <div class="py-4" style="background: #e4e4e4;"></div>
+        <div class="py-5">
+            <div class="row justify-content-center">
+                <div class="p-auto mx-5 col-md-4 text-center rounded-5" style="width: 210px; height: 210px;">
+                    <img th:src="@{assets/icone-mobility-min.png}" alt="icone-mobility-min">
                 </div>
-                <div class="carousel-item">
-                    <div class="py-4" style="background: #e4e4e4;"></div>
-                    <div class="py-5">
-                        <div class="mx-auto p-5" style="width: 70%;">
-                            <div class="p-2 row">
-                                <div class="col text-center">
-                                    <h1>Precisão em “Tempo Real”: A Evolução Das Informações</h1>
-                                    <p>Poder medir e compreender quantas pessoas passam por um determinado local dentro
-                                        de um
-                                        intervalo
-                                        de tempo e como elas se deslocam a partir desse lugar nunca foi uma tarefa
-                                        simples.
-                                        Amostras,
-                                        estatísticas e extrapolações matemáticas sempre foram a solução encontrada para
-                                        viabilizar
-                                        este
-                                        estudo.</p>
-                                    <p>Hoje, porém, é possível responder isso de maneira “<em>realtime</em>“, de forma
-                                        passiva e com
-                                        alto grau de precisão, observando todas as variações de fluxo segundo a segundo.
-                                    </p>
-                                    <p>Seja em varejos, shoppings, aeroportos, terminais urbanos, transportes públicos
-                                        ou mídias
-                                        OOH, a
-                                        mensuração do comportamento de fluxo e deslocamento traz informações de extrema
-                                        relevância e
-                                        importância para a validação do alcance e da assertividade das campanhas de
-                                        divulgação
-                                        externa.
-                                    </p>
-                                    <p>
-                                        "Por mais básico que possa parecer esse indicador-chave de performance (KPI),
-                                        saber quantas
-                                        pessoas estiveram num local, seus tempos de permanência e seus trajetos após
-                                        saírem deste
-                                        lugar
-                                        são informações que corroboram com a precisão das avaliações da verdadeira
-                                        performance do
-                                        seu
-                                        negócio, investimento em mídia OOH ou planejamentos de mobilidade urbana."
-                                    </p>
-                                </div>
-                                <div class="p-auto mx-5 col-md-4 text-center rounded-5 shadow-lg"
-                                    style="width: 430px; height: 430px;">
-                                    <img th:src="@{assets/dados-2-min-400x400.png}" class="rounded" alt="icone-ooh-min">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="p-auto mx-5 col-md-4 text-center rounded-5" style="width: 210px; height: 210px;">
+                    <img th:src="@{assets/icone-ooh-min.png}" alt="icone-ooh-min">
                 </div>
-                <div class="carousel-item">
-                    <div class="py-4" style="background: #e4e4e4;"></div>
-                    <div class="mx-auto p-5 rounded-5" style="width: 50%;">
-                        <div class="row">
-                            <div class="col text-center" id="sobre">
-                                <h1>Quem Somos</h1>
-                                <p>A Everywhere Analytics é uma startup curitibana que nasceu com o objetivo de
-                                    analisar, de forma
-                                    precisa e em “tempo real”, o fluxo e o comportamento do deslocamento de pessoas. De
-                                    forma
-                                    inovadora, automática, totalmente anônima e sem o uso de aplicativos, a EWA mensura
-                                    com alta
-                                    precisão locais em que antes o impacto das divulgações só poderia ser estimado. Os
-                                    resultados
-                                    obtidos são, então, analisados e sintetizados em relatórios e dashboards, que
-                                    nortearão decisões
-                                    relevantes para a gestão dos Varejos, das Mídias OOH e da Mobilidade Urbana.</p>
-                                <p>O projeto foi iniciado em 2014, foi finalista do Inovativa em 2015 e se transformou
-                                    na Everywhere
-                                    Analytics em janeiro de 2017. Em 2018 a EWA foi uma das 8 startups selecionadas no
-                                    programa de
-                                    aceleração da Oi, o Oito, no Rio de Janeiro, sendo esta empresa sua primeira
-                                    investidora. Além
-                                    disso, ao final de 2018 tornou-se uma das 30 startups de todo o Brasil a ser
-                                    selecionada e
-                                    aprovada no FINEP Startup 2017 na segunda rodada.</p>
-                                <p>Hoje em dia a empresa atua em mais de 15 estados do Brasil levando informações
-                                    inteligentes para
-                                    seus clientes.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="py-4" style="background: #e4e4e4;"></div>
-                    <div>
-                        <div class="mx-auto py-5" style="width: 50%;">
-                            <div class="row">
-                                <h1>Origem e Destino</h1>
-                                <p>De forma inovadora, automática e sem o uso de aplicativos, a Everywhere gera métricas
-                                    que
-                                    permitem
-                                    entender a audiência, o comportamento, o padrão de deslocamento e a mobilidade dos
-                                    usuários de
-                                    smartphones.</p>
-                                <div class="mx-auto" style="width: 90%;">
-                                    <ul>
-                                        <li>Discreto – não atrapalha a visão do público;</li>
-                                        <li>Monitoramento em tempo integral – 24h;</li>
-                                        <li>Acesso aos dados por dashboard ou app;</li>
-                                        <li>Não utiliza aplicativos;</li>
-                                        <li>Não precisa de wi-fi;</li>
-                                        <li>Sistema não invasivo (individualizado);</li>
-                                        <li>Instalação fácil e intuitiva.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="p-auto mx-5 col-md-4 text-center rounded-5" style="width: 210px; height: 210px;">
+                    <img th:src="@{assets/icone-retail-min.png}" alt="icone-retail-min">
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
 
 
-
-
         <div class="py-4" style="background: #e4e4e4;"></div>
-        <div>
-            <div class="mx-auto py-5" id="contato" style="width: 50%;">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Nome">
-                </div>
-                <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="E-mail">
-                </div>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Telefone: ex.:(00) 00000-0000">
-                </div>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Empresa">
-                </div>
-                <div class="input-group">
-                    <textarea class="form-control" placeholder="Mensagem"></textarea>
+        <div class="py-5">
+            <div class="mx-auto p-5" style="width: 70%;">
+                <div class="p-2 row">
+                    <div class="col text-center">
+                        <h1>Quem Somos</h1>
+                        <p>A Everywhere Analitics é Startup Curitibana que surgiu em 2015, com o intuito de ser uma
+                            empresa B2B (de empresa para empresa) de Inteligência de Negócios (Business Intelligence ou
+                            BI). O produto oferecido é a análise do fluxo e o comportamento do deslocamento de pessoas,
+                            sanando uma dor de clientes da área de marketing de outdoor, onde estava ficando defasado em
+                            relação ao marketing digital na web.</p>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="py-4" style="background: #e4e4e4;"></div>
+        <div class="mx-auto p-5 rounded-5" style="width: 50%;">
+            <div class="row">
+                <div class="col text-center" id="sobre">
+                    <h1>Como Fazemos</h1>
+                    <p>A Everywhere Analitics desenvolveu sensores WIFI que fazem a “leitura” de todos os aparelhos que
+                        tenham esse tipo de conexão e esse tipo de dado é anônimo e público, gerado automaticamente pelo
+                        aparelho para ser utilizado como um “crachá” de identificação do aparelho ao se comunicar com os
+                        roteadores. Esse dado contém o endereço MAC (é um código de identificação) do aparelho e a
+                        potência do sinal, sendo agregado a data e hora de captura do sinal. </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="py-4" style="background: #e4e4e4;"></div>
+
     </main>
     <footer class="blog-footer">
         <!-- place footer here -->
-        <div class="mx-5 py-5 row justify-content-center">
+        <div class="mx-5 py-5 row justify-content-center" id="contato">
             <div class="mx-5 row justify-content-center">
                 <div class="fusion-column col-lg-3 col-md-3 col-sm-3">
                     <img th:src="@{assets/logo.png}" class="rounded" alt="logo" style="width: 200px;">
