@@ -26,13 +26,16 @@
 
 <body id="body-pd">
 
-    <div id="loader">
-    </div>
+
     <div id="content">
-        <div th:insert="components/menuTamplate :: menuTamplate(tela='dash')"></div><!--MENU-->
+        <div th:insert="components/menuTamplate :: menuTamplate(tela='dash')"></div>
+        <!--MENU-->
 
         <div id="page-content-wrapper">
-
+            <div class="d-flex align-items-center" id="loader">
+                <strong class="ps-5">Loading...</strong>
+                <div class="spinner-border" role="status" aria-hidden="true"></div>
+            </div>
             <div class="flex-grow-1">
                 <div class="m-0 row">
 
@@ -41,14 +44,16 @@
                             <div class="col-md-auto py-1">
                                 <p>Início</p>
                                 <div>
-                                    <input id="startDate" class="form-control lightMode" type="date" onchange="filtro()" />
+                                    <input id="startDate" class="form-control lightMode" type="date"
+                                        onchange="filtro()" />
                                     <!--<input type="range" class="form-range" id="customRange1">-->
                                 </div>
                             </div>
                             <div class="col-md-auto py-1">
                                 <p>Fim</p>
                                 <div>
-                                    <input id="endDate" class="form-control lightMode" type="date" onchange="filtro()" />
+                                    <input id="endDate" class="form-control lightMode" type="date"
+                                        onchange="filtro()" />
                                     <!--<input type="range" class="form-range" id="customRange1">-->
                                 </div>
                             </div>
@@ -147,11 +152,11 @@
                                                     <th>Audiência</th>
                                                     <th>Impactos</th>
                                                 </tr>
-                    
+
                                                 <tbody id="tab1">
-                    
+
                                                 </tbody>
-                    
+
                                             </table>
                                         </div>
                                     </div>
@@ -183,11 +188,11 @@
                                                     <th>Audiência</th>
                                                     <th>Impactos</th>
                                                 </tr>
-                    
+
                                                 <tbody id="tab2">
-                    
+
                                                 </tbody>
-                    
+
                                             </table>
                                         </div>
                                     </div>

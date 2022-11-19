@@ -37,7 +37,13 @@ public class ClientController {
         // final User usuario = (User)
         // SecurityContextHolder.getContext().getAuthentication()
         // .getPrincipal();
-        model.addAttribute("clientes", clientService.findAllByRoleModels(Role.ROLE_USER));
+
+        System.out.println(clientService.findAllByRoleModels(Role.ROLE_USER));
+        if (clientService.findAllByRoleModels(Role.ROLE_USER).toString() == "[]") {
+            model.addAttribute("clientes", null);
+        } else {
+            model.addAttribute("clientes", clientService.findAllByRoleModels(Role.ROLE_USER));
+        }
 
         return "clients/gerenciarClientes";
     }
