@@ -1,14 +1,8 @@
 package br.com.api.everywheresystems.controllers.accont;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 
-import org.apache.tomcat.jni.Error;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import br.com.api.everywheresystems.configs.security.PermissoesConfigs;
-import br.com.api.everywheresystems.dto.AccontDto;
-import br.com.api.everywheresystems.dto.EnterpriseDto;
 import br.com.api.everywheresystems.models.AccontModel;
 import br.com.api.everywheresystems.models.enums.Role;
 import br.com.api.everywheresystems.services.AccontService;
-import br.com.api.everywheresystems.util.scripts.ShellScript;
 
 @Controller
 public class ClientController {

@@ -39,16 +39,15 @@
                     </div>
                     <div class="form-row">
                         <div th:switch="${forms}">
-                            <h3 th:case="null">Sem Formulários Cadastrados!!!</h3>
-                            <table th:case="*" class="table table-striped">
+                            <h3 th:if="${forms.empty}">Sem Formulário, ainda.</h3>
+                            <table th:case="*" th:each="form : ${forms}" class="table table-striped">
                                 <tr>
                                     <th id="colName0">Requisição</th>
                                     <th id="colName1">Data</th>
                                     <th id="colsName2">Endereço</th>
                                     <th id="colName3">Opção</th>
                                 </tr>
-                                <tr th:each="form : ${forms}">
-                                    <h2 th:case="null">Sem Formulário, ainda.</h2>
+                                <tr>
                                     <td th:text="${form.id}">...</td>
                                     <td th:text="${form.date}">...</td>
                                     <td th:text="${form.enderecoExibicaoSensor}">...</td>

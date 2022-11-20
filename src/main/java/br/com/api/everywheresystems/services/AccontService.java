@@ -17,11 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.api.everywheresystems.dto.AccontDto;
-import br.com.api.everywheresystems.dto.EnterpriseDto;
 import br.com.api.everywheresystems.models.AccontModel;
 import br.com.api.everywheresystems.models.EmpresaModel;
 import br.com.api.everywheresystems.models.RoleModel;
-import br.com.api.everywheresystems.models.enums.Ativo;
 import br.com.api.everywheresystems.models.enums.Role;
 import br.com.api.everywheresystems.repositories.AccontRepository;
 import br.com.api.everywheresystems.util.Erro;
@@ -90,6 +88,14 @@ public class AccontService {
 
     public List<AccontModel> findAllByRoleModels(Role role) {
         return usuarioService.findByRole(role.toString());
+    }
+
+    public List<AccontModel> findByRoleAndEmpresa(Role role, String empresaId) {
+        return usuarioService.findByRoleAndEmpresa(role.toString(), empresaId);
+    }
+
+    public List<AccontModel> findAllByEmpresa(EmpresaModel empresa) {
+        return usuarioService.findByEmpresa(empresa);
     }
 
     public ResponseEntity<Object> saveAccont(AccontDto accontDto) {

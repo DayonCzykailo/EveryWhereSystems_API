@@ -52,7 +52,9 @@
                                     <h2 th:case="null">Sem clientes, ainda.</h2>
                                     <td th:text="${usuario.nome}">...</td>
                                     <td th:text="${usuario.email}">...</td>
-                                    <td th:text="${usuario.roles}">...</td>
+                                    <td>
+                                        <h6 th:each="regra : ${usuario.roles}" th:text="${#strings.substring(#strings.replace(regra.role, '&#95;', '&#32;'),5)}">...</h6>
+                                    </td>
                                     <td th:if="${usuario.ativo}">ATIVO</td>
                                     <td th:unless="${usuario.ativo}">INATIVO</td>
                                     <td>

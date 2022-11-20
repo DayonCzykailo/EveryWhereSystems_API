@@ -1,12 +1,9 @@
 package br.com.api.everywheresystems.controllers.accont;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,22 +31,24 @@ public class UserController {
     @Autowired
     final RolesService rolesService;
     @Autowired
-    private final PasswordEncoder encoder;
-    @Autowired
     final EmpresaService empresaService;
 
     public UserController(AccontService usuarioService, ImageService imageService, RolesService rolesService,
-            PasswordEncoder encoder, EmpresaService empresaService) {
+            EmpresaService empresaService) {
         this.usuarioService = usuarioService;
         this.imageService = imageService;
         this.rolesService = rolesService;
-        this.encoder = encoder;
         this.empresaService = empresaService;
     }
 
     @GetMapping(value = { "/gerenciarUsuarios.html", "/gerenciarUsuarios" })
     public String showGerenciarUser(HttpServletRequest request, Model model) {
-        model.addAttribute("usuarios", usuarioService.findAllByRoleModels(Role.ROLE_SUB_USER));
+        final PermissoesConfigs user = (PermissoesConfigs) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        model.addAttribute("usuarios", usuarioService.findByRoleAndEmpresa(Role.ROLE_SUB_USER,
+                usuarioService.findByEmail(user.getUsername()).get().getEmpresa().getId()));
+
         return "user/gerenciarUsuarios";
     }
 
