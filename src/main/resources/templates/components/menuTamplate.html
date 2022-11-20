@@ -25,7 +25,7 @@
         <div class="l-navbar" id="nav-bar">
             <nav class="nav">
                 <div>
-                    <a href="index.html" class="nav_logo">
+                    <a th:href="@{~/index.html}" class="nav_logo">
                         <i class="bi bi-grid-1x2"></i>
                         <span class="nav_logo-name">Everywhere Analitics</span>
                     </a>
@@ -33,7 +33,7 @@
                     <div
                         sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUB_USER','ROLE_ACCESS_DASH','ROLE_ACCESS_MANAGE_DASH')">
                         <div class="nav_list">
-                            <a href="gerenciarDash.html" class="nav_link"
+                            <a th:href="@{~/gerenciarDash.html}" class="nav_link"
                                 th:classappend="${tela == 'dash'} ? active : inactive">
                                 <i class="bi bi-graph-up-arrow"></i>
                                 <span class="nav_name">Dashboard</span>
@@ -42,7 +42,7 @@
 
                         <div
                             sec:authorize="hasAnyAuthority('ROLE_USER','ROLE_ACCESS_USERS','ROLE_ACCESS_MANAGE_USERS','ROLE_ACCESS_REGISTER_USERS')">
-                            <a href="gerenciarUsuarios.html" class="nav_link"
+                            <a th:href="@{~/gerenciarUsuarios.html}" class="nav_link"
                                 th:classappend="${tela == 'usuario'} ? active : inactive">
                                 <i class="bi bi-people"></i>
                                 <span class="nav_name">Usuários</span>
@@ -51,7 +51,7 @@
 
                         <div
                             sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_SUB_USER','ROLE_USER','ROLE_ACCESS_FORMS','ROLE_ACCESS_MANAGE_FORMS','ROLE_ACCESS_REGISTER_FORMS')">
-                            <a href="gerenciarFormularios.html" class="nav_link"
+                            <a th:href="@{~/gerenciarFormularios.html}" class="nav_link"
                                 th:classappend="${tela == 'formularios'} ? active : inactive">
                                 <i class="bi bx-x bi-card-checklist"></i>
                                 <span class="nav_name">Formulários</span>
@@ -60,7 +60,7 @@
 
                         <div
                             sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCESS_CLIENTS','ROLE_ACCESS_MANAGE_CLIENTS','ROLE_ACCESS_REGISTER_CLIENTS')">
-                            <a href="gerenciarClientes.html" class="nav_link"
+                            <a th:href="@{~/gerenciarClientes.html}" class="nav_link"
                                 th:classappend="${tela == 'cliente'} ? active : inactive">
                                 <i class="bi bi-person-video2"></i>
                                 <span class="nav_name">Clientes</span>
@@ -69,7 +69,7 @@
 
                         <div
                             sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_ACCESS_DOCKER','ROLE_ACCESS_MANAGE_DOCKER','ROLE_ACCESS_REGISTER_DOCKER')">
-                            <a href="gerenciarDocker.html" class="nav_link"
+                            <a th:href="@{~/gerenciarDocker.html}" class="nav_link"
                                 th:classappend="${tela == 'docker'} ? active : inactive">
                                 <i class="bi bi-boxes"></i>
                                 <span class="nav_name">Docker</span>
