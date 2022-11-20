@@ -67,7 +67,7 @@ public class FormController {
         final PermissoesConfigs user = (PermissoesConfigs) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-     //   form.setEmpresa(usuarioService.findByEmail(user.getUsername()).get().getEmpresa());
+        form.setEmpresa(usuarioService.findByEmail(user.getUsername()).get().getEmpresa());
 
         model.addAttribute("form", form);
         System.out.println(formService.save(form));

@@ -46,7 +46,6 @@ public class FormModel {
     private String codigoInternoPainel;
     private String tipoPainel;
 
-   // @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true,fetch =  FetchType.LAZY)
-    //@Column(updatable = false, nullable = false)
-    //private EmpresaModel empresa;
+    @OneToOne(cascade = CascadeType.ALL)
+    private EmpresaModel empresa;
 }
