@@ -22,6 +22,7 @@ import br.com.api.everywheresystems.dto.EnterpriseDto;
 import br.com.api.everywheresystems.models.AccontModel;
 import br.com.api.everywheresystems.models.enums.Role;
 import br.com.api.everywheresystems.services.AccontService;
+import br.com.api.everywheresystems.util.scripts.ShellScript;
 
 @Controller
 public class ClientController {

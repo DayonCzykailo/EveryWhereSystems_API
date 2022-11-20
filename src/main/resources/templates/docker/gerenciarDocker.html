@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link th:href="@{/bootstrap-icons-1.9.1/bootstrap-icons.css}" rel="stylesheet" type="text/css">
-    
+
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
 
@@ -18,7 +18,8 @@
 </head>
 
 <body id="body-pd">
-    <div th:insert="components/menuTamplate :: menuTamplate(tela='docker')"></div><!--MENU-->
+    <div th:insert="components/menuTamplate :: menuTamplate(tela='docker')"></div>
+    <!--MENU-->
 
     <div id="page-content-wrapper">
         <!--BODY da página-->
@@ -36,14 +37,16 @@
                         </div>
                     </div>
                     <div class="form-row">
+                        <input type="hidden" id="container" th:value="${container}" />
                         <table class="table table-striped">
                             <tr>
-                                <th id="colName0">Nome</th>
-                                <th id="colName1">Status</th>
-                                <th id="colName2">Opção</th>
+                                <th>Nome</th>
+                                <th>Criado</th>
+                                <th>Status</th>
+                                <th>Opção</th>
                             </tr>
 
-                            <tbody id="usuarios">
+                            <tbody id="docker">
 
                             </tbody>
 
@@ -59,29 +62,64 @@
                             //console.log(colName)
 
 
-                            var dados = [
-                                { 'id': '1', 'nome': 'Servidor Jupter', 'status': 'OK' },
-                                { 'id': '2', 'nome': 'Servidor Jupter', 'status': 'OK' },
-                                { 'id': '3', 'nome': 'Servidor Jupter', 'status': 'OK' },
-                                { 'id': '4', 'nome': 'Servidor Jupter', 'status': 'OK' },
-                            ]
 
+                            dados = []
+                            function processa() {
+                                var mensagem = $("#container").val();
+                                console.log(mensagem)
+                                mensagem = mensagem.replace(/ {2,}/gm, "¨")
+                                mensagem = mensagem.replace(/ /gm, "_")
+                                console.log(mensagem)
+                                lines = mensagem.split('\n');
+                                console.log(lines)
+                                lines.forEach(element => { // CONTAINER_ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+                                    if (!element.includes("CONTAINER_ID")) {
+                                        itemFiltrado = []
+                                        item = element.split('¨');
+                                        //console.log(item)
+
+                                        item.forEach(element => {
+                                            if (element != '') {
+                                                itemFiltrado.push(element)
+                                            }
+                                        })
+                                        //console.log(itemFiltrado.length)
+                                        if (itemFiltrado.length == 7) {
+                                            json = { "CONTAINER_ID": itemFiltrado[0], "IMAGE": itemFiltrado[1], "COMMAND": itemFiltrado[2], "CREATED": itemFiltrado[3], "STATUS": itemFiltrado[4], "PORTS": itemFiltrado[5], "NAMES": itemFiltrado[6] }
+                                        } else {
+                                            json = { "CONTAINER_ID": itemFiltrado[0], "IMAGE": itemFiltrado[1], "COMMAND": itemFiltrado[2], "CREATED": itemFiltrado[3], "STATUS": itemFiltrado[4], "NAMES": itemFiltrado[5] }
+                                        }
+                                        console.log(json)
+                                        dados.push(json);
+
+                                    }
+                                });
+
+                            }
+                            processa()
                             buildTable(dados)
 
                             function buildTable(data) {
-                                var table = document.getElementById('usuarios')
+                                var table = document.getElementById('docker')
 
                                 for (var i = 0; i < data.length; i++) {
-                                    var row = `<tr>
-                                            <td>${data[i].nome}</td>
-                                            <td>${data[i].status}</td>
-                                            <td><a class="btn btn-primary" href="./docker.html" role="button" id="${data[i].id}">Editar</a></td>
-                                        </tr>`
-                                    table.innerHTML += row
-                                    // console.log(data[i].id)
+                                    try {
+                                        //console.log(data[i])
+                                        var row = `<tr>
+                                                <td>${data[i]['NAMES']}</td>
+                                                <td>${data[i]['CREATED'].replace(/_/g, " ")}</td>
+                                                <td>${data[i]['STATUS'].replace(/_/g, " ")}</td>
+                                                <td><a class="btn btn-primary" href="./docker.html" role="button" id="${data[i]['NAMES']}">Editar</a></td>
+                                            </tr>`
+                                        table.innerHTML += row
+                                        // console.log(data[i].id)
+                                    } catch {
+                                        null
+                                    }
                                 }
                             }
                         </script>
+
 
                     </div>
 

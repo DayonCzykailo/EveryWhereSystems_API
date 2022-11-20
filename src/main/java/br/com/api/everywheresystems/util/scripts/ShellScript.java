@@ -20,16 +20,17 @@ public class ShellScript {
                 }
             }
 
-            BufferedReader saidaErro = new BufferedReader(new InputStreamReader(execucaoPowerShell.getErrorStream()));
-            resposta += "\n\nErros gerados:  \n";
-            while ((resultado = saidaErro.readLine()) != null) {
-                resposta += resultado + "\n";
-            }
-            
+            // BufferedReader saidaErro = new BufferedReader(new
+            // InputStreamReader(execucaoPowerShell.getErrorStream()));
+            // resposta += "\n\nErros gerados: \n";
+            // while ((resultado = saidaErro.readLine()) != null) {
+            // resposta += resultado + "\n";
+            // }
+
             resposta += "\n";
 
             saida.close();
-            saidaErro.close();
+            // saidaErro.close();
 
         } catch (Exception e) {
             System.out.println("Erro:" + e.getMessage());
@@ -38,7 +39,9 @@ public class ShellScript {
 
     }
 
-   /* public static void main(String[] args) throws IOException {
-        System.out.println(executarShellScript("ls"));
-    }*/
+    /*
+     * public static void main(String[] args) throws IOException {
+     * System.out.println(executarShellScript("ls"));
+     * }
+     */
 }
