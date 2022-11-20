@@ -75,7 +75,8 @@ public class UserController {
         AccontModel accont = usuario.toAccontModel(empresaService, rolesService);
         accont.setUltimoAcesso(Util.getDataHoraAgora());
         accont.setEmpresa(usuarioService.findByEmail(user.getUsername()).get().getEmpresa());
-        System.out.println(usuarioService.save(accont));
+        accont.setSenha(usuarioService.encode(accont.getSenha()));
+        usuarioService.save(accont);
 
         return "user/cadastroUsuario";
     }
@@ -84,14 +85,14 @@ public class UserController {
     public String saveByID(HttpServletRequest request, Model model,
             @ModelAttribute("usuario") AccontDto usuario, @PathVariable("id") String id) {
 
-        System.out.println(id);// TODO
         model.addAttribute("usuario", new AccontDto(usuarioService.findById(id).get()));
         model.addAttribute("erro", "");
 
         AccontModel accont = usuario.toAccontModel(empresaService, rolesService);
         accont.setUltimoAcesso(Util.getDataHoraAgora());
         accont.setEmpresa(usuarioService.findById(id).get().getEmpresa());
-        System.out.println(usuarioService.save(accont));
+        accont.setSenha(usuarioService.encode(accont.getSenha()));
+        usuarioService.save(accont);
 
         return "user/cadastroUsuario";
     }

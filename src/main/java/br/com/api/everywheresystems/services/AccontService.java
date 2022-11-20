@@ -62,6 +62,10 @@ public class AccontService {
         return usuarioService.save(accont);
     }
 
+    public String encode(String senha) {
+        return encoder.encode(senha);
+    }
+
     public Page<AccontModel> findAll(Pageable pageable) {// nao sei se vai ter
         return usuarioService.findAll(pageable);
     }
