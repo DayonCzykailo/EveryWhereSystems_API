@@ -29,11 +29,7 @@
                         <i class="bi bi-grid-1x2"></i>
                         <span class="nav_logo-name">Everywhere Analitics</span>
                     </a>
-
-                    <div th:if="${#authorization.expression('hasAnyAuthority(''ROLE_USER'')')}">
-                        <!--<h6 th:each=" auth : ${#authentication.getAuthorities()}" th:text="${auth}">...</h6>-->
-                    </div>
-
+                    
                     <div
                         sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUB_USER','ROLE_ACCESS_DASH','ROLE_ACCESS_MANAGE_DASH')">
                         <div class="nav_list">

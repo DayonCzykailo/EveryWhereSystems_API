@@ -27,3 +27,6 @@ public class EverywheresystemsApplication {
 		return encoder;
 	}
 }
+
+//docker container logs eloquent_shamir - LOG DOCKER
+//docker container ls - STATUS DOCKER

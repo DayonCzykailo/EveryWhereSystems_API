@@ -24,21 +24,6 @@ public class PageController {
         return "dash/gerenciarDash";
     }
 
-    @GetMapping("/docker.html")
-    public String testeDocker(HttpServletRequest request, Model model) {
-        model.addAttribute("container", ShellScript.executarShellScript("docker container ls"));
-        // System.out.println(ShellScript.executarShellScript("docker container ls"));
-
-        return "docker/docker";
-    }
-
-    @GetMapping("/gerenciarDocker.html")
-    public String testeGerenciarDocker(HttpServletRequest request, Model model) {
-        model.addAttribute("container", ShellScript.executarShellScript("docker container ls -a"));
-        // System.out.println(ShellScript.executarShellScript("docker container ls"));
-        return "docker/gerenciarDocker";
-    }
-
     @GetMapping(value = { "/index.html", "/" })
     public String testeIndex(HttpServletRequest request) {
         return "index/index";

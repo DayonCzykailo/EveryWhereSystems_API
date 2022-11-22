@@ -4,6 +4,7 @@ SELECT * from tb_role_accont
 SELECT * from tb_role
 SELECT * from tb_form
 SELECT * from tb_fato_dados_sensores
+SELECT * from tb_docker
 
 
 DELETE from tb_accont
@@ -21,5 +22,6 @@ DROP TABLE tb_image
 DROP TABLE tb_role
 DROP TABLE tb_form
 DROP TABLE tb_fato_dados_sensores
+DROP TABLE tb_docker
 
 
