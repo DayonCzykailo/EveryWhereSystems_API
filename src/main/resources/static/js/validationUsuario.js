@@ -87,7 +87,7 @@ function validNome(item) {
 
 function validSenha(item) {
     if (item.value.length > 5) {
-        if (item.value.match(/[a-z]+/g) && item.value.match(/[A-Z]+/g) && item.value.match(/[0-9]+/g) && item.value.match(/[!@#$%&*()<>]+/g)) {
+        if (item.value.match(/[a-z]+/g) && item.value.match(/[0-9]+/g) && item.value.match(/[!@#$%&*()<>]+/g)) {
             item.classList.remove('is-invalid')
             item.classList.add('is-valid')
             return true

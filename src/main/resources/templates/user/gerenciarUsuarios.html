@@ -37,7 +37,7 @@
                                 id="cadastrarCliente">Novo</a>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row overflow-auto">
                         <div th:switch="${usuarios}">
                             <h3 th:case="null">Sem Usuários Cadastrados!!!</h3>
                             <table th:case="*" class="table table-striped">
@@ -53,7 +53,9 @@
                                     <td th:text="${usuario.nome}">...</td>
                                     <td th:text="${usuario.email}">...</td>
                                     <td>
-                                        <h6 th:each="regra : ${usuario.roles}" th:text="${#strings.substring(#strings.replace(regra.role, '&#95;', '&#32;'),5)}">...</h6>
+                                        <h6 th:each="regra : ${usuario.roles}"
+                                            th:text="${#strings.substring(#strings.replace(regra.role, '&#95;', '&#32;'),5)}">
+                                            ...</h6>
                                     </td>
                                     <td th:if="${usuario.ativo}">ATIVO</td>
                                     <td th:unless="${usuario.ativo}">INATIVO</td>

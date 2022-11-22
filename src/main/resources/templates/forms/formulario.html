@@ -35,7 +35,7 @@
         <!--BODY da página-->
         <div class="m-4 pt-4">
             <div class="p-4 rounded-4 lightMode">
- 
+
                 <form th:object="${form}" action="#" th:action="@{/formulario/save/{id}(id=${form.id})}" method="post"
                     class="needs-validation" novalidate>
 
@@ -111,7 +111,7 @@
                         </div>
 
 
-                       <!-- <div class="form-row">
+                        <div class="form-row">
                             <div class="col-md-auto mb-3">
                                 <iframe id="maps"
                                     src="https://maps.google.com/maps?q=everywhere%20curitiba&t=&z=13&ie=UTF8&iwloc=&output=embed"
@@ -119,21 +119,9 @@
                                     referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
                         </div>
-                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54159.14412129146!2d-49.30594329385649!3d-25.428217412074606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x10b241d64142cbb9!2sEverywhere%20Analytics!5e0!3m2!1spt-BR!2sbr!4v1665091389735!5m2!1spt-BR!2sbr"-->
-                        <!--
-                        <div id="map_canvas" style="width:400px; height:400px"></div>
-                        <script type="text/javascript">
-                            function initialize() {
-                                var mapOptions = {
-                                    center: new google.maps.LatLng(-25.447384, -49.259586),
-                                    zoom: 10,
-                                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                                };
-                                var map = new google.maps.Map(document.getElementById("map_canvas"),
-                                mapOptions);
-                            }
-                            </script>
-                        -->
+                        <!--src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54159.14412129146!2d-49.30594329385649!3d-25.428217412074606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x10b241d64142cbb9!2sEverywhere%20Analytics!5e0!3m2!1spt-BR!2sbr!4v1665091389735!5m2!1spt-BR!2sbr"-->
+
+
 
                         <div class="form-row">
                             <div class="col-md-auto mb-3">
@@ -151,43 +139,43 @@
                             <div class="col-md-auto mb-3 py-3">
                                 <h5>Tipo de Painel</h5>
                                 <div class="form-check">
-                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio" name="radios" id="Outdoor"
-                                        value="Outdoor" checked>
-                                    <label  class="form-check-label" value="Outdoor">
+                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio"
+                                        name="radios" id="Outdoor" value="Outdoor" checked>
+                                    <label class="form-check-label" value="Outdoor">
                                         Outdoor
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio" name="radios"
-                                        id="Front Light" value="Front Light">
+                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio"
+                                        name="radios" id="Front Light" value="Front Light">
                                     <label class="form-check-label" for="Front Light">
                                         Front Light
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio" name="radios"
-                                        id="Painel de LED" value="Painel de LED">
+                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio"
+                                        name="radios" id="Painel de LED" value="Painel de LED">
                                     <label class="form-check-label" for="Painel de LED">
                                         Painel de LED
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio" name="radios" id="Mob Urbano"
-                                        value="Mob Urbano">
+                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio"
+                                        name="radios" id="Mob Urbano" value="Mob Urbano">
                                     <label class="form-check-label" for="Mob Urbano">
                                         Mob Urbano
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio" name="radios" id="Empena"
-                                        value="Empena">
+                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio"
+                                        name="radios" id="Empena" value="Empena">
                                     <label class="form-check-label" for="Empena">
                                         Empena
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio" name="radios" id="Indoor"
-                                        value="Indoor">
+                                    <input th:field="*{tipoPainel}" class="form-check-input lightMode" type="radio"
+                                        name="radios" id="Indoor" value="Indoor">
                                     <label class="form-check-label" for="Indoor">
                                         Indoor
                                     </label>
@@ -207,8 +195,14 @@
                             <button class="btn btn-primary" type="submit">Cadastrar</button>
                         </div>
 
-                        
+
                 </form>
+                <script>
+                    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+                    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                        return new bootstrap.Popover(popoverTriggerEl)
+                    }) 
+                </script>
             </div>
 
         </div>
@@ -216,6 +210,7 @@
     </div>
     </div>
 
+    <script th:src="@{/js/validationForm.js}" type="text/javascript"></script>
     <script th:src="@{/js/cookies.js}" type="text/javascript"></script>
 </body>
 
