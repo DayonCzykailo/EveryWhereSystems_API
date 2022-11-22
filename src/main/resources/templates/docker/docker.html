@@ -202,11 +202,14 @@ container2:
                                     <h3 id="log">Log do Docker</h3>
                                 </div>
                                 <div class="col-auto">
-                                    <button class="btn btn-primary" id="btnSave">Atualizar</button>
+                                    <form th:action="@{/docker}">
+                                        <button class="btn btn-primary" type="submit" th:name="log"
+                                            th:value="sql">Atualizar</button>
+                                    </form>
                                 </div>
                             </div>
                             <textarea disabled readonly class="form-control textAreaSize lightMode" rows="12"
-                                placeholder="Log..."></textarea>
+                                placeholder="Log..." th:text="${log}"></textarea>
                         </div>
                     </div>
                 </div>

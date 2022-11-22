@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import br.com.api.everywheresystems.util.scripts.ShellScript;
 
@@ -28,6 +29,25 @@ public class PageController {
     public String testeDocker(HttpServletRequest request, Model model) {
         model.addAttribute("container", ShellScript.executarShellScript("docker container ls"));
         // System.out.println(ShellScript.executarShellScript("docker container ls"));
+
+        return "docker/docker";
+    }
+
+    // @GetMapping(value = { "/docker.html/{log}", "/docker/{log}" })
+    // public String showContainerLog(HttpServletRequest request, Model model,
+    // @PathVariable("log") String log) {
+    // System.out.println(log);// TODO
+    // model.addAttribute("log", resp);
+    // // model.addAttribute("erro", "");
+    //
+    // return "docker/docker";
+    // }
+
+    @GetMapping(value = { "/docker.html/{container}", "/docker/{container}" })
+    public String showContainer(HttpServletRequest request, Model model, @PathVariable("container") String container) {
+        System.out.println(container);// TODO
+        // model.addAttribute("container", resp);
+        // model.addAttribute("erro", "");
 
         return "docker/docker";
     }
