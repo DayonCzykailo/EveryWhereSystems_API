@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/bootstrap-icons-1.9.1/bootstrap-icons.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
+    <title>403</title>
 </head>
-<body>
-    <h1>ERRO <b>403</b>, Você não tem autorização suficiente para acessar essa área</h1>
+
+<body style="background-color: rgb(196, 196, 196);">
+    <div id="page-content-wrapper">
+        <!--BODY da página-->
+        <div class="pt-4" style="height: 100vh;">
+            <div class="mx-5 p-4 rounded-4 text-center" style="background-color: #ffff; margin-top: 40vh;">
+
+                <div class="row">
+                    <div class="col">
+                        <h1>Erro 403</h1>
+                    </div>
+                </div>
+                <div class="form-row overflow-auto">
+                    <p>Você não tem autorização suficiente para acessar essa área</p>
+                </div>
+                <div class="form-row overflow-auto">
+                    <a class="btn btn-primary" href="./index.html" role="button" id="${data[i].id}">Início</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

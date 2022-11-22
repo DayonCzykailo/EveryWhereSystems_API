@@ -382,6 +382,24 @@ let chart2 = null;
 //let chart3 = null;
 //let chart4 = null;
 
+function dataMinMax() {
+    let valor = [new Date("01-11-2099"), 0];
+    dadoBruto.forEach(element => {
+        //console.log((element['data'] < valor[0]))
+        if ((element['data'] < valor[0])) {
+            valor[0] = element['data'];
+        }
+    })
+    dadoBruto.forEach(element => {
+        if ((element['data'] > valor[1])) {
+            valor[1] = element['data'];
+        }
+    })
+    //console.log(valor)
+    return valor;
+}
+
+
 function carregaDados() {
     var impacto = getImpacto();
     var audiencia = getAudiencia();
@@ -455,24 +473,6 @@ function carregaDados() {
         ]
     };
 
-    //data3 = {
-    //    labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
-    //    datasets: [
-    //        {
-    //            type: 'radar',
-    //            label: 'Audiência',
-    //            backgroundColor: color,
-    //            data: diaSemanaAudiencia,
-    //        },
-    //        {
-    //            type: 'radar',
-    //            label: 'Impactos',
-    //            backgroundColor: alternativeColor,
-    //            data: diaSemanaImpacto,
-    //        }
-    //    ]
-    //};
-
     data1 = {
         labels: semLabel,
         datasets: [
@@ -495,37 +495,12 @@ function carregaDados() {
         ]
     };
 
-    //data4 = {
-    //    labels: semLabel,
-    //    datasets: [
-    //        {
-    //            type: 'bar',
-    //            label: 'Audiencia',
-    //            backgroundColor: color,
-    //            borderColor: subColor,
-    //            data: diaImpacto,
-    //            tension: 0.5
-    //        },
-    //        {
-    //            type: 'bar',
-    //            label: 'Impacto',
-    //            backgroundColor: alternativeColor,
-    //            borderColor: subColor,
-    //            data: diaAudiencia,
-    //            tension: 0.5
-    //        }
-    //    ]
-    //};
     var grafico1Container = document.getElementById('grafico1Container');
     if (semLabel.length > 10) {
         grafico1Container.setAttribute("style", "width:" + semLabel.length * 50 + "px")
-    }else{
+    } else {
         grafico1Container.setAttribute("style", "width:" + semLabel.length * 90 + "px")
     }
-    //var grafico3Container = document.getElementById('grafico3Container');
-    //if (semLabel.length > 5) {
-    //    grafico3Container.setAttribute("style", "height:" + semLabel.length * 50 + "px")
-    //}
 
 }
 
@@ -534,18 +509,23 @@ function atualizaGrafico() {
 
     chart1.data = data1;
     chart2.data = data2;
-    //chart3.data = data4;
-    //chart4.data = data3;
     chart1.update();
     chart2.update();
-    //chart3.update();
-    //chart4.update();
 
 }
 
 
 function initGraph() {
     carregaDados()
+    dataArray = dataMinMax()
+    var minData = dataArray[0];
+    var maxData = dataArray[1];
+    startDate = document.getElementById("startDate");
+    endDate = document.getElementById("endDate");
+    startDate.min = minData.toISOString().split("T")[0];
+    startDate.max = maxData.toISOString().split("T")[0];
+    endDate.min = minData.toISOString().split("T")[0];
+    endDate.max = maxData.toISOString().split("T")[0];
 
     //  \/--Carrega Cidades--\/
     let valor = [];
