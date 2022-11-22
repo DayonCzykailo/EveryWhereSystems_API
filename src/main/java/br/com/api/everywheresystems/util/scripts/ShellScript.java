@@ -13,11 +13,11 @@ public class ShellScript {
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(p.getInputStream()));
             while ((line = br.readLine()) != null) {
-                System.out.println("line: " + line);
+                // System.out.println("line: " + line);
                 resposta += line + "\n";
             }
             p.waitFor();
-            System.out.println("exit: " + p.exitValue());
+            // System.out.println("exit: " + p.exitValue());
             p.destroy();
             return resposta;
         } catch (Exception e) {

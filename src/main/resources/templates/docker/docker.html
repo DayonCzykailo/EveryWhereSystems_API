@@ -34,7 +34,8 @@
 
 <body id="body-pd">
     <div th:insert="components/menuTamplate :: menuTamplate(tela='docker')"></div>
-    <form th:object="${docker}" action="#" th:action="@{/docker/save/{name}(name=${docker.name})}" method="post" <!--MENU-->
+    <form th:object="${docker}" action="#" th:action="@{/docker/save/{name}(name=${docker.name})}" method="post"
+        <!--MENU-->
         <div class="ms-5" id="page-content-wrapper">
             <!--BODY da página-->
             <div class="row">
