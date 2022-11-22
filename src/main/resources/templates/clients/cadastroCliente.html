@@ -27,15 +27,16 @@
         <!--BODY da página-->
         <div class="m-4 pt-4">
             <div class="p-4 rounded-4 lightMode">
-                <form  th:object="${empresa}" class="needs-validation" action="#" th:action="@{/cadastroCliente/save/{id}(id=${empresa.id})}"  method="post"
-                    novalidate>
+                <form th:object="${empresa}" class="needs-validation" action="#"
+                    th:action="@{/cadastroCliente/save/{id}(id=${empresa.id})}" method="post" novalidate>
 
                     <div class="form-row">
                         <h1>Cadastro de Cliente</h1>
                     </div>
 
                     <div class="form-check p-3">
-                        <input checked="checked" class="form-check-input " type="checkbox" th:field="*{ativo}" id="ativoCheckBox">
+                        <input checked="checked" class="form-check-input " type="checkbox" th:field="*{ativo}"
+                            id="ativoCheckBox">
                         <label class="form-check-label" for="ativoCheckBox">
                             Ativo
                         </label>
@@ -66,7 +67,7 @@
                                 data-bs-content="Razão social é o termo registrado sob o qual uma pessoa jurídica (PJ) se individualiza e exerce suas atividades.">?</button>
                             <!--is-valid-->
                             <input th:field="*{empresa.nomeRazaoSocial}" type="text" class="form-control lightMode"
-                                id="nomeRasaoSocial" placeholder="Empresa..." required>
+                                id="nomeRazaoSocial" placeholder="Empresa..." required>
                             <div class="valid-feedback">
                                 Nome válido!
                             </div>
@@ -99,8 +100,8 @@
                             <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome"
                                 data-bs-content="A senha deve conter caracteres especiais (!@#$), letras maiúsculas, minúsculas e números">?</button>
                             <!--is-valid-->
-                            <input   th:field="*{senha}" type="password" class="form-control lightMode" id="validationSenha"
-                                placeholder="*******" required>
+                            <input th:field="*{senha}" type="password" class="form-control lightMode"
+                                id="validationSenha" placeholder="*******" required>
                             <div class="valid-feedback">
                                 Senha válida!
                             </div>
@@ -137,7 +138,7 @@
                             <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome"
                                 data-bs-content="Email de acesso do cliente.">?</button>
                             <!--is-valid-->
-                            <input  th:field="*{email}" type="email" class="form-control lightMode" id="validationEmail"
+                            <input th:field="*{email}" type="email" class="form-control lightMode" id="validationEmail"
                                 placeholder="email@exemplo.com.br" required>
                             <div class="valid-feedback">
                                 Email válido!

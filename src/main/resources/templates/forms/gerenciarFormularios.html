@@ -37,7 +37,7 @@
                                 id="cadastrarCliente">Novo</a>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row overflow-auto">
                         <div th:switch="${forms}">
                             <h3 th:if="${forms.empty}">Sem Formulário, ainda.</h3>
                             <table th:case="*" th:each="form : ${forms}" class="table table-striped">
