@@ -2,10 +2,12 @@ package br.com.api.everywheresystems.models;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -41,4 +43,7 @@ public class FatoDadosSensoresModel {
     private String painel;
 
     private long impacto;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private EmpresaModel empresa;
 }

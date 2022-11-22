@@ -34,7 +34,7 @@ public class FormController {
     public String showGerenciarForm(HttpServletRequest request, Model model) {
         final PermissoesConfigs user = (PermissoesConfigs) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
-
+        
         model.addAttribute("forms",
                 formService.findByEmpresa(usuarioService.findByEmail(user.getUsername()).get().getEmpresa()));
         return "forms/gerenciarFormularios";

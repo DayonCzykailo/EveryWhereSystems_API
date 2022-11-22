@@ -20,6 +20,15 @@ public enum Role {
         ROLE_ACCESS_REGISTER_USERS,
         ROLE_ACCESS_REGISTER_CLIENTS,
         ROLE_ACCESS_REGISTER_DOCKER,
-        ROLE_ACCESS_REGISTER_FORMS
-        ;
+        ROLE_ACCESS_REGISTER_FORMS;
+
+        String role;
+
+        Role() {
+this.role = "ROLE";
+        }
+
+        Role(String role) {
+         this.role = role;
+        }
 }
