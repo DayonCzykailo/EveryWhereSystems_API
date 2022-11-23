@@ -77,6 +77,7 @@ function dataGenerator() {
             dado.push(line);
         }
     })
+    console.log(dado);
 
     return (dado);
 }
