@@ -20,16 +20,16 @@ public class DockerDto {
     String log;
     String status;
 
-    Date hour;
-
-    boolean alwaysOn;
-    boolean onInSunday;
-    boolean onInMonday;
-    boolean onInTuesday;
-    boolean onInWednesday;
-    boolean onInThursday;
-    boolean onInFriday;
-    boolean onInSaturday;
-    boolean ativo;
+    // Date hour;
+    //
+    // boolean alwaysOn;
+    // boolean onInSunday;
+    // boolean onInMonday;
+    // boolean onInTuesday;
+    // boolean onInWednesday;
+    // boolean onInThursday;
+    // boolean onInFriday;
+    // boolean onInSaturday;
+    // boolean ativo;
 
 }

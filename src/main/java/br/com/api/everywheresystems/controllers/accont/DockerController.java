@@ -54,6 +54,8 @@ public class DockerController {
         DockerDto docker = new DockerDto();
 
         // BeanUtils.copyProperties(dockerService.findByName(name).get(), docker);
+        // System.out.println("======================================");
+        docker.setName(name);
 
         docker.setCompose(ShellScript.executarShellScript("docker container ls"));
 
@@ -61,7 +63,8 @@ public class DockerController {
 
         docker.setStatus(ShellScript.executarShellScript("docker container ls -a"));
 
-        model.addAttribute("Docker", docker);
+        model.addAttribute("docker", docker);
+        // System.out.println(docker.toString());
 
         return "docker/docker";
     }
