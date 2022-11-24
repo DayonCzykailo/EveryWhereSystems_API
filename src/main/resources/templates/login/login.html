@@ -8,6 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS v5.2.0-beta1 -->
+    <link th:href="@{/bootstrap-icons-1.9.1/bootstrap-icons.css}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
 
     <link rel="stylesheet" th:href="@{/css/login.css}">
@@ -28,7 +29,8 @@
         <form th:action="@{/login.html}" method="post">
             <div class="row">
                 <div class="col">
-                    <label for="exampleFormControlInput1" class="form-label">Email</label>
+                    <label for="exampleFormControlInput1" class="form-label">Email</label> <i
+                        class="bi bi-envelope"></i>
                 </div>
             </div>
 
@@ -41,7 +43,7 @@
             <div class="row">
                 <div class="col">
                     <div class="mt-2 mb-3">
-                        <label for="examplePassword" class="form-label">Senha</label>
+                        <label for="examplePassword" class="form-label">Senha</label> <i class="bi bi-key"></i>
                         <input type="password" class="form-control" id="senha" name="password" placeholder="******">
                     </div>
                     <div th:if="${param.error}">
