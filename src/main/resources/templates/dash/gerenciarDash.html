@@ -36,53 +36,30 @@
                     </div>
                     <div class="form-row overflow-auto">
                         <table class="table table-striped">
-                            <tr>
-                                <th id="colName0">Dashboard</th>
-                                <th id="colName3">Opção</th>
-                            </tr>
 
-                            <tbody id="usuarios">
-
-                            </tbody>
-
-                        </table>
-
-
-
-                        <script>
-                            //var colName = [];
-                            //for (let i = 0; i < document.getElementsByTagName("th").length; i++) {
-                            //    colName = colName.concat($(`#colName${i}`).text());
-                            //}
-                            //console.log(colName)
-
-
-                            var dados = [
-                                { 'id': '1', 'dashboard': 'Planejamento Comercial' },
-                                { 'id': '2', 'dashboard': 'Planejamento Comercial' },
-                                { 'id': '3', 'dashboard': 'Planejamento Comercial' },
-                                { 'id': '4', 'dashboard': 'Planejamento Comercial' },
-                            ]
-
-                            buildTable(dados)
-
-                            function buildTable(data) {
-                                var table = document.getElementById('usuarios')
-
-                                for (var i = 0; i < data.length; i++) {
-                                    var row = `<tr>
-                                            <td>${data[i].dashboard}</td>
-                                            <td><a class="btn btn-primary" href="./dash.html" role="button" id="${data[i].id}">Entrar</a></td>
-                                        </tr>`
-                                    table.innerHTML += row
-                                    // console.log(data[i].id)
-                                }
-                            }
-                        </script>
-
+                            <div th:switch="${clientes}">
+                                <h3 th:case="null">Sem Clientes Cadastrados!!!</h3>
+                                <table th:case="*" class="table table-striped">
+                                    <tr>
+                                        <th id="colName0">Dashboard</th>
+                                        <th id="colName0">Empresa</th>
+                                        <th id="colName0">CNPJ</th>
+                                        <th>Opção</th>
+                                    </tr>
+                                    <tr th:each="cliente : ${clientes}">
+                                        <h2 th:case="null">Sem clientes, ainda.</h2>
+                                        <td>Planejamento Comercial</td>
+                                        <td th:text="${cliente.nomeRazaoSocial}">...</td>
+                                        <td th:text="${cliente.cnpj}">...</td>
+                                        <td>
+                                            <a class="btn btn-primary"
+                                                th:href="@{dash/{id}(id=${cliente.id})}"
+                                                role="button">Visualizar</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                     </div>
-
-
             </div>
         </div>
     </div>

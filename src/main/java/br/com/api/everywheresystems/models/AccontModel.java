@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,7 +51,7 @@ public class AccontModel {
   @Column(length = 13, nullable = true)
   private String celular;
 
-//@Enumerated(EnumType.STRING)
+  // @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private boolean ativo;
 
@@ -60,7 +62,7 @@ public class AccontModel {
   @JoinTable(name = "tb_role_accont", joinColumns = @JoinColumn(name = "tb_accont_id"), inverseJoinColumns = @JoinColumn(name = "tb_role_id"))
   private List<RoleModel> roles;
 
-  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = true,fetch = FetchType.LAZY)
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = true, fetch = FetchType.LAZY)
   private EmpresaModel empresa;
 
   @Column(nullable = false)

@@ -35,7 +35,7 @@
 
                     </ul>
                     <form class="d-flex">
-                        <a class="btn btn-light" href="dash.html" role="button">Entrar</a>
+                        <a class="btn btn-light" th:href="${#authorization.expression('hasAnyAuthority(''ROLE_ADMIN'')')} ? @{~/gerenciarDash.html} : @{~/dash.html}" role="button">Entrar</a>
                     </form>
                 </div>
             </div>

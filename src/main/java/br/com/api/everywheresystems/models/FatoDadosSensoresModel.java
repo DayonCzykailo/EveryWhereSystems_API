@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,19 +33,20 @@ public class FatoDadosSensoresModel {
     private String id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "date")
+    @Column(name = "data")
     private Date data;
 
-    private long mac;
+    private String mac;
 
-    private String local;
+    private String lugar;
 
     private String cidade;
 
     private String painel;
 
     private long impacto;
-
+    
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @OneToOne(cascade = CascadeType.ALL)
     private EmpresaModel empresa;
 }

@@ -1,5 +1,6 @@
 package br.com.api.everywheresystems.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -36,8 +37,8 @@ public class EmpresaService {
         return empresaRepository.save(empresa);
     }
 
-    public Page<EmpresaModel> findAll(Pageable pageable) {// nao sei se vai ter
-        return empresaRepository.findAll(pageable);
+    public List<EmpresaModel> findAll() {// nao sei se vai ter
+        return empresaRepository.findAll();
     }
 
     public Optional<EmpresaModel> findById(String id) {

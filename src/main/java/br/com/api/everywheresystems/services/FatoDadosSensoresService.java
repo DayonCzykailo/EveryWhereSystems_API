@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.api.everywheresystems.models.EmpresaModel;
 import br.com.api.everywheresystems.models.FatoDadosSensoresModel;
 import br.com.api.everywheresystems.repositories.FatoDadosSensoresRepository;
 
@@ -22,7 +23,7 @@ public class FatoDadosSensoresService {
 
     @Autowired
     private final FatoDadosSensoresRepository sensorService;
-    
+
     public FatoDadosSensoresService(FatoDadosSensoresRepository sensorService) {
         this.sensorService = sensorService;
     }
@@ -37,16 +38,16 @@ public class FatoDadosSensoresService {
         return sensorService.save(model);
     }
 
-    public Page<FatoDadosSensoresModel> findAll(Pageable pageable) {// nao sei se vai ter
-        return sensorService.findAll(pageable);
-    }
-
     public List<FatoDadosSensoresModel> findAll() {
         return sensorService.findAll();
     }
 
     public Optional<FatoDadosSensoresModel> findById(String id) {
         return sensorService.findById(id);
+    }
+
+    public List<FatoDadosSensoresModel> findByEmpresa(EmpresaModel model) {
+        return sensorService.findByEmpresa(model);
     }
 
 }

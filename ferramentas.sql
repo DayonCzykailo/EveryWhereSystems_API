@@ -24,4 +24,8 @@ DROP TABLE tb_form
 DROP TABLE tb_fato_dados_sensores
 DROP TABLE tb_docker
 
+SELECT COUNT(*) as'Total de audiencia' from tb_fato_dados_sensores WHERE cidade like 'Curitiba';
+
+
+select * from tb_accont where email like 'empresa@email.com';
 
