@@ -9,19 +9,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
 import br.com.api.everywheresystems.configs.security.PermissoesConfigs;
-import br.com.api.everywheresystems.models.AccontModel;
 import br.com.api.everywheresystems.models.FatoDadosSensoresModel;
-import br.com.api.everywheresystems.models.enums.Role;
 import br.com.api.everywheresystems.services.AccontService;
 import br.com.api.everywheresystems.services.EmpresaService;
 import br.com.api.everywheresystems.services.FatoDadosSensoresService;
-
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Controller
 public class DashController {
