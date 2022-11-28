@@ -51,7 +51,7 @@ public class DashController {
 
         List<FatoDadosSensoresModel> data = service
                 .findByEmpresa(accontService.findByEmail(usuario.getUsername()).get().getEmpresa());
-        //System.out.println(data);
+        // System.out.println(data);
         model.addAttribute("pieChartData",
                 data);
         return "dash/dash";
