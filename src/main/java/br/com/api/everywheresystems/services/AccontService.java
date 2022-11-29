@@ -272,6 +272,7 @@ public class AccontService {
         System.out.println(save(empresa).toString());
         return true;
     }
+
     /*
      * public String putEnterprise(EnterpriseDto empresa) {
      * EmpresaModel empresaModel = new EmpresaModel();
@@ -367,5 +368,27 @@ public class AccontService {
      * return "SUCESSO";
      * }
      */
+    private EmpresaModel gerarEmpresa() {
+        EmpresaModel empresa = new EmpresaModel();
+        empresa.setCnpj("75167467000120");
+        empresa.setNomeFantasia("EWA");
+        empresa.setNomeRazaoSocial("EveryWhere Analytics");
+
+        return empresaService.save(empresa);
+    }
+
+    public void gerarAdmin() {
+        AccontModel accont = new AccontModel();
+        accont.setAtivo(true);
+        accont.setAtuacao("ADMINISTRADOR");
+        accont.setEmail("adm@email.com");
+        accont.setNome("Administrador");
+        accont.setRoles(Arrays.asList(rolesService.save(rolesService.findByRole(Role.ROLE_ADMIN))));
+        accont.setUltimoAcesso(Util.getDataHoraAgora());
+        accont.setSenha(encode("senha"));
+        accont.setEmpresa(gerarEmpresa());
+
+        save(accont);
+    }
 
 }

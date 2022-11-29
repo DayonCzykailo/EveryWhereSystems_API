@@ -40,22 +40,7 @@ public class WebSecurityConfigs extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("adm@email.com")
-                .password(encoder.encode("senha"))
-                .authorities("ROLE_ADMIN");// Vai ficar por enquanto, ai tu nao precisa cadastrar no banco de dados
-
-        auth.inMemoryAuthentication()
-                .withUser("subuser@email.com")
-                .password(encoder.encode("senha"))
-                .authorities("ROLE_SUB_USER");
-
-        auth.inMemoryAuthentication()
-                .withUser("user@email.com")
-                .password(encoder.encode("senha"))
-                .authorities("ROLE_USER");
-
-        auth.userDetailsService(permissoesServiceConfigsImpl).passwordEncoder(encoder);// pega os usuario do banco e
+        auth.userDetailsService(permissoesServiceConfigsImpl).passwordEncoder(encoder);// pega os usuario do banco //
                                                                                        // cria a sessão
     }
 
