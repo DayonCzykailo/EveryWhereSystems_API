@@ -62,6 +62,7 @@ public class DockerController {
         docker.setLog(ShellScript.executarShellScript("docker container logs " + docker.getName()));
 
         docker.setStatus(ShellScript.executarShellScript("docker container ls -a"));
+        docker.setAtivo(true);
 
         model.addAttribute("docker", docker);
         // System.out.println(docker.toString());

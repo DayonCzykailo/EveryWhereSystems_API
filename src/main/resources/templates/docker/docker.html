@@ -34,211 +34,140 @@
 
 <body id="body-pd">
     <div th:insert="components/menuTamplate :: menuTamplate(tela='docker')"></div>
-    <form th:object="${docker}" action="#" th:action="@{/docker/save/{name}(name=${docker.name})}" method="post"
+    <form th:object="${docker}" action="#" th:action="@{/docker/save/{name}(name=${docker.name})}" method="post">
         <!--MENU-->
-        <div class="ms-5" id="page-content-wrapper">
+        <div class="mx-4" id="page-content-wrapper">
             <!--BODY da página-->
             <div class="row">
 
-                <div class="row">
-                    <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
-                        <div class="row text-end">
-                            <div class="col text-start">
-                                <h3 id="title">Nome do Container Docker</h2>
-                            </div>
-                            <div class="col-auto">
-                                <button class="btn btn-primary" id="btnSave">Salvar</button>
-                            </div>
-                            <div class="col-auto">
-                                <button class="btn btn-secondary" id="btnCancel">Cancelar</button>
-                            </div>
-                            <div class="col-auto">
-                                <div class="form-check">
-                                    <input th:field="*{ativo}" class="form-check-input big-checkbox" type="checkbox"
-                                        value="" id="AtivoCheck" checked>
-                                    <label class="form-check-label textSize px-2" for="AtivoCheck">
-                                        Ativo
-                                    </label>
-                                </div>
+                <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
+                    <div class="row text-end">
+                        <div class="col text-start">
+                            <h3 id="title" th:text="*{name}">Nome do Container Docker</h2>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary" id="btnSave">Salvar</button>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-secondary" id="btnCancel">Cancelar</button>
+                        </div>
+                        <div class="col-auto">
+                            <div class="form-check">
+                                <input class="form-check-input big-checkbox" type="checkbox" value="" id="AtivoCheck"
+                                    checked>
+                                <label class="form-check-label textSize px-2" for="AtivoCheck">
+                                    Ativo
+                                </label>
                             </div>
 
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
-                        <div class="row fullSize">
-                            <div class="col fullSize">
-                                <h3 id="description">Descrição</h3>
-                                <textarea th:field="*{description}" class="form-control textAreaSize lightMode"
-                                    placeholder="Esse Script é em --- e acessa o --- para --- ..."></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mt-4 mx-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
-                        <div class="row fullSize">
-                            <div class="col fullSize">
-                                <div class="row">
-                                    <div class="col">
-                                        <h3 id="log">Compose.yml</h3>
-                                    </div>
-                                </div>
-                                <textarea th:field="*{compose}" class="form-control textAreaSize lightMode" rows="12"
-                                    placeholder="version: '3.8'
-
-services:
-container1:
-    restart: always
-    image: imagem1
-    ports:
-    - '0000:0000'
-
-container2:
-    restart: always
-    image: imagem2
-    ports:
-    - '0000:0000'
-    links:
-    - 'container1:container1'
-    volumes:
-    - type: bind
-        source: /diretorio/
-        target: /diretorio/
-                                "></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
-                        <div class="row">
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <h3 id="timer">Sempre Ligado</h3>
-                                    </div>
-                                    <div class="col form-check">
-                                        <input th:field="*{alwaysOn}" class="form-check-input big-checkbox"
-                                            type="checkbox" value="" id="fullTime">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <!-- Terminar de Fazer a pag-->
-                                    <div class="col p-3">
-                                        <div class="row">
-                                            <div class="col">
-                                                <label for="basic-url" class="form-label">Horário de
-                                                    Inicilização</label>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-auto text-start">
-                                                    <input th:field="*{hour}" class="lightMode form-control" type="time"
-                                                        id="horaInit" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <div class="form-check">
-                                            <input th:field="*{onInMonday}" class="form-check-input big-checkbox"
-                                                type="checkbox" value="" id="SegundaCheck">
-                                            <label class="form-check-label textSize px-2" for="SegundaCheck">
-                                                Segunda
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input th:field="*{onInTuesday}" class="form-check-input big-checkbox"
-                                                type="checkbox" value="" id="TerçaCheck">
-                                            <label class="form-check-label textSize px-2" for="TerçaCheck">
-                                                Terça
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input th:field="*{onInWednesday}" class="form-check-input big-checkbox"
-                                                type="checkbox" value="" id="QuartaCheck">
-                                            <label class="form-check-label textSize px-2" for="QuartaCheck">
-                                                Quarta
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input th:field="*{onInThursday}" class="form-check-input big-checkbox"
-                                                type="checkbox" value="" id="QuintaCheck">
-                                            <label class="form-check-label textSize px-2" for="QuintaCheck">
-                                                Quinta
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input th:field="*{onInFriday}" class="form-check-input big-checkbox"
-                                                type="checkbox" value="" id="SextaCheck">
-                                            <label class="form-check-label textSize px-2" for="SextaCheck">
-                                                Sexta
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input th:field="*{onInSaturday}" class="form-check-input big-checkbox"
-                                                type="checkbox" value="" id="SabadoCheck">
-                                            <label class="form-check-label textSize px-2" for="SabadoCheck">
-                                                Sabado
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input th:field="*{onInSunday}" class="form-check-input big-checkbox"
-                                                type="checkbox" value="" id="DomingoCheck">
-                                            <label class="form-check-label textSize px-2" for="DomingoCheck">
-                                                Domingo
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row fullSize">
-                    <div class="col mt-4 me-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
-                        <div class="row fullSize">
-                            <div class="col fullSize">
-                                <div class="row">
-                                    <div class="col">
-                                        <h3 id="log">Log do Docker</h3>
-                                    </div>
-                                    <div class="col-auto">
-                                        <button class="btn btn-primary" id="btnSave">Atualizar</button>
-                                    </div>
-                                </div>
-                                <textarea th:field="*{log}" disabled readonly
-                                    class="form-control textAreaSize lightMode" rows="12"
-                                    placeholder="Log..."></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-5 mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
-                        <div class="row fullSize">
-                            <div class="col fullSize">
-                                <div class="row">
-                                    <div class="col">
-                                        <h3 id="status">Status do Container</h3>
-                                    </div>
-                                    <div class="col-auto">
-                                        <button class="btn btn-primary" id="btnSave">Atualizar</button>
-                                    </div>
-                                </div>
-                                <div class="col fullSize">
-                                    <textarea th:field="*{status}" disabled readonly
-                                        class="form-control textAreaSize lightMode" placeholder="Status..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
-        </div>
 
+            <div class="row">
+                <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
+                    <div class="row fullSize">
+                        <div class="col fullSize">
+                            <div class="row">
+                                <div class="col">
+                                    <h3 id="description">Descrição</h3>
+                                </div>
+                            </div>
+                            <textarea th:field="*{description}" class="form-control textAreaSize lightMode mb-3"
+                                rows="5" placeholder="Esse Script é em --- e acessa o --- para --- ..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
+                    <div class="row fullSize">
+                        <div class="col fullSize">
+                            <h3 id="description">Arquivo .yml</h3>
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row fullSize">
+                <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
+                    <div class="row fullSize">
+                        <div class="col fullSize">
+                            <div class="row">
+                                <div class="col">
+                                    <h3 id="log">Log do Docker</h3>
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-primary" id="btnSave">Atualizar</button>
+                                </div>
+                            </div>
+                            <textarea th:field="*{log}" disabled readonly class="form-control textAreaSize lightMode"
+                                rows="12" placeholder="Log..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row fullSize">
+                <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
+                    <div class="row fullSize">
+                        <div class="col fullSize">
+                            <div class="row">
+                                <div class="col">
+                                    <h3>Status do Container</h3>
+                                    <input type="hidden" id="containerStatus" th:value="*{status}" />
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-primary" id="btnSave">Atualizar</button>
+                                </div>
+                            </div>
+                            <div class="col fullSize">
+                                <textarea disabled readonly rows="12" id="status"
+                                    class="form-control textAreaSize lightMode" placeholder="Status..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            dados = []
+            function processa() {
+                var mensagem = $("#containerStatus").val();
+                var name = $("#title").val();
+                //console.log(mensagem)
+                lines = mensagem.split('\n');
+                console.log(lines)
+                lines.forEach(element => {
+                    if (element != "") {
+                        if (element.split(' ')[0] == name)
+                            dados.push(element);
+                    }
+                });
+
+            }
+            processa()
+            build(dados)
+
+            function build(data) {
+                var table = document.getElementById('status')
+
+                console.log(data)
+                for (var i = 0; i < data.length; i++) {
+                    try {
+                        console.log(data[i])
+                        var row = `${data[i]}`
+                        table.innerHTML += row + "\n"
+                        // console.log(data[i].id)
+                    } catch {
+                        null
+                    }
+                }
+            }
+        </script>
         </main>
     </form>
 

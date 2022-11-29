@@ -30,6 +30,6 @@ public class DockerDto {
     // boolean onInThursday;
     // boolean onInFriday;
     // boolean onInSaturday;
-    // boolean ativo;
+    boolean ativo;
 
 }
