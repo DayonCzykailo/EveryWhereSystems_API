@@ -1,5 +1,6 @@
 package br.com.api.everywheresystems.services;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.api.everywheresystems.models.DockerModel;
 import br.com.api.everywheresystems.repositories.DockerRepository;
+import br.com.api.everywheresystems.util.scripts.ShellScript;
 
 /**
  *
@@ -47,15 +49,33 @@ public class DockerService {
         return dockerRepository.findById(id);
     }
 
-    public boolean gerarCompose(String compose) {
-        try (FileWriter arq = new FileWriter("D:\\Projetos_\\Projeto_Integrador_\\everywheresystems\\Compose2.yml")) {
+    public boolean gerarCompose(String nome, String image) {
+        try {
+            File theDir = new File("/composeFiles/" + nome);
+            if (!theDir.exists()) {
+                theDir.mkdirs();
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        try (FileWriter arq = new FileWriter("/composeFiles/" + nome + "/compose.txt")) {
             try (PrintWriter gravarArq = new PrintWriter(arq)) {
-                gravarArq.print(compose);
+                String tamplate = String.format(
+                        """
+                                version: \"3.2\"
+                                services:
+                                    %s:
+                                        container_name: %s
+                                        image: %s
+                                        restart: always
+                                                        """, nome, nome, image);
+                gravarArq.print(tamplate);
                 arq.close();
                 return true;
             }
         } catch (IOException e) {
             System.out.println("ERRO em gerar compose : " + e);
+
             return false;
         }
 

@@ -34,20 +34,21 @@ public class DockerModel {
     private String id;
 
     String name;
+    String imagem;
 
     String description;
 
-    @DateTimeFormat(pattern = "HH:mm")
-    LocalDateTime hour;
-
-    boolean alwaysOn;
-    boolean onInSunday;
-    boolean onInMonday;
-    boolean onInTuesday;
-    boolean onInWednesday;
-    boolean onInThursday;
-    boolean onInFriday;
-    boolean onInSaturday;
+    // @DateTimeFormat(pattern = "HH:mm")
+    // LocalDateTime hour;
+    //
+    // boolean alwaysOn;
+    // boolean onInSunday;
+    // boolean onInMonday;
+    // boolean onInTuesday;
+    // boolean onInWednesday;
+    // boolean onInThursday;
+    // boolean onInFriday;
+    // boolean onInSaturday;
     boolean ativo;
 
     @OneToOne

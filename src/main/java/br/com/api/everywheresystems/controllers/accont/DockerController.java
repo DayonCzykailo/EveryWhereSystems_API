@@ -76,12 +76,13 @@ public class DockerController {
             @ModelAttribute("docker") DockerDto dockerDto) {
         DockerModel docker = new DockerModel();
 
-        dockerService.gerarCompose(dockerDto.getCompose());
+        dockerService.gerarCompose(dockerDto.getName(), dockerDto.getImagem());
 
         // docker compose -f Compose2.yml up -d
         System.out.println(dockerDto);
         System.out.println("DOCKER");
-        System.out.println(ShellScript.executarShellScript(" docker compose -f Compose2.yml up -d"));
+        // System.out.println(ShellScript.executarShellScript(" docker compose -f
+        // Compose2.yml up -d"));
 
         model.addAttribute("Docker", docker);
         System.out.println(dockerService.save(docker));
