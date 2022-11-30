@@ -14,12 +14,13 @@ services:
     container_name: back-end
     image: pispring
     ports:
-      - "80:80"
       - "8080:8080"
+    #  - "80:80"
+    #network_mode: "host"
     #  links:
     #    - "sql-server-db:sql-server-db"
     #restart: always
     volumes:
       - type: bind
-        source: 'C:\Users\gabri\OneDrive\Documentos\4 Semestre\EveryWhereSystems_API\EveryWhereSystems_API.jar'
+        source: 'C:\Users\gabri\OneDrive\Documentos\4 Semestre\EveryWhereSystems_API\target\everywheresystems-0.0.1-SNAPSHOT.jar'
         target: /EveryWhereSystems_API.jar

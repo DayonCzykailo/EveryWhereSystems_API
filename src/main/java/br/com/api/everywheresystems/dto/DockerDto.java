@@ -19,6 +19,7 @@ public class DockerDto {
     String compose;
     String log;
     String status;
+    String imagem;
 
     // Date hour;
     //
