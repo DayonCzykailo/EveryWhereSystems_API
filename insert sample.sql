@@ -1,5 +1,5 @@
 
-declare @cliente as varchar(100) = '94eba32a-b929-429f-8443-ac7367305c55'
+declare @cliente as varchar(100) = '2c8511fb-870a-4beb-ad0d-14dc9fcc10da'
 insert into
  tb_fato_dados_sensores
     (id,empresa_id,data,mac, lugar, cidade, painel, impacto)

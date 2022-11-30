@@ -45,6 +45,7 @@ public class UserController {
     public String showGerenciarUser(HttpServletRequest request, Model model) {
         final PermissoesConfigs user = (PermissoesConfigs) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
+        System.out.println(user.getAuthorities().toString());
 
         model.addAttribute("usuarios", usuarioService.findByRoleAndEmpresa(Role.ROLE_SUB_USER,
                 usuarioService.findByEmail(user.getUsername()).get().getEmpresa().getId()));
