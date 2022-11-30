@@ -1,5 +1,7 @@
 package br.com.api.everywheresystems.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -37,8 +39,8 @@ public class RolesService {
         return roleRepository.save(role);
     }
 
-    public Page<RoleModel> findAll(Pageable pageable) {
-        return roleRepository.findAll(pageable);
+    public List<RoleModel> findAll() {
+        return roleRepository.findAll();
     }
 
     public Optional<RoleModel> findById(String id) {
@@ -47,6 +49,38 @@ public class RolesService {
 
     public RoleModel findByRole(Role role) {
         return roleRepository.findByRole(role);
+    }
+
+    public void gerarRoles() {
+        List<RoleModel> roles = new ArrayList<>();
+
+        roles.add(new RoleModel(Role.ROLE_ACCESS_DASH));
+        roles.add(new RoleModel(Role.ROLE_ACCESS_MANAGE_DASH));
+
+        roles.add(new RoleModel(Role.ROLE_ACCESS_CLIENTS));
+        roles.add(new RoleModel(Role.ROLE_ACCESS_MANAGE_CLIENTS));
+        roles.add(new RoleModel(Role.ROLE_ACCESS_REGISTER_CLIENTS));
+
+        roles.add(new RoleModel(Role.ROLE_ACCESS_USERS));
+        roles.add(new RoleModel(Role.ROLE_ACCESS_MANAGE_USERS));
+        roles.add(new RoleModel(Role.ROLE_ACCESS_REGISTER_USERS));
+
+        roles.add(new RoleModel(Role.ROLE_ACCESS_FORMS));
+        roles.add(new RoleModel(Role.ROLE_ACCESS_MANAGE_FORMS));
+        roles.add(new RoleModel(Role.ROLE_ACCESS_REGISTER_FORMS));
+
+        roles.add(new RoleModel(Role.ROLE_ACCESS_DOCKER));
+        roles.add(new RoleModel(Role.ROLE_ACCESS_MANAGE_DOCKER));
+        roles.add(new RoleModel(Role.ROLE_ACCESS_REGISTER_DOCKER));
+
+        roles.add(new RoleModel(Role.ROLE_USER));
+        roles.add(new RoleModel(Role.ROLE_SUB_USER));
+        roles.add(new RoleModel(Role.ROLE_ADMIN));
+
+        for (RoleModel role : roles) {
+            save(role);
+        }
+
     }
 
 }
