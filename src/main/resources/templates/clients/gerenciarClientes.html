@@ -30,7 +30,7 @@
 
                     <div class="row">
                         <div class="col">
-                            <h1>Clientes Cadastrados</h1>
+                            <h1>Clientes e Administradores Cadastrados</h1>
                         </div>
                         <div class="col-auto">
                             <a class="btn btn-primary" href="./cadastroCliente.html" role="button"
@@ -44,6 +44,7 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>Email</th>
+                                    <th>Acesso</th>
                                     <th>Status</th>
                                     <th>Opção</th>
                                 </tr>
@@ -51,6 +52,8 @@
                                     <h2 th:case="null">Sem clientes, ainda.</h2>
                                     <td th:text="${cliente.nome}">...</td>
                                     <td th:text="${cliente.email}">...</td>
+                                    <td class="dropdown-item" th:each="regra : ${cliente.roles}"
+                                                th:text="${#strings.substring(#strings.replace(regra.role, '&#95;', '&#32;'),5)} == 'ADMIN' ? 'Administrador': 'Cliente'">.</td>
                                     <td th:if="${cliente.ativo}">ATIVO</td>
                                     <td th:unless="${cliente.ativo}">INATIVO</td>
                                     <td>

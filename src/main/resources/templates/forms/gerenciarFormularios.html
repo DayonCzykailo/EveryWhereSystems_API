@@ -49,7 +49,7 @@
                                 </tr>
                                 <tr>
                                     <td th:text="${form.id}">...</td>
-                                    <td th:text="${form.date}">...</td>
+                                    <td th:text="${#dates.format(form.date, 'dd/MM/yyyy')}">...</td>
                                     <td th:text="${form.enderecoExibicaoSensor}">...</td>
                                     <td>
                                         <a class="btn btn-primary" th:href="@{formulario/{id}(id=${form.id})}"

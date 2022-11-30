@@ -216,16 +216,17 @@ public class AccontService {
         return lista;
     }
 
-    public boolean saveEnterprise(AccontModel empresa, boolean isEdit) {
+    public boolean saveEnterprise(AccontModel empresa, boolean isEdit, String role) {
 
         empresa.setNome(empresa.getEmpresa().getNomeRazaoSocial());
         empresa.setAtuacao("EMPRESA");
-        empresa.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
+        if (role.equals("ADMIN")) {
+            empresa.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_ADMIN)));
+        } else {
+            empresa.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
+        }
         empresa.setUltimoAcesso(Util.getDataHoraAgora());
 
-        System.out.println("EMPRESA");
-        System.out.println(empresa.toString());
-        System.out.println("-----");
         if ((empresa.getId() == null || empresa.getId().isEmpty())) {
             if (empresaService.existsByCnpj(empresa.getEmpresa().getCnpj())
                     || !Util.validarString(empresa.getEmpresa().getCnpj())) {
