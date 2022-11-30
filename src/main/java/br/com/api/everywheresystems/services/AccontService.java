@@ -52,6 +52,10 @@ public class AccontService {
         this.empresaService = empresaService;
     }
 
+    public PasswordEncoder getEncoder() {
+        return encoder;
+    }
+
     @Transactional
     public void delete(AccontModel accont) {
         usuarioService.delete(accont);

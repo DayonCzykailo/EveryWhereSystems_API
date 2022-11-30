@@ -28,7 +28,8 @@
         <div class="m-4 pt-4">
             <div class="p-4 rounded-4 lightMode">
                 <form th:object="${empresa}" class="needs-validation" action="#"
-                    th:action="@{/cadastroCliente/save/{id}(id=${empresa.id})}" method="post" novalidate>
+                    th:action="@{/cadastroCliente/save/{id}(id=${empresa.id})max_autorization=true}" method="post"
+                    novalidate>
 
                     <div class="form-row">
                         <h1>Cadastro de Cliente</h1>
@@ -81,7 +82,6 @@
                     <div class="form-row">
                         <div class="col-md mb-3">
                             <label for="validationCNPJ">CNPJ</label>
-                            <!--is-valid-->
                             <input th:field="*{empresa.cnpj}" type="text" class="form-control lightMode"
                                 id="validationCNPJ" placeholder="XX.XXX.XXX/0001-XX" required>
                             <div class="valid-feedback">
@@ -94,43 +94,47 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="col-md mb-3">
-                            <label for="validationSenha">Senha</label>
-                            <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome"
-                                data-bs-content="A senha deve conter caracteres especiais (!@#$), letras maiúsculas, minúsculas e números">?</button>
-                            <!--is-valid-->
-                            <input th:field="*{senha}" type="password" class="form-control lightMode"
-                                id="validationSenha" placeholder="*******" required>
-                            <div class="valid-feedback">
-                                Senha válida!
+                    <div th:if="${!isCadastrar}">
+                        <div>
+                            <div class="form-row">
+                                <div class="col-md mb-3">
+                                    <label for="validationSenha">Senha</label>
+                                    <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome"
+                                        data-bs-content="A senha deve conter caracteres especiais (!@#$), letras maiúsculas, minúsculas e números">?</button>
+                                    <!--is-valid-->
+                                    <input th:field="*{senha}" type="password" class="form-control lightMode"
+                                        id="validationSenha" placeholder="*******" required>
+                                    <div class="valid-feedback">
+                                        Senha válida!
+                                    </div>
+        
+                                    <div class="invalid-feedback">
+                                        Senha Inválida!.
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="invalid-feedback">
-                                Senha Inválida!.
+        
+        
+        
+                            <div class="form-row">
+                                <div class="col-md mb-3">
+                                    <label for="validationSenhaConf">Confirme a Senha</label>
+                                    <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome"
+                                        data-bs-content="A confirmação de senha deve ser igual a senha digitada">?</button>
+                                    <!--is-valid-->
+                                    <input type="password" class="form-control lightMode" id="validationSenhaConf"
+                                        placeholder="*******" required>
+                                    <div class="valid-feedback">
+                                        Senha válida!
+                                    </div>
+        
+                                    <div class="invalid-feedback">
+                                        Senha Inválida!.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="form-row">
-                        <div class="col-md mb-3">
-                            <label for="validationSenhaConf">Confirme a Senha</label>
-                            <button type="button" class="btn btn-sm" data-bs-toggle="popover" title="Nome"
-                                data-bs-content="A confirmação de senha deve ser igual a senha digitada">?</button>
-                            <!--is-valid-->
-                            <input type="password" class="form-control lightMode" id="validationSenhaConf"
-                                placeholder="*******" required>
-                            <div class="valid-feedback">
-                                Senha válida!
-                            </div>
-
-                            <div class="invalid-feedback">
-                                Senha Inválida!.
-                            </div>
-                        </div>
-                    </div>
-
 
                     <div class="form-row">
                         <div class="col-md mb-3">

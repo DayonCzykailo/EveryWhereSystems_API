@@ -44,24 +44,25 @@ public class ClientController {
         AccontModel acc = new AccontModel();
         acc.setAtivo(true);
         model.addAttribute("empresa", acc);
+        model.addAttribute("isCadastrar", false);
         model.addAttribute("erro", "");
         return "clients/cadastroCliente";
     }
 
     @GetMapping(value = { "/cadastroCliente.html/{id}", "/cadastroCliente/{id}" })
     public String showCadastroClientByID(HttpServletRequest request, Model model, @PathVariable("id") String id) {
-        System.out.println(id);// TODO
         model.addAttribute("empresa", clientService.findById(id).get());
+        model.addAttribute("isCadastrar", true);
         model.addAttribute("erro", "");
-
+        System.out.println(clientService.findById(id).get());
         return "clients/cadastroCliente";
     }
 
     @PostMapping(value = { "/cadastroCliente.html/save/{id}", "/cadastroCliente/save/{id}" })
     public String showCadastroClientByID(HttpServletRequest request, Model model,
             @ModelAttribute("empresa") AccontModel empresa, @PathVariable("id") String id) {
-        System.out.println(id);// TODO
         model.addAttribute("empresa", clientService.findById(id).get());
+        model.addAttribute("isCadastrar", true);
         model.addAttribute("erro", "");
 
         clientService.saveEnterprise(empresa);
@@ -72,7 +73,6 @@ public class ClientController {
     @PostMapping(value = { "/cadastroCliente/save" })
     public String saveClient(HttpServletRequest request, Model model,
             @ModelAttribute("empresa") AccontModel empresa) {
-        System.out.println(empresa.toString());
         clientService.saveEnterprise(empresa);
 
         return "clients/cadastroCliente";
