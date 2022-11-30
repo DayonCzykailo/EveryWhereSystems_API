@@ -15,5 +15,5 @@ import br.com.api.everywheresystems.models.FatoDadosSensoresModel;
 
 @Repository
 public interface FatoDadosSensoresRepository extends JpaRepository<FatoDadosSensoresModel, String> {
-    List<FatoDadosSensoresModel> findByEmpresa(EmpresaModel empresa);
+    List<FatoDadosSensoresModel> findByEmpresaOrderByDataAsc(EmpresaModel empresa);
 }

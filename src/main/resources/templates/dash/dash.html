@@ -33,10 +33,12 @@
         <!--MENU-->
 
         <div id="page-content-wrapper">
-            <!--<div class="d-flex align-items-center col align-self-center" id="loader">
+            <!--
+            -->
+            <div class="d-flex align-items-center col align-self-center" id="loader">
                 <strong class="ps-5">Carregando...</strong>
                 <div class="spinner-border" role="status" aria-hidden="true"></div>
-            </div>-->
+            </div>
             <div class="flex-grow-1">
                 <div class="m-0 row">
 
@@ -228,19 +230,19 @@
             }
 
 
-            function dataGenerator() {
-                let line = {};
-                let dado = [];
-                let range = getDates(new Date('2022-05-02'), new Date('2022-11-15'));
-                for (let i = 0; i < pieChartData.length; i++) {
-                    line = { 'data': pieChartData[i].data, 'mac': pieChartData[i].mac, 'local': pieChartData[i].lugar, 'cidade': pieChartData[i].cidade, 'painel': pieChartData[i].painel, 'impacto': pieChartData[i].impacto }
-                    dado.push(line);
-                }
-
-                console.log(dado);
-
-                return (dado);
-            }
+            //function dataGenerator() {
+            //    let line = {};
+            //    let dado = [];
+            //    let range = getDates(new Date('2022-05-02'), new Date('2022-11-15'));
+            //    for (let i = 0; i < pieChartData.length; i++) {
+            //        line = { 'data': pieChartData[i].data, 'mac': pieChartData[i].mac, 'local': pieChartData[i].lugar, 'cidade': pieChartData[i].cidade, 'painel': pieChartData[i].painel, 'impacto': pieChartData[i].impacto }
+            //        dado.push(line);
+            //    }
+            //
+            //    console.log(dado);
+            //
+            //    return (dado);
+            //}
 
             let dateOp = {
                 weekday: "long",
@@ -456,7 +458,7 @@
                 return valor;
             }
 
-            let dadoBruto = dataGenerator()
+            let dadoBruto = pieChartData;
             let dado = dadoBruto;
 
 
@@ -477,7 +479,7 @@
                     dadotemp = dadotemp2;
                     dadotemp2 = [];
                     dadotemp.forEach(element => {
-                        if (element['data'] > inicio) {
+                        if (new Date(element['data']) > inicio) {
                             line = element;
                             dadotemp2.push(line);
                         }
@@ -488,7 +490,8 @@
                     dadotemp = dadotemp2;
                     dadotemp2 = [];
                     dadotemp.forEach(element => {
-                        if (element['data'] < fim) {
+                        if (new Date(element['data']) < fim) {
+
                             line = element;
                             dadotemp2.push(line);
                         }
@@ -533,6 +536,7 @@
                     dado = dadotemp2;
                 }
 
+
                 atualizaGrafico();
             }
 
@@ -548,8 +552,8 @@
             function dataMinMax() {
                 let valor = [new Date("2099-12-12"), new Date("1980-01-01")];
                 dadoBruto.forEach(element => {
-                   // console.log('data');
-                   // console.log((new Date(element['data'])))
+                    // console.log('data');
+                    // console.log((new Date(element['data'])))
                     //console.log(valor[0])
 
 
@@ -873,17 +877,12 @@
 
 
             }
-            //init
 
+
+            // **** Inicializa o filtro de dados e tira a tela de load ao concluir ****
             var loader;
-
             function loadNow(elem) {
-               // elem.parentNode.removeChild(elem);
-            }
-
-            function displayContent() {
-                loader.style.display = 'none';
-                document.getElementById('content').style.display = 'block';
+                elem.parentNode.removeChild(elem);
             }
 
             document.addEventListener("DOMContentLoaded", function () {
