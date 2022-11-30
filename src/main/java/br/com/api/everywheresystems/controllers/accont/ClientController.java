@@ -29,7 +29,6 @@ public class ClientController {
         // SecurityContextHolder.getContext().getAuthentication()
         // .getPrincipal();
 
-        System.out.println(clientService.findAllByRoleModels(Role.ROLE_USER));
         if (clientService.findAllByRoleModels(Role.ROLE_USER).toString() == "[]") {
             model.addAttribute("clientes", null);
         } else {
@@ -44,7 +43,7 @@ public class ClientController {
         AccontModel acc = new AccontModel();
         acc.setAtivo(true);
         model.addAttribute("empresa", acc);
-        model.addAttribute("isCadastrar", false);
+        model.addAttribute("isEditar", false);
         model.addAttribute("erro", "");
         return "clients/cadastroCliente";
     }
@@ -52,28 +51,45 @@ public class ClientController {
     @GetMapping(value = { "/cadastroCliente.html/{id}", "/cadastroCliente/{id}" })
     public String showCadastroClientByID(HttpServletRequest request, Model model, @PathVariable("id") String id) {
         model.addAttribute("empresa", clientService.findById(id).get());
-        model.addAttribute("isCadastrar", true);
+        model.addAttribute("isEditar", true);
         model.addAttribute("erro", "");
-        System.out.println(clientService.findById(id).get());
         return "clients/cadastroCliente";
     }
 
     @PostMapping(value = { "/cadastroCliente.html/save/{id}", "/cadastroCliente/save/{id}" })
     public String showCadastroClientByID(HttpServletRequest request, Model model,
             @ModelAttribute("empresa") AccontModel empresa, @PathVariable("id") String id) {
-        model.addAttribute("empresa", clientService.findById(id).get());
-        model.addAttribute("isCadastrar", true);
+        model.addAttribute("empresa", empresa);
+        empresa.setId(id);
+        model.addAttribute("isEditar", true);
         model.addAttribute("erro", "");
 
-        clientService.saveEnterprise(empresa);
-
+        if (clientService.saveEnterprise(empresa, true)) {
+            if (clientService.findAllByRoleModels(Role.ROLE_USER).toString() == "[]") {
+                model.addAttribute("clientes", null);
+            } else {
+                model.addAttribute("clientes", clientService.findAllByRoleModels(Role.ROLE_USER));
+            }
+            return "clients/gerenciarClientes";
+        }
         return "clients/cadastroCliente";
     }
 
     @PostMapping(value = { "/cadastroCliente/save" })
     public String saveClient(HttpServletRequest request, Model model,
             @ModelAttribute("empresa") AccontModel empresa) {
-        clientService.saveEnterprise(empresa);
+        empresa.setAtivo(true);
+
+        model.addAttribute("isEditar", true);
+
+        if (clientService.saveEnterprise(empresa, false)) {
+            if (clientService.findAllByRoleModels(Role.ROLE_USER).toString() == "[]") {
+                model.addAttribute("clientes", null);
+            } else {
+                model.addAttribute("clientes", clientService.findAllByRoleModels(Role.ROLE_USER));
+            }
+            return "clients/gerenciarClientes";
+        }
 
         return "clients/cadastroCliente";
     }

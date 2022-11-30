@@ -216,12 +216,7 @@ public class AccontService {
         return lista;
     }
 
-    // AccontModel(id=null, nome=null, email=empresa@email.com, senha=senha,
-    // atuacao=null, celular=null, ativo=false,
-    // roles=null, empresa=EmpresaModel(id=null, cnpj=11.473.536/0001-40,
-    // nomeRazaoSocial=razao, nomeFantasia=empresa, email=null),
-    // ultimoAcesso=null, imagem=null)
-    public boolean saveEnterprise(AccontModel empresa) {
+    public boolean saveEnterprise(AccontModel empresa, boolean isEdit) {
 
         empresa.setNome(empresa.getEmpresa().getNomeRazaoSocial());
         empresa.setAtuacao("EMPRESA");
@@ -231,147 +226,59 @@ public class AccontService {
         System.out.println("EMPRESA");
         System.out.println(empresa.toString());
         System.out.println("-----");
+        if ((empresa.getId() == null || empresa.getId().isEmpty())) {
+            if (empresaService.existsByCnpj(empresa.getEmpresa().getCnpj())
+                    || !Util.validarString(empresa.getEmpresa().getCnpj())) {
+                System.out.println("erro1");
+                return false;
+            }
+        }
+        if ((empresa.getId() == null || empresa.getId().isEmpty())) {
+            if (existsByEmail(empresa.getEmail()) || (!Util.validarString(empresa.getEmail()))) {
+                System.out.println("erro2");
+                return false;
+            }
+        }
+        if (!(empresa.getId() == null || empresa.getId().isEmpty())) {
+            empresa.setSenha(usuarioService.findById(empresa.getId()).get().getSenha());
+        }
 
-        /*
-         * if (empresaService.existsByCnpj(empresa.getEmpresa().getCnpj())
-         * || !Util.validarString(empresa.getEmpresa().getCnpj())) {
-         * System.out.println("erro1");
-         * return false;
-         * }
-         * 
-         * if (existsByEmail(empresa.getEmail()) ||
-         * (!Util.validarString(empresa.getEmail()))) {
-         * System.out.println("erro2");
-         * return false;
-         * }
-         * if (!Util.validarString(empresa.getSenha())) {
-         * System.out.println("erro3");
-         * return false;
-         * }
-         * if (!Util.validarString(empresa.getEmpresa().getNomeRazaoSocial())) {
-         * System.out.println("erro4");
-         * return false;
-         * }
-         */
+        if (!Util.validarString(empresa.getSenha())) {
+            System.out.println("erro3");
+            return false;
+        }
+        if (!Util.validarString(empresa.getEmpresa().getNomeRazaoSocial())) {
+            System.out.println("erro4");
+            return false;
+        }
+
         try {
-            empresa.setSenha(encoder.encode(empresa.getSenha()));
+            if (!isEdit) {
+                empresa.setSenha(encoder.encode(empresa.getSenha()));
+            } else {
+                empresa.setSenha(findById(empresa.getId()).get().getSenha());
+            }
         } catch (Exception e) {
             System.out.println("erro5");
             return false;
         }
 
-        /*
-         * if (empresa.getEmpresa() == null || empresa.getEmpresa().getCnpj().isBlank())
-         * {
-         * System.out.println("erro6");
-         * return false;
-         * }
-         * 
-         * if (empresa.getRoles().isEmpty() || empresa.getRoles().size() == 0) {
-         * System.out.println("erro7");
-         * return false;
-         * }
-         */
+        if (empresa.getEmpresa() == null || empresa.getEmpresa().getCnpj().isBlank()) {
+            System.out.println("erro6");
+            return false;
+        }
+
+        if (empresa.getRoles().isEmpty() || empresa.getRoles().size() == 0) {
+            System.out.println("erro7");
+            return false;
+        }
+
         empresa.getEmpresa().setCnpj(Util.unformated(empresa.getEmpresa().getCnpj()));
+
         System.out.println(save(empresa).toString());
         return true;
     }
 
-    /*
-     * public String putEnterprise(EnterpriseDto empresa) {
-     * EmpresaModel empresaModel = new EmpresaModel();
-     * AccontModel accont = new AccontModel();
-     * 
-     * if (!(accont.get().getEmail().equals(empresa.getEmail()))
-     * && !(accont.get().getEmpresa().getCnpj().equals(empresa.getCnpj()))) {
-     * 
-     * if (existsByEmail(empresa.getEmail()) &&
-     * empresaService.existsByCnpj(empresa.getCnpj())) {
-     * if (!(usuarioService.countByEmail(accont.get().getEmail()) < 2)) {
-     * return "E-mail já utilizado";
-     * }
-     * if (!(usuarioService.countByCnpj(accont.get().getEmpresa().getCnpj()) < 2)) {
-     * return "E-mail já utilizado";
-     * }
-     * }
-     * }
-     * 
-     * if (empresaService.existsByCnpj(empresa.getCnpj())) {
-     * return "CNPJ já existente";
-     * }
-     * 
-     * if (existsByEmail(empresa.getEmail())) {
-     * return "E-mail já existente";
-     * }
-     * 
-     * try {
-     * BeanUtils.copyProperties(empresa, empresaModel);
-     * } catch (Exception e) {
-     * return "Falha em converter os dados";
-     * }
-     * 
-     * try {
-     * if (empresaService.existsByCnpj(empresaModel.getCnpj())) {
-     * accont.setEmpresa(empresaService.findByCnpj(empresaModel.getCnpj()).get());
-     * } else {
-     * accont.setEmpresa(empresaModel);
-     * 
-     * }
-     * } catch (Exception e) {
-     * return "Falha em salvar a empresa";
-     * }
-     * 
-     * if (empresa.getSenha() == null || empresa.getSenha().isBlank()) {
-     * return "Senha Vazio";
-     * }
-     * 
-     * try {
-     * accont.setSenha(encoder.encode(empresa.getSenha()));
-     * } catch (Exception e) {
-     * return "Falha em gerar senha";
-     * }
-     * 
-     * try {
-     * accont.setNome(empresa.getNomeFantasia());
-     * accont.setEmail(empresaModel.getEmail());
-     * accont.setAtuacao("Empresa");
-     * accont.setUltimoAcesso(Util.getDataHoraAgora());
-     * accont.setAtivo(Ativo.ATIVO);
-     * } catch (Exception e) {
-     * return "Falha em gerar usuário";
-     * }
-     * 
-     * try {
-     * accont.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
-     * } catch (Exception e) {
-     * return "Não Foi possível gerar a autorização do usuário";
-     * }
-     * 
-     * if (accont.getEmail() == null || accont.getEmail().isBlank()) {
-     * return "EMAIL Vazio";
-     * }
-     * 
-     * if (accont.getNome() == null || accont.getNome().isBlank()) {
-     * return "NOME Vazio";
-     * }
-     * 
-     * if (accont.getEmpresa() == null || accont.getEmpresa().getCnpj().isBlank()) {
-     * return "Empresa Vazio";
-     * }
-     * 
-     * if (accont.getRoles().isEmpty() || accont.getRoles().size() < 1) {
-     * return "Regras Vazio";
-     * }
-     * 
-     * try {
-     * save(accont);
-     * } catch (Exception e) {
-     * return "Não foi possivel salvar o usuário";
-     * }
-     * 
-     * return "SUCESSO";
-     * }
-     */
     private EmpresaModel gerarEmpresa() {
         EmpresaModel empresa = new EmpresaModel();
         empresa.setCnpj("75167467000120");

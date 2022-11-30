@@ -28,14 +28,14 @@
         <div class="m-4 pt-4">
             <div class="p-4 rounded-4 lightMode">
                 <form th:object="${empresa}" class="needs-validation" action="#"
-                    th:action="@{/cadastroCliente/save/{id}(id=${empresa.id})max_autorization=true}" method="post"
+                    th:action="@{/cadastroCliente/save/{id}(id=${empresa.id})}" method="post"
                     novalidate>
 
                     <div class="form-row">
                         <h1>Cadastro de Cliente</h1>
                     </div>
 
-                    <div class="form-check p-3">
+                    <div th:if="${isEditar}" class="form-check p-3">
                         <input checked="checked" class="form-check-input " type="checkbox" th:field="*{ativo}"
                             id="ativoCheckBox">
                         <label class="form-check-label" for="ativoCheckBox">
@@ -94,7 +94,7 @@
                         </div>
                     </div>
 
-                    <div th:if="${!isCadastrar}">
+                    <div th:if="${!isEditar}">
                         <div>
                             <div class="form-row">
                                 <div class="col-md mb-3">
