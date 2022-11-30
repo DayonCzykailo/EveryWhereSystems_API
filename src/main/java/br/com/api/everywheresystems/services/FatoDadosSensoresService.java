@@ -47,7 +47,7 @@ public class FatoDadosSensoresService {
     }
 
     public List<FatoDadosSensoresModel> findByEmpresa(EmpresaModel model) {
-        return sensorService.findByEmpresa(model);
+        return sensorService.findByEmpresaOrderByDataAsc(model);
     }
 
 }
