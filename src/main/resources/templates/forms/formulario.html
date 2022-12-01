@@ -185,7 +185,7 @@
 
 
                         <div class=" row mx-4 d-flex justify-content-center">
-                            <button class="btn btn-primary" type="submit">Cadastrar</button>
+                            <button id="botao" class="btn btn-primary" type="submit">Cadastrar</button>
                         </div>
 
 
@@ -194,7 +194,23 @@
                     var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
                     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                         return new bootstrap.Popover(popoverTriggerEl)
-                    }) 
+                    })
+
+
+
+                    rua = document.getElementById('endPredInst')
+                    mapa = document.getElementById('maps')
+                    input = document.getElementsByTagName('input')
+                    botao = document.getElementById('botao')
+                    if (rua.value != '') {
+                        for (let i = 0; i < input.length; i++) {
+                            input[i].setAttribute('disabled', null)
+                            input[i].setAttribute('readonly', null)
+                        }
+                        link = `https://maps.google.com/maps?q=${rua.value.replace(/ /g, "%20")},%20${cidade.value.replace(/ /g, "%20")}%20${estado.value.replace(/ /g, "%20")})&t=&z=13&ie=UTF8&iwloc=&output=embed`
+                        mapa.src = link
+                        botao.setAttribute('hidden', null)
+                    }
                 </script>
             </div>
 
