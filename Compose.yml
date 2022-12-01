@@ -1,0 +1,16 @@
+version: "3.2"
+services:
+
+  back-end:
+    container_name: back-end
+    image: pispring
+    ports:
+      - "8080:8080"
+    restart: always
+    volumes:
+      - type: bind
+        source: 'C:\Users\gabri\OneDrive\Documentos\4 Semestre\EveryWhereSystems_API\target\everywheresystems-0.0.1-SNAPSHOT.jar'
+        target: /everywheresystems-0.0.1-SNAPSHOT.jar
+      - type: bind
+        source: '//var/run/docker.sock'
+        target: /var/run/docker.sock
