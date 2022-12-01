@@ -30,6 +30,11 @@ public class PageController {
         return "index/index";
     }
 
+    @GetMapping(value = { "/politicas.html", "/politicas" })
+    public String testePolitica(HttpServletRequest request) {
+        return "index/termoPolitica";
+    }
+
     @GetMapping("/login.html")
     public String testeLogin(HttpServletRequest request) {
 
