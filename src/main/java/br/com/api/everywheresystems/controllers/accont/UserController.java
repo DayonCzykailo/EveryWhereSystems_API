@@ -56,7 +56,9 @@ public class UserController {
     // get Cadastro
     @GetMapping(value = { "/cadastroUsuario.html", "/cadastroUsuario" })
     public String showCadastroUser(HttpServletRequest request, Model model) {
-        model.addAttribute("usuario", new AccontDto());
+        AccontDto accont = new AccontDto();
+        accont.setAtivo(true);
+        model.addAttribute("usuario", accont);
         return "user/cadastroUsuario";
     }
 

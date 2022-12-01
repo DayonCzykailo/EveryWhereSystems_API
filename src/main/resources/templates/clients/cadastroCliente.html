@@ -28,8 +28,7 @@
         <div class="m-4 pt-4">
             <div class="p-4 rounded-4 lightMode">
                 <form th:object="${empresa}" class="needs-validation" action="#"
-                    th:action="@{/cadastroCliente/save/{id}(id=${empresa.id})}" method="post"
-                    novalidate>
+                    th:action="@{/cadastroCliente/save/{id}(id=${empresa.id})}" method="post" novalidate>
 
                     <div class="form-row">
                         <h1>Cadastro de Cliente</h1>
@@ -41,6 +40,23 @@
                         <label class="form-check-label" for="ativoCheckBox">
                             Ativo
                         </label>
+                    </div>
+                    <label for="nomeFantasia">Nivel de Acesso</label>
+                    <div class="form-check p-3">
+                        <div class="form-check">
+                            <input th:name="role"  th:checked="${role == 'ADMIN'}" class="form-check-input lightMode" type="radio" name="radios"
+                                id="ADMIN" value="ADMIN" >
+                            <label class="form-check-label" value="ADMIN">
+                                Acesso de Administrador.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input th:name="role" th:checked="${role == 'USER'}" class="form-check-input lightMode" type="radio" name="radios"
+                                id="USER" value="USER" >
+                            <label class="form-check-label" value="USER">
+                                Acesso de Cliente.
+                            </label>
+                        </div>
                     </div>
 
                     <div class="form-row">
