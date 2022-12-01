@@ -1,12 +1,12 @@
 version: "3.2"
 services:
 
-  sql-server-db:
-    container_name: sql-server-db
-    image: mssqldb
-    ports:
-      - "1400:1433"
-    restart: always
+  #sql-server-db:
+  #  container_name: sql-server-db
+  #  image: mssqldb
+  #  ports:
+  #    - "1433:1433"
+  #  restart: always
   #sql-server-db:
   #  container_name: sql-server-db
   #  image: mcr.microsoft.com/mssql/server:2022-latest
@@ -16,3 +16,20 @@ services:
   #    SA_PASSWORD: "SenhaF0rt&"
   #    ACCEPT_EULA: "Y"
   #  restart: always
+  back-end:
+    container_name: back-end
+    image: pispring
+    #command: bash -c "cd EveryWhereSystems_API && mvn compile && mvn package && cd /EveryWhereSystems_API/target && java -jar everywheresystems-0.0.1-SNAPSHOT.jar"
+    ports:
+      - "8080:8080"
+    #  - "80:80"
+    network_mode: "host"
+    #links:
+    #  - "sql-server-db:sql-server-db"
+    restart: always
+    volumes:
+      - type: bind
+        source: 'C:\Users\gabri\OneDrive\Documentos\4 Semestre\EveryWhereSystems_API\'
+        target: /EveryWhereSystems_API/
+    #depends_on:
+    #  - sql-server-db
