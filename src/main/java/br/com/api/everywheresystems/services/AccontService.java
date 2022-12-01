@@ -75,7 +75,7 @@ public class AccontService {
     }
 
     public List<AccontModel> findAll() {
-        return usuarioService.findAll();
+        return usuarioService.findAllByAtivoTrue();
     }
 
     public Optional<AccontModel> findById(String id) {
@@ -83,15 +83,15 @@ public class AccontService {
     }
 
     public Optional<AccontModel> findByEmail(String email) {
-        return usuarioService.findByEmail(email);
+        return usuarioService.findByEmailAndAtivoTrue(email);
     }
 
     public boolean existsByCelular(String celular) {
-        return usuarioService.existsByCelular(celular);
+        return usuarioService.existsByCelularAndAtivoTrue(celular);
     }
 
     public boolean existsByEmail(String email) {
-        return usuarioService.existsByEmail(email);
+        return usuarioService.existsByEmailAndAtivoTrue(email);
     }
 
     public List<AccontModel> findAllByRoleModels(Role role) {

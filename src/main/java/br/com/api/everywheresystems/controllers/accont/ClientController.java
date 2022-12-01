@@ -37,7 +37,7 @@ public class ClientController {
         acconts.addAll(clientService.findAllByRoleModels(Role.ROLE_USER));
         acconts.addAll(clientService.findAllByRoleModels(Role.ROLE_ADMIN));
 
-        if (clientService.findAllByRoleModels(Role.ROLE_USER).toString() == "[]") {
+        if (acconts.toString() == "[]") {
             model.addAttribute("clientes", null);
         } else {
             model.addAttribute("clientes", acconts);
@@ -90,7 +90,7 @@ public class ClientController {
         acconts.addAll(clientService.findAllByRoleModels(Role.ROLE_ADMIN));
 
         if (clientService.saveEnterprise(empresa, true, role)) {
-            if (clientService.findAllByRoleModels(Role.ROLE_USER).toString() == "[]") {
+            if (acconts.toString() == "[]") {
                 model.addAttribute("clientes", null);
             } else {
                 model.addAttribute("clientes", acconts);
@@ -112,7 +112,7 @@ public class ClientController {
         acconts.addAll(clientService.findAllByRoleModels(Role.ROLE_ADMIN));
 
         if (clientService.saveEnterprise(empresa, false, role)) {
-            if (clientService.findAllByRoleModels(Role.ROLE_USER).toString() == "[]") {
+            if (acconts.toString() == "[]") {
                 model.addAttribute("clientes", null);
             } else {
                 model.addAttribute("clientes", acconts);
