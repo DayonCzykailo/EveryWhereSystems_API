@@ -27,8 +27,8 @@ DROP TABLE tb_docker
 
 SELECT COUNT(*) as'Total de audiencia' from tb_fato_dados_sensores WHERE cidade like 'Curitiba';
 
-UPDATE tb_accont
-SET ativo = 1
+UPDATE tb_form
+SET codigo_interno_painel = '1234 painel' where id = 'b623839f-464e-4703-bc2b-6ce3764002ca'
 
 select * from tb_accont where email like 'empresa@email.com';
 

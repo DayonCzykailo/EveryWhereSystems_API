@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import br.com.api.everywheresystems.configs.security.PermissoesConfigs;
 import br.com.api.everywheresystems.models.FormModel;
+import br.com.api.everywheresystems.models.RoleModel;
+import br.com.api.everywheresystems.models.enums.Role;
 import br.com.api.everywheresystems.services.AccontService;
 import br.com.api.everywheresystems.services.FormService;
 
@@ -36,8 +38,19 @@ public class FormController {
                 .getPrincipal();
         String auth = request.getUserPrincipal().getName();
         model.addAttribute("email", "Usuário: " + auth);
-        model.addAttribute("forms",
-                formService.findByEmpresa(usuarioService.findByEmail(user.getUsername()).get().getEmpresa()));
+
+        for (RoleModel role : user.getAuthorities()) {
+            if (role.getRole().equals(Role.ROLE_ADMIN)) {
+                model.addAttribute("forms", formService.findAll());
+                break;
+            } else if (role.getRole().equals(Role.ROLE_USER) || role.getRole().equals(Role.ROLE_SUB_USER)) {
+                model.addAttribute("forms",
+                        formService.findByEmpresa(usuarioService.findByEmail(user.getUsername()).get().getEmpresa()));
+
+                break;
+            }
+        }
+
         return "forms/gerenciarFormularios";
     }
 

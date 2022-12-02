@@ -40,16 +40,25 @@
                     <div class="form-row overflow-auto">
                         <div th:switch="${forms}">
                             <h3 th:if="${forms.empty}">Sem Formulário, ainda.</h3>
-                            <table th:case="*" th:each="form : ${forms}" class="table table-striped">
+                            <table th:case="*"  class="table table-striped">
                                 <tr>
                                     <th id="colName0">Requisição</th>
                                     <th id="colName1">Data</th>
+                                    <div></div>
+                                    <th sec:authorize="hasAnyAuthority('ROLE_ADMIN')">Empresa</th>
+                                    <th sec:authorize="hasAnyAuthority('ROLE_ADMIN')">CNPJ</th>
                                     <th id="colsName2">Endereço</th>
                                     <th id="colName3">Opção</th>
                                 </tr>
-                                <tr>
+                                <tr th:each="form : ${forms}">
                                     <td th:text="${form.id}">...</td>
                                     <td th:text="${#dates.format(form.date, 'dd/MM/yyyy')}">...</td>
+                                    <td sec:authorize="hasAnyAuthority('ROLE_ADMIN')" th:text="${form.empresa.nomeRazaoSocial}">...</td>
+                                    
+                                    <td sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
+                                     th:text="${#strings.substring(form.empresa.cnpj,0,2) + '.' + #strings.substring(form.empresa.cnpj,2,5) +'.'+#strings.substring(form.empresa.cnpj,5,8) + '/' + #strings.substring(form.empresa.cnpj,8,12) + '-' + #strings.substring(form.empresa.cnpj,12,14)}"
+                                     >...</td>
+                                     
                                     <td th:text="${form.enderecoExibicaoSensor}">...</td>
                                     <td>
                                         <a class="btn btn-primary" th:href="@{formulario/{id}(id=${form.id})}"
