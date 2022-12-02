@@ -1,0 +1,339 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>EWA</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/bootstrap-icons-1.9.1/bootstrap-icons.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
+</head>
+
+<body style="background: #ffffff;">
+    <header>
+        <nav class="navbar navbar-expand-lg" style="background-color: #2e75b5;">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{~/index.html}" style="color: #ffff;">
+                    Everywhere Analitics
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contato" style="color: #ffff;">Contato</a>
+                        </li>
+                        <li class="nav-item">
+                            <a  class="nav-link" style="color: #ffff;" th:href="@{~/politicas}">
+                                Políticas 
+                            </a>
+                        </li>
+
+                    </ul>
+                    <form class="d-flex">
+                        <div sec:authorize="isAuthenticated()">
+                            <a class="btn btn-light"
+                                th:href="${#authorization.expression('hasAnyAuthority(''ROLE_ADMIN'')')} ? @{~/gerenciarDash.html} : @{~/dash.html}"
+                                role="button">Entrar</a>
+                        </div>
+                        <div sec:authorize="isAnonymous()">
+                            <a class="btn btn-light" th:href="@{~/login.html}" role="button">Entrar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="py-4" style="background: #e4e4e4;"></div>
+        <div class="py-5">
+            <div class="mx-auto p-5" style="width: 70%;">
+                <article>
+                    <div class="unprintable">
+                        <div>
+                            <div>
+                                <div class="DocumentPage-content-wrap--hidden ">
+                                    <div class="DocumentPage-content fos-bottomref document-content" data-testid="copy-content-hidden">
+                                        <h3 ><b>POLÍTICA DE PRIVACIDADE</b>
+                                        </h3>
+                                        <p ><b>SEÇÃO 1 - INFORMAÇÕES GERAIS</b></p>
+                                        <p ><b
+                                                ></b></p>
+                                        <p >A presente Política de Privacidade
+                                            contém informações sobre coleta, uso, armazenamento, tratamento e proteção
+                                            dos dados pessoais dos usuários e visitantes do site
+                                            EveryWhereAnalytics, com a finalidade de demonstrar absoluta transparência quanto ao
+                                            assunto e esclarecer a todos interessados sobre os tipos de dados que são
+                                            coletados, os motivos da coleta e a forma como os usuários podem gerenciar
+                                            ou excluir as suas informações pessoais.</p>
+                                        <p >Esta Política de Privacidade
+                                            aplica-se a todos os usuários e visitantes do site
+                                            EveryWhereAnalytics e integra os Termos e Condições Gerais de Uso do
+                                            site EveryWhereAnalytics, devidamente inscrita no CNPJ sob o nº 97.750.626/0001-57, situado em Av. N. Sra. Aparecida, 1260
+                                            Seminário – Curitiba – PR, doravante nominada EWA.</p>
+                                        <p >O presente documento foi elaborado
+                                            em conformidade com a <a
+                                                href="https://www.jusbrasil.com.br/legislacao/612902269/lei-13709-18"
+                                                class="cite " rel="200399658"
+                                                title="LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.">Lei Geral de Proteçâo de
+                                                Dados Pessoais</a> (Lei <a
+                                                href="https://www.jusbrasil.com.br/legislacao/612902269/lei-13709-18"
+                                                class="cite " rel="200399658"
+                                                title="LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.">13.709</a>/18), o <a
+                                                href="https://www.jusbrasil.com.br/legislacao/117197216/lei-12965-14"
+                                                class="cite " rel="27363947"
+                                                title="LEI Nº 12.965, DE 23 ABRIL DE 2014.">Marco Civil da Internet</a>
+                                            (Lei <a
+                                                href="https://www.jusbrasil.com.br/legislacao/117197216/lei-12965-14"
+                                                class="cite " rel="27363947"
+                                                title="LEI Nº 12.965, DE 23 ABRIL DE 2014.">12.965</a>/14) (e o
+                                            Regulamento da UE n. 2016/6790). Ainda, o documento poderá ser atualizado em
+                                            decorrência de eventual atualização normativa, razão pela qual se convida o
+                                            usuário a consultar periodicamente esta seção.</p>
+                                        <p ><b
+                                                >SEÇÃO 2 - COMO RECOLHEMOS OS
+                                                DADOS PESSOAIS DO USUÁRIO E DO VISITANTE?</b></p>
+                                        <p >Os dados pessoais do usuário e
+                                            visitante são recolhidos pela plataforma da seguinte forma:</p>
+                                        <p >
+                                        <ul>
+                                            <li >
+                                                <p >Quando o usuário cria uma
+                                                    conta/perfil na plataforma EveryWhereAnalytics: esses dados são os dados de
+                                                    identificação básicos, como  e-mail, nome completo,
+                                                    cidade de residência e profissão. A partir deles, podemos
+                                                    identificar o usuário e o visitante, além de garantir uma maior
+                                                    segurança e bem-estar às suas necessidade. Ficam cientes os usuários
+                                                    e visitantes de que seu perfil na plataforma estará acessível a
+                                                    todos demais usuários e visitantes da plataforma EveryWhereAnalytics.</p>
+                                            </li>
+                                            
+                                        </ul>
+                                        <p ><b
+                                                >SEÇÃO 3 - QUAIS DADOS PESSOAIS
+                                                RECOLHEMOS SOBRE O USUÁRIO E VISITANTE?</b> </p>
+                                        <p >Os dados pessoais do usuário e
+                                            visitante recolhidos são os seguintes:</p>
+                                      
+                                        <ul >
+                                            <li >
+                                                <p >Dados para a criação da
+                                                    conta/perfil na plataforma EWA: e-mail, nome completo,
+                                                    cidade de residência e profissão.</p>
+                                            
+                                            <li >
+                                                <p >Dados relacionados a
+                                                    contratos: diante da formalização do contrato de compra e venda ou
+                                                    de prestação de serviços entre a plataforma e o usuário e visitante
+                                                    poderão ser coletados e armazenados dados relativos a execução
+                                                    contratual, inclusive as comunicações realizada entre a empresa e o
+                                                    usuário.</p>
+                                            </li>
+                                           
+                                        </ul>
+                                        <p ><b>SEÇÃO 3 - PARA QUE FINALIDADES
+                                                UTILIZAMOS OS DADOS PESSOAIS DO USUÁRIO E VISITANTE?</b></p>
+                                        <p >Os dados pessoais do usuário e do
+                                            visitante coletados e armazenados pela plataforma EWA tem por finalidade:
+                                        </p>
+                                        <ul >
+                                            <li >
+                                                <p >Bem-estar do usuário e
+                                                    visitante: aprimorar o produto e/ou serviço oferecido, facilitar,
+                                                    agilizar e cumprir os compromissos estabelecidos entre o usuário e a
+                                                    empresa, melhorar a experiência dos usuários e fornecer
+                                                    funcionalidades específicas a depender das características básicas
+                                                    do usuário.</p>
+                                            </li>
+                                            <li >
+                                                <p >Melhorias da plataforma:
+                                                    compreender como o usuário utiliza os serviços da plataforma, para
+                                                    ajudar no desenvolvimento de negócios e técnicas.</p>
+                                            </li>
+                                            <li >
+                                                <p >Dados de contrato: conferir
+                                                    às partes segurança jurídica e facilitar a conclusão do negócio.</p>
+                                            </li>
+                                        </ul>
+                                        <p >O tratamento de dados pessoais para
+                                            finalidades não previstas nesta Política de Privacidade somente ocorrerá
+                                            mediante comunicação prévia ao usuário, de modo que os direitos e obrigações
+                                            aqui previstos permanecem aplicáveis.</p>
+                                        <p><b>SEÇÃO 4 - POR QUANTO TEMPO OS
+                                                DADOS PESSOAIS FICAM ARMAZENADOS?</b></p>
+                                        <p >Os dados pessoais do usuário e
+                                            visitante são armazenados pela plataforma durante o período necessário para
+                                            a prestação do serviço ou o cumprimento das finalidades previstas no
+                                            presente documento, conforme o disposto no inciso <a
+                                                href="https://www.jusbrasil.com.br/topicos/200399061/inciso-i-do-artigo-15-da-lei-n-13709-de-14-de-agosto-de-2018"
+                                                class="cite " rel="200399061"
+                                                title="Inciso I do Artigo 15 da Lei nº 13.709 de 14 de Agosto de 2018">I</a>
+                                            do artigo <a
+                                                href="https://www.jusbrasil.com.br/topicos/200399064/artigo-15-da-lei-n-13709-de-14-de-agosto-de-2018"
+                                                class="cite " rel="200399064"
+                                                title="Artigo 15 da Lei nº 13.709 de 14 de Agosto de 2018">15</a> da Lei
+                                            <a href="https://www.jusbrasil.com.br/legislacao/612902269/lei-13709-18"
+                                                class="cite " rel="200399658"
+                                                title="LEI Nº 13.709, DE 14 DE AGOSTO DE 2018.">13.709</a>/18.</p>
+                                        <p >Os dados podem ser removidos ou
+                                            anonimizados a pedido do usuário, excetuando os casos em que a lei oferecer
+                                            outro tratamento.</p>
+                                        <p >Ainda, os dados pessoais dos
+                                            usuários apenas podem ser conservados após o término de seu tratamento nas
+                                            seguintes hipóteses previstas no artigo 16 da referida lei: </p>
+                                        <p >I - cumprimento de obrigação legal
+                                            ou regulatória pelo controlador;</p>
+                                        <p >II - estudo por órgão de pesquisa,
+                                            garantida, sempre que possível, a anonimização dos dados pessoais;</p>
+                                        <p >III - transferência a terceiro,
+                                            desde que respeitados os requisitos de tratamento de dados dispostos nesta
+                                            Lei;</p>
+                                        <p >IV - uso exclusivo do controlador,
+                                            vedado seu acesso por terceiro, e desde que anonimizados os dados.</p>
+                                        <p ><b
+                                                >SEÇÃO 5 - SEGURANÇA DOS DADOS
+                                                PESSOAIS ARMAZENADOS</b></p>
+                                        <p >A plataforma se compromete a
+                                            aplicar as medidas técnicas e organizativas aptas a proteger os dados
+                                            pessoais de acessos não autorizados e de situações de destruição, perda,
+                                            alteração, comunicação ou difusão de tais dados. </p>
+                                        <p >A plataforma não se exime de
+                                            responsabilidade por culpa exclusiva de terceiro, como em caso de ataque de
+                                            hackers ou crackers, ou culpa exclusiva do usuário, como no caso em que ele
+                                            mesmo transfere seus dados a terceiros. O site se compromete a comunicar o
+                                            usuário em caso de alguma violação de segurança dos seus dados pessoais.</p>
+                                        <p >Os dados pessoais armazenados são
+                                            tratados com confidencialidade, dentro dos limites legais. No entanto,
+                                            podemos divulgar suas informações pessoais caso sejamos obrigados pela lei
+                                            para fazê-lo ou se você violar nossos Termos de Serviço.</p>
+                                        <p ><b
+                                                >SEÇÃO 6 - COMPARTILHAMENTO DOS
+                                                DADOS</b></p>
+                                        <p >O compartilhamento de dados do
+                                            usuário ocorre apenas com os dados referentes a publicações realizadas pelo
+                                            próprio usuário, tais ações são compartilhadas publicamente com os outros
+                                            usuários.</p>
+                                        <p >Os dados do perfil do usuário são
+                                            compartilhados publicamente em sistemas de busca e dentro da plataforma,
+                                            sendo permitido ao usuário modificar tal configuração para que seu perfil
+                                            não apareça nos resultados de busca de tais ferramentas.</p>
+                                        <p ><b
+                                                >SEÇÃO 6 - OS DADOS PESSOAIS
+                                                ARMAZENADOS SERÃO TRANSFERIDOS A TERCEIROS?</b></p>
+                                        <p >Os dados pessoais não podem ser
+                                            compartilhados com terceiros.</p>
+                                       
+                                       
+                                       <b>SEÇÃO 07 – COOKIES OU DADOS DE
+                                                NAVEGAÇÃO</b>
+                                        <p >O usuário e o visitante da
+                                            plataforma EWA manifesta conhecer e aceitar que pode ser utilizado um
+                                            sistema de coleta de dados de navegação mediante à utilização de cookies.
+                                        </p>
+                                        <p >O cookie persistente permanece no
+                                            disco rígido do usuário e visitante depois que o navegador é fechado e será
+                                            usado pelo navegador em visitas subsequentes ao site. Os cookies
+                                            persistentes podem ser removidos seguindo as instruções do seu navegador. Já
+                                            o cookie de sessão é temporário e desaparece depois que o navegador é
+                                            fechado. É possível redefinir seu navegador da web para recusar todos os
+                                            cookies, porém alguns recursos da plataforma podem não funcionar
+                                            corretamente se a capacidade de aceitar cookies estiver desabilitada.</p>
+                                        <p ><b
+                                                >SEÇÃO 8 - CONSENTIMENTO</b>
+                                        </p>
+                                        <p >Ao utilizar os serviços e fornecer
+                                            as informações pessoais na plataforma, o usuário está consentindo com a
+                                            presente Política de Privacidade.</p>
+                                        <p >O usuário, ao cadastrar-se,
+                                            manifesta conhecer e pode exercitar seus direitos de cancelar seu cadastro,
+                                            acessar e atualizar seus dados pessoais e garante a veracidade das
+                                            informações por ele disponibilizadas.</p>
+                                        <p >O usuário tem direito de retirar o
+                                            seu consentimento a qualquer tempo, para tanto deve entrar em contato
+                                            através do e-mail everywhereanalytics@contato.com</p>
+                                        <p ><b>SEÇÃO 9 - ALTERAÇÕES PARA ESSA
+                                                POLÍTICA DE PRIVACIDADE</b></p>
+                                        <p >Reservamos o direito de modificar
+                                            essa Política de Privacidade a qualquer momento, então, é recomendável que o
+                                            usuário e visitante revise-a com frequência.</p>
+                                        <p >As alterações e esclarecimentos vão
+                                            surtir efeito imediatamente após sua publicação na plataforma. Quando
+                                            realizadas alterações os usuários serão notificados. Ao utilizar o serviço
+                                            ou fornecer informações pessoais após eventuais modificações, o usuário e
+                                            visitante demonstra sua concordância com as novas normas. </p>
+                                        <p >Diante da fusão ou venda da
+                                            plataforma à outra empresa os dados dos usuários podem ser transferidas para
+                                            os novos proprietários para que a permanência dos serviços oferecidos.</p>
+                                        <p ><b
+                                                >SEÇÃO 10 – JURISDIÇÃO PARA
+                                                RESOLUÇÃO DE CONFLITOS</b></p>
+                                        <p >Para a solução de controvérsias
+                                            decorrentes do presente instrumento será aplicado integralmente o Direito
+                                            brasileiro.</p>
+                                        <p >Os eventuais litígios deverão ser
+                                            apresentados no foro da comarca em que se encontra a sede da empresa.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+    <footer class="blog-footer">
+        <!-- place footer here -->
+        <div class="mx-5 py-5 row justify-content-center" id="contato">
+            <div class="mx-5 row justify-content-center">
+                <div class="fusion-column col-lg-3 col-md-3 col-sm-3">
+                    <img th:src="@{assets/logo.png}" class="rounded" alt="logo" style="width: 200px;">
+                </div>
+                <div class="fusion-column col-lg-3 col-md-3 col-sm-3">
+                    <h4 class="widget-title">Telefone:</h4>
+                    <div class="textwidget">
+                        <div style="font-size:22px; margin-bottom:0px;"><strong><span style="font-size:14px;">41</span>
+                                3121-2992</strong></div>
+                        <div style="font-size:22px;"><strong><span style="font-size:14px;">41</span>
+                                98812-9840</strong></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="fusion-column col-lg-3 col-md-3 col-sm-3">
+                    <h4 class="widget-title">Endereço:</h4>
+                    <div class="textwidget">
+                        <div style="font-size:18px;">Av. N. Sra. Aparecida, 1260 <br> Seminário – Curitiba – PR
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="fusion-column fusion-column-last col-lg-3 col-md-3 col-sm-3">
+                    <h4 class="widget-title">Nossas Redes:</h4>
+                    <div class="px-3">
+                        <a href="https://www.facebook.com/everywhereanalytics">
+                            <i class="px-4 bi bi-facebook"></i>
+                        </a>
+                        <a class="fusion-social-network-icon fusion-tooltip fusion-whatsapp fusion-icon-whatsapp"
+                            href="https://api.whatsapp.com/send?phone=5541998615020&amp;text=Ol%C3%A1!%20Acessei%20o%20site%20da%20Everywhere%20Analytics%20e%20gostaria%20de%20informa%C3%A7%C3%B5es."><i
+                                class="bi bi-whatsapp"></i></a>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="fusion-clearfix"></div>
+            </div>
+        </div>
+        <div class="text-center pb-3">
+            <p>
+                <a class="btn btn-outline-secondary" href="#" role="button">Voltar para Cima</a>
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -35,6 +35,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#contato" style="color: #ffff;">Contato</a>
                         </li>
+                        
+                        <li class="nav-item">
+                            <a  class="nav-link" style="color: #ffff;" th:href="@{~/politicas}">
+                                Políticas 
+                            </a>
+                        </li>
 
                     </ul>
                     <form class="d-flex">
@@ -123,6 +129,15 @@
                     <div class="textwidget">
                         <div style="font-size:18px;">Av. N. Sra. Aparecida, 1260 <br> Seminário – Curitiba – PR
                         </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="fusion-column col-lg-3 col-md-3 col-sm-3">
+                    <h4 class="widget-title">Políticas da empresa:</h4>
+                    <div class="textwidget">
+                        <a th:href="@{~/politicas}">
+                            POLÍTICA DE PRIVACIDADE 
+                        </a>
                     </div>
                     <div style="clear:both;"></div>
                 </div>
