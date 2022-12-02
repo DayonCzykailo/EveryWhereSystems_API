@@ -36,7 +36,7 @@ public class DockerModel {
     String name;
     String imagem;
 
-    String description;
+    // String description;
 
     // @DateTimeFormat(pattern = "HH:mm")
     // LocalDateTime hour;
@@ -51,6 +51,4 @@ public class DockerModel {
     // boolean onInSaturday;
     boolean ativo;
 
-    @OneToOne
-    private EmpresaModel enterprise;
 }

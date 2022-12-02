@@ -73,27 +73,27 @@ public class DockerController {
     // Post Cadastro
     @PostMapping(value = { "/docker/save", "/docker.html/save" })
     public String save(HttpServletRequest request, Model model,
-            @ModelAttribute("docker") DockerDto dockerDto) {
-        DockerModel docker = new DockerModel();
+            @ModelAttribute("docker") DockerModel docker) {
+        // DockerModel docker = new DockerModel();
+        model.addAttribute("docker", docker);
+        System.out.println(docker);
+        System.out.println(
+                "ShellScript.executarShellScript('docker run " + docker.getImagem() + " --name " + docker.getName());
 
-        dockerService.gerarCompose(dockerDto.getName(), dockerDto.getImagem());
-
-        // docker compose -f Compose2.yml up -d
-        System.out.println(dockerDto);
-        System.out.println("DOCKER");
-        // System.out.println(ShellScript.executarShellScript(" docker compose -f
-        // Compose2.yml up -d"));
-
-        model.addAttribute("Docker", docker);
-        System.out.println(dockerService.save(docker));
         return "docker/docker";
     }
 
     @PostMapping(value = { "/docker.html/save/{name}", "/docker/save/{name}" })
     public String saveByName(HttpServletRequest request, Model model,
-            @ModelAttribute("Docker") DockerModel docker, @PathVariable("name") String name) {
-        model.addAttribute("Docker", docker);
-        System.out.println(dockerService.save(docker));
+            @ModelAttribute("docker") DockerModel docker, @PathVariable("name") String name) {
+        model.addAttribute("docker", docker);
+        // System.out.println(dockerService.save(docker));
+        System.out.println(docker);
+        if (docker.isAtivo()) {
+            System.out.println("ShellScript.executarShellScript('docker start " + docker.getName());
+        } else {
+            System.out.println("ShellScript.executarShellScript('docker stop " + docker.getName());
+        }
 
         return "docker/docker";
     }
