@@ -75,7 +75,7 @@ public class AccontService {
     }
 
     public List<AccontModel> findAll() {
-        return usuarioService.findAllByAtivoTrue();
+        return usuarioService.findAll();
     }
 
     public Optional<AccontModel> findById(String id) {
@@ -87,11 +87,11 @@ public class AccontService {
     }
 
     public boolean existsByCelular(String celular) {
-        return usuarioService.existsByCelularAndAtivoTrue(celular);
+        return usuarioService.existsByCelular(celular);
     }
 
     public boolean existsByEmail(String email) {
-        return usuarioService.existsByEmailAndAtivoTrue(email);
+        return usuarioService.existsByEmail(email);
     }
 
     public List<AccontModel> findAllByRoleModels(Role role) {
@@ -222,9 +222,11 @@ public class AccontService {
         empresa.setAtuacao("EMPRESA");
         if (role.equals("ADMIN")) {
             empresa.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_ADMIN)));
+            empresa.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
         } else {
             empresa.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
         }
+
         empresa.setUltimoAcesso(Util.getDataHoraAgora());
 
         if ((empresa.getId() == null || empresa.getId().isEmpty())) {
@@ -301,6 +303,48 @@ public class AccontService {
         accont.setEmpresa(gerarEmpresa());
 
         save(accont);
+    }
+
+    public boolean saveAdmin(AccontModel adm, boolean isEdit) {
+
+        adm.setAtuacao("ADMIN");
+        adm.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_ADMIN)));
+        adm.setUltimoAcesso(Util.getDataHoraAgora());
+        
+        if ((adm.getId() == null || adm.getId().isEmpty())) {
+            if (existsByEmail(adm.getEmail()) || (!Util.validarString(adm.getEmail()))) {
+                System.out.println("erro2");
+                return false;
+            }
+        }
+        if (!(adm.getId() == null || adm.getId().isEmpty())) {
+            adm.setSenha(usuarioService.findById(adm.getId()).get().getSenha());
+        }
+
+        if (!Util.validarString(adm.getSenha())) {
+            System.out.println("erro3");
+            return false;
+        }
+        try {
+            if (!isEdit) {
+                adm.setSenha(encoder.encode(adm.getSenha()));
+            } else {
+                adm.setSenha(findById(adm.getId()).get().getSenha());
+            }
+        } catch (Exception e) {
+            System.out.println("erro5");
+            return false;
+        }
+
+        if (adm.getRoles().isEmpty() || adm.getRoles().size() == 0) {
+            System.out.println("erro7");
+            return false;
+        }
+
+        adm.setEmpresa(empresaService.findByCnpj("75167467000120").get());
+
+        System.out.println(save(adm).toString());
+        return true;
     }
 
 }

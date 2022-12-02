@@ -33,8 +33,12 @@
                             <h1>Clientes e Administradores Cadastrados</h1>
                         </div>
                         <div class="col-auto">
-                            <a class="btn btn-primary" href="./cadastroCliente.html" role="button"
-                                id="cadastrarCliente">Novo</a>
+                            <a class="btn btn-primary" th:href="@{~/cadastroCliente.html}" role="button"
+                                id="cadastrarCliente">Novo Cliente
+                            </a>
+                            <a class="btn btn-primary" th:href="@{~/cadastroAdministrador.html}" role="button"
+                            id="cadastrarCliente">Novo Administrador
+                        </a>
                         </div>
                     </div>
                     <div class="form-row overflow-auto">
@@ -57,8 +61,11 @@
                                     <td th:if="${cliente.ativo}">ATIVO</td>
                                     <td th:unless="${cliente.ativo}">INATIVO</td>
                                     <td>
-                                        <a class="btn btn-primary" th:href="@{cadastroCliente/{id}(id=${cliente.id})}"
+                                        <a th:if="${(cliente.empresa.cnpj == '75167467000120')}" class="btn btn-primary" th:href="@{cadastroAdministrador/{id}(id=${cliente.id})}"
                                             role="button">Editar</a>
+                                        
+                                            <a th:if="${!(cliente.empresa.cnpj == '75167467000120')}" class="btn btn-primary" th:href="@{cadastroCliente/{id}(id=${cliente.id})}"
+                                            role="button">Editar</a>    
                                     </td>
                                 </tr>
                             </table>

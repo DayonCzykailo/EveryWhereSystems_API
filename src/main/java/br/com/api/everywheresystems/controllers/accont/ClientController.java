@@ -99,7 +99,7 @@ public class ClientController {
         }
         return "clients/cadastroCliente";
     }
-
+    
     @PostMapping(value = { "/cadastroCliente/save" })
     public String saveClient(HttpServletRequest request, Model model,
             @ModelAttribute("empresa") AccontModel empresa, @RequestParam(value = "role") String role) {
@@ -123,4 +123,74 @@ public class ClientController {
         return "clients/cadastroCliente";
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////ADMINISTRADOR
+
+    
+
+    @GetMapping(value = { "/cadastroAdministrador.html", "/cadastroAdministrador" })
+    public String showCadastroAdm(HttpServletRequest request, Model model) {
+        AccontModel acc = new AccontModel();
+        acc.setAtivo(true);
+        model.addAttribute("empresa", acc);
+        model.addAttribute("isEditar", false);
+
+        return "clients/cadastroAdministrador";
+    }
+
+    @GetMapping(value = { "/cadastroAdministrador.html/{id}", "/cadastroAdministrador/{id}" })
+    public String showCadastroAdmByID(HttpServletRequest request, Model model, @PathVariable("id") String id) {
+        AccontModel empresa = clientService.findById(id).get();
+
+        model.addAttribute("empresa", empresa);
+        model.addAttribute("isEditar", true);
+
+       
+        return "clients/cadastroAdministrador";
+    }
+
+    @PostMapping(value = { "/cadastroAdministrador.html/save/{id}", "/cadastroAdministrador/save/{id}" })
+    public String showCadastroAdmByID(HttpServletRequest request, Model model,
+            @ModelAttribute("empresa") AccontModel empresa, @PathVariable("id") String id) {
+        model.addAttribute("empresa", empresa);
+        empresa.setId(id);
+        model.addAttribute("isEditar", true);
+        model.addAttribute("erro", "");
+
+        List<AccontModel> acconts = new ArrayList<AccontModel>();
+        acconts.addAll(clientService.findAllByRoleModels(Role.ROLE_USER));
+        acconts.addAll(clientService.findAllByRoleModels(Role.ROLE_ADMIN));
+
+        if (clientService.saveAdmin(empresa, true)) {
+            if (acconts.toString() == "[]") {
+                model.addAttribute("clientes", null);
+            } else {
+                model.addAttribute("clientes", acconts);
+            }
+            return "clients/gerenciarClientes";
+        }
+        return "clients/cadastroAdministrador";
+    }
+
+    @PostMapping(value = { "/cadastroAdministrador/save" })
+    public String saveAdm(HttpServletRequest request, Model model,
+            @ModelAttribute("empresa") AccontModel empresa) {
+        empresa.setAtivo(true);
+
+        model.addAttribute("isEditar", true);
+
+        List<AccontModel> acconts = new ArrayList<AccontModel>();
+        acconts.addAll(clientService.findAllByRoleModels(Role.ROLE_USER));
+        acconts.addAll(clientService.findAllByRoleModels(Role.ROLE_ADMIN));
+
+        if (clientService.saveAdmin(empresa, false)) {
+            if (acconts.toString() == "[]") {
+                model.addAttribute("clientes", null);
+            } else {
+                model.addAttribute("clientes", acconts);
+            }
+            return "clients/cadastroAdministrador";
+        }
+
+        return "clients/cadastroAdministrador";
+    }
 }
