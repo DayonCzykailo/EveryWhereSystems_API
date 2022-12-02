@@ -9,7 +9,7 @@ services:
     restart: always
     volumes:
       - type: bind
-        source: 'C:\Users\gabri\OneDrive\Documentos\4 Semestre\EveryWhereSystems_API\target\everywheresystems-0.0.1-SNAPSHOT.jar'
+        source: 'C:\ProjetoIntegrador\everywheresystems-0.0.1-SNAPSHOT.jar'
         target: /everywheresystems-0.0.1-SNAPSHOT.jar
       - type: bind
         source: '//var/run/docker.sock'
