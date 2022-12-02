@@ -46,18 +46,18 @@
                             <div th:switch="${name}">
                                 <h3 th:case="null">Novo Container</h3>
                             </div>
-                            <h3 id="title" th:text="*{name}">Nome do Container Docker</h2>
+                            <h3 th:value="*{name}" id="nameCont" th:text="*{name}">Nome do Container Docker</h3>
                         </div>
+
                         <div class="col-auto">
                             <button class="btn btn-primary" type="submit">Salvar</button>
                         </div>
                         <div class="col-auto">
                             <a class="btn btn-secondary" th:href="gerenciarDocker.html" role="button">Cancelar</a>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto" id="ativoCheckBox">
                             <div class="form-check">
-                                <input checked="checked" class="form-check-input " type="checkbox" th:field="*{ativo}"
-                                    id="ativoCheckBox">
+                                <input th:field="*{ativo}" checked="checked" class="form-check-input " type="checkbox">
                                 <label class="form-check-label" for="ativoCheckBox">
                                     Ativo
                                 </label>
@@ -68,7 +68,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <!--<div class="row">
                 <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
                     <div class="row fullSize">
                         <div class="col fullSize">
@@ -82,21 +82,23 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="row">
 
                 <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
                     <div class="row fullSize">
                         <div class="col fullSize">
-                            <h3 id="description">Configuração</h3>
-                            <div class="mb-3">
-                                <label for="nomeContainer" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="nomeContainer" placeholder="Container">
+                            <div class="col">
+                                <h3 class="text-start">Nome</h3>
+                                <input th:field="*{name}" type="text" class="form-control" id="nomeContainer"
+                                    placeholder="Container" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="imagemContainer" class="form-label">Imagem</label>
-                                <input type="text" class="form-control" id="imagemContainer"
-                                    placeholder="maven:3-amazoncorretto-19">
+                            <div class="col">
+                                <h3 id="description">Imagem</h3>
+                                <div class="mb-3">
+                                    <input th:field="*{imagem}" type="text" class="form-control" id="imagemContainer"
+                                        placeholder="maven:3-amazoncorretto-19">
+                                </div>
                             </div>
                             <!--<input class="form-control" type="file" id="formFile">-->
                         </div>
@@ -104,7 +106,7 @@
                 </div>
             </div>
 
-            <div class="row fullSize">
+            <div class="row fullSize" id="logContainer">
                 <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
                     <div class="row fullSize">
                         <div class="col fullSize">
@@ -113,7 +115,8 @@
                                     <h3 id="log">Log do Docker</h3>
                                 </div>
                                 <div class="col-auto">
-                                    <button class="btn btn-primary" id="btnSave">Atualizar</button>
+                                    <button href="./docker/*{name}" class="btn btn-primary"
+                                        id="btnSave">Atualizar</button>
                                 </div>
                             </div>
                             <textarea th:field="*{log}" disabled readonly class="form-control textAreaSize lightMode"
@@ -122,7 +125,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row fullSize">
+            <div class="row fullSize" id="statusContainer">
                 <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
                     <div class="row fullSize">
                         <div class="col fullSize">
@@ -130,9 +133,11 @@
                                 <div class="col">
                                     <h3>Status do Container</h3>
                                     <input type="hidden" id="containerStatus" th:value="*{status}" />
+                                    <input type="hidden" id="namecont" th:value="*{name}" />
                                 </div>
                                 <div class="col-auto">
-                                    <button class="btn btn-primary" id="btnSave">Atualizar</button>
+                                    <button href="./docker/*{name}" class="btn btn-primary"
+                                        id="btnSave">Atualizar</button>
                                 </div>
                             </div>
                             <div class="col fullSize">
@@ -147,37 +152,61 @@
         </div>
         <script>
             dados = []
+            headder = []
             function processa() {
                 var mensagem = $("#containerStatus").val();
-                var name = $("#title").val();
+                var name = $("#namecont").val();
                 //console.log(mensagem)
                 lines = mensagem.split('\n');
                 console.log(lines)
+                headder.push(lines[0])
                 lines.forEach(element => {
+                    console.log(element)
                     if (element != "") {
-                        if (element.split(' ')[0] == name)
+                        if (element.split(' ')[element.split(' ').length - 1] == name)
                             dados.push(element);
                     }
                 });
 
             }
             processa()
-            build(dados)
+            build()
 
-            function build(data) {
+            function build() {
                 var table = document.getElementById('status')
 
-                console.log(data)
-                for (var i = 0; i < data.length; i++) {
+                console.log(dados)
+                table.innerHTML += headder + "\n"
+                for (var i = 0; i < dados.length; i++) {
                     try {
-                        console.log(data[i])
-                        var row = `${data[i]}`
+                        console.log(dados[i])
+                        var row = `${dados[i]}`
                         table.innerHTML += row + "\n"
                         // console.log(data[i].id)
                     } catch {
                         null
                     }
                 }
+            }
+
+            imagem = document.getElementById('imagemContainer')
+            nome = document.getElementById('nomeContainer')
+            ativo = document.getElementById('ativoCheckBox')
+            log = document.getElementById('logContainer')
+            sta = document.getElementById('statusContainer')
+            if (nome.value != '') {
+
+                imagem.setAttribute('disabled', null)
+                imagem.setAttribute('readonly', null)
+
+                nome.setAttribute('disabled', null)
+                nome.setAttribute('readonly', null)
+
+            } else {
+                ativo.setAttribute('hidden', null)
+                log.setAttribute('hidden', null)
+                sta.setAttribute('hidden', null)
+
             }
         </script>
         </main>
