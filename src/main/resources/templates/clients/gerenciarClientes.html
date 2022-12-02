@@ -61,10 +61,10 @@
                                     <td th:if="${cliente.ativo}">ATIVO</td>
                                     <td th:unless="${cliente.ativo}">INATIVO</td>
                                     <td>
-                                        <a th:if="${(cliente.empresa.cnpj == '75167467000120')}" class="btn btn-primary" th:href="@{cadastroAdministrador/{id}(id=${cliente.id})}"
+                                        <a th:if="${(cliente.empresa.cnpj == '75167467000120')}" class="btn btn-primary" th:href="@{~/cadastroAdministrador/{id}(id=${cliente.id})}"
                                             role="button">Editar</a>
                                         
-                                            <a th:if="${!(cliente.empresa.cnpj == '75167467000120')}" class="btn btn-primary" th:href="@{cadastroCliente/{id}(id=${cliente.id})}"
+                                            <a th:if="${!(cliente.empresa.cnpj == '75167467000120')}" class="btn btn-primary" th:href="@{~/cadastroCliente/{id}(id=${cliente.id})}"
                                             role="button">Editar</a>    
                                     </td>
                                 </tr>

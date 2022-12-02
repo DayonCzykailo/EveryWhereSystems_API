@@ -217,12 +217,11 @@ public class AccontService {
     }
 
     public boolean saveEnterprise(AccontModel empresa, boolean isEdit, String role) {
-
         empresa.setNome(empresa.getEmpresa().getNomeRazaoSocial());
         empresa.setAtuacao("EMPRESA");
         if (role.equals("ADMIN")) {
-            empresa.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_ADMIN)));
-            empresa.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
+            empresa.setRoles(
+                    Arrays.asList(rolesService.findByRole(Role.ROLE_ADMIN), rolesService.findByRole(Role.ROLE_USER)));
         } else {
             empresa.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_USER)));
         }
@@ -310,7 +309,7 @@ public class AccontService {
         adm.setAtuacao("ADMIN");
         adm.setRoles(Arrays.asList(rolesService.findByRole(Role.ROLE_ADMIN)));
         adm.setUltimoAcesso(Util.getDataHoraAgora());
-        
+
         if ((adm.getId() == null || adm.getId().isEmpty())) {
             if (existsByEmail(adm.getEmail()) || (!Util.validarString(adm.getEmail()))) {
                 System.out.println("erro2");
@@ -343,7 +342,7 @@ public class AccontService {
 
         adm.setEmpresa(empresaService.findByCnpj("75167467000120").get());
 
-        System.out.println(save(adm).toString());
+        System.out.println(save(adm));
         return true;
     }
 

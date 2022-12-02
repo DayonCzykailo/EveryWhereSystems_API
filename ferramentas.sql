@@ -1,6 +1,6 @@
 SELECT * from tb_accont
 SELECT * from tb_empresa
-SELECT * from tb_role_accont
+SELECT * from tb_role_accont where tb_accont_id like 'b6babaad-62d7-4428-9a8a-bbf54f60dc4e'
 SELECT * from tb_role
 SELECT * from tb_form
 SELECT * from tb_fato_dados_sensores
