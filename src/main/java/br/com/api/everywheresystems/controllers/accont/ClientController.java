@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +39,9 @@ public class ClientController {
         acconts.addAll(clientService.findAllByRoleModels(Role.ROLE_USER));
         acconts.addAll(clientService.findAllByRoleModels(Role.ROLE_ADMIN));
 
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
+
         if (acconts.toString() == "[]") {
             model.addAttribute("clientes", null);
         } else {
@@ -53,6 +58,8 @@ public class ClientController {
         model.addAttribute("empresa", acc);
         model.addAttribute("isEditar", false);
         model.addAttribute("role", "USER");
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         return "clients/cadastroCliente";
     }
 
@@ -62,6 +69,8 @@ public class ClientController {
 
         model.addAttribute("empresa", empresa);
         model.addAttribute("isEditar", true);
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
 
         for (RoleModel role : empresa.getRoles()) {
             if (role.getRole().equals(Role.ROLE_ADMIN)) {
@@ -80,6 +89,8 @@ public class ClientController {
     public String showCadastroClientByID(HttpServletRequest request, Model model,
             @ModelAttribute("empresa") AccontModel empresa, @PathVariable("id") String id,
             @RequestParam(value = "role") String role) {
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         model.addAttribute("empresa", empresa);
         empresa.setId(id);
         model.addAttribute("isEditar", true);
@@ -99,12 +110,13 @@ public class ClientController {
         }
         return "clients/cadastroCliente";
     }
-    
+
     @PostMapping(value = { "/cadastroCliente/save" })
     public String saveClient(HttpServletRequest request, Model model,
             @ModelAttribute("empresa") AccontModel empresa, @RequestParam(value = "role") String role) {
         empresa.setAtivo(true);
-
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         model.addAttribute("isEditar", true);
 
         List<AccontModel> acconts = new ArrayList<AccontModel>();
@@ -123,12 +135,12 @@ public class ClientController {
         return "clients/cadastroCliente";
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////ADMINISTRADOR
-
-    
+    ///////////////////////////////////////////////////////////////////////////////////////////// ADMINISTRADOR
 
     @GetMapping(value = { "/cadastroAdministrador.html", "/cadastroAdministrador" })
     public String showCadastroAdm(HttpServletRequest request, Model model) {
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         AccontModel acc = new AccontModel();
         acc.setAtivo(true);
         model.addAttribute("empresa", acc);
@@ -140,17 +152,19 @@ public class ClientController {
     @GetMapping(value = { "/cadastroAdministrador.html/{id}", "/cadastroAdministrador/{id}" })
     public String showCadastroAdmByID(HttpServletRequest request, Model model, @PathVariable("id") String id) {
         AccontModel empresa = clientService.findById(id).get();
-
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         model.addAttribute("empresa", empresa);
         model.addAttribute("isEditar", true);
 
-       
         return "clients/cadastroAdministrador";
     }
 
     @PostMapping(value = { "/cadastroAdministrador.html/save/{id}", "/cadastroAdministrador/save/{id}" })
     public String showCadastroAdmByID(HttpServletRequest request, Model model,
             @ModelAttribute("empresa") AccontModel empresa, @PathVariable("id") String id) {
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         model.addAttribute("empresa", empresa);
         empresa.setId(id);
         model.addAttribute("isEditar", true);
@@ -175,6 +189,8 @@ public class ClientController {
     public String saveAdm(HttpServletRequest request, Model model,
             @ModelAttribute("empresa") AccontModel empresa) {
         empresa.setAtivo(true);
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
 
         model.addAttribute("isEditar", true);
 

@@ -68,21 +68,6 @@
                 </div>
             </div>
 
-            <!--<div class="row">
-                <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
-                    <div class="row fullSize">
-                        <div class="col fullSize">
-                            <div class="row">
-                                <div class="col">
-                                    <h3 id="description">Descrição</h3>
-                                </div>
-                            </div>
-                            <textarea th:field="*{description}" class="form-control textAreaSize lightMode mb-3"
-                                rows="5" placeholder="Esse Script é em --- e acessa o --- para --- ..."></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
             <div class="row">
 
                 <div class="col mt-4 py-2 pt-3 px-3  rounded-4 shadow lightMode">
@@ -115,8 +100,7 @@
                                     <h3 id="log">Log do Docker</h3>
                                 </div>
                                 <div class="col-auto">
-                                    <button href="./docker/*{name}" class="btn btn-primary"
-                                        id="btnSave">Atualizar</button>
+                                    <p href="./docker/*{name}" class="btn btn-primary">Atualizar</p>
                                 </div>
                             </div>
                             <textarea th:field="*{log}" disabled readonly class="form-control textAreaSize lightMode"
@@ -136,8 +120,7 @@
                                     <input type="hidden" id="namecont" th:value="*{name}" />
                                 </div>
                                 <div class="col-auto">
-                                    <button href="./docker/*{name}" class="btn btn-primary"
-                                        id="btnSave">Atualizar</button>
+                                    <p href="./docker/*{name}" class="btn btn-primary">Atualizar</p>
                                 </div>
                             </div>
                             <div class="col fullSize">

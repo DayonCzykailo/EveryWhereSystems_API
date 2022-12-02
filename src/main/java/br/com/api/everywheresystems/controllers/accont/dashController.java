@@ -34,6 +34,8 @@ public class DashController {
 
     @GetMapping(value = { "/gerenciarDash.html", "/gerenciarDash" })
     public String showGerenciaDash(HttpServletRequest request, Model model) {
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
 
         if (service.findAll().toString() == "[]") {
             model.addAttribute("clientes", null);
@@ -48,7 +50,8 @@ public class DashController {
     public String showDash(HttpServletRequest request, Model model) {
         final PermissoesConfigs usuario = (PermissoesConfigs) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();// service.findByEmpresa(accontService.findByEmail(usuario.getUsername()).get().getEmpresa())
-
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         List<FatoDadosSensoresModel> data = service
                 .findByEmpresa(accontService.findByEmail(usuario.getUsername()).get().getEmpresa());
         // System.out.println(data);
@@ -59,7 +62,8 @@ public class DashController {
 
     @GetMapping(value = { "/dash.html/{id}", "/dash/{id}" })
     public String showDashByID(HttpServletRequest request, Model model, @PathVariable("id") String id) {
-
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         // System.out.println(service.findByEmpresa(empresaService.findById(id).get()).size());
         model.addAttribute("pieChartData", service.findByEmpresa(empresaService.findById(id).get()));
 

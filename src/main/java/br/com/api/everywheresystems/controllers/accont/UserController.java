@@ -46,6 +46,8 @@ public class UserController {
         final PermissoesConfigs user = (PermissoesConfigs) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
         System.out.println(user.getAuthorities().toString());
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
 
         model.addAttribute("usuarios", usuarioService.findByRoleAndEmpresa(Role.ROLE_SUB_USER,
                 usuarioService.findByEmail(user.getUsername()).get().getEmpresa().getId()));
@@ -57,6 +59,8 @@ public class UserController {
     @GetMapping(value = { "/cadastroUsuario.html", "/cadastroUsuario" })
     public String showCadastroUser(HttpServletRequest request, Model model) {
         AccontDto accont = new AccontDto();
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         accont.setAtivo(true);
         model.addAttribute("usuario", accont);
         return "user/cadastroUsuario";
@@ -65,6 +69,8 @@ public class UserController {
     @GetMapping(value = { "/cadastroUsuario.html/{id}", "/cadastroUsuario/{id}" })
     public String showCadastroUserById(HttpServletRequest request, Model model, @PathVariable("id") String id) {
         model.addAttribute("usuario", new AccontDto(usuarioService.findById(id).get()));
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         return "user/cadastroUsuario";
     }
 
@@ -74,6 +80,8 @@ public class UserController {
             @ModelAttribute("usuario") AccontDto usuario) {
         final PermissoesConfigs user = (PermissoesConfigs) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
 
         AccontModel accont = usuario.toAccontModel(empresaService, rolesService);
         accont.setUltimoAcesso(Util.getDataHoraAgora());
@@ -90,6 +98,8 @@ public class UserController {
 
         model.addAttribute("usuario", new AccontDto(usuarioService.findById(id).get()));
         model.addAttribute("erro", "");
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
 
         AccontModel accont = usuario.toAccontModel(empresaService, rolesService);
         accont.setUltimoAcesso(Util.getDataHoraAgora());

@@ -37,6 +37,8 @@ public class DockerController {
 
     @GetMapping(value = { "/gerenciarDocker.html", "/gerenciarDocker" })
     public String showGerenciarDocker(HttpServletRequest request, Model model) {
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
 
         model.addAttribute("container", ShellScript.executarShellScript("docker container ls -a"));
         return "docker/gerenciarDocker";
@@ -45,6 +47,8 @@ public class DockerController {
     // get Cadastro
     @GetMapping(value = { "/docker.html", "/docker" })
     public String showCadastroDocker(HttpServletRequest request, Model model) {
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         model.addAttribute("docker", new DockerDto());
         return "docker/docker";
     }
@@ -52,7 +56,8 @@ public class DockerController {
     @GetMapping(value = { "/docker.html/{name}", "/docker/{name}" })
     public String showCadastroDockerByname(HttpServletRequest request, Model model, @PathVariable("name") String name) {
         DockerDto docker = new DockerDto();
-
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         // BeanUtils.copyProperties(dockerService.findByName(name).get(), docker);
         // System.out.println("======================================");
         docker.setName(name);
@@ -75,6 +80,8 @@ public class DockerController {
     public String save(HttpServletRequest request, Model model,
             @ModelAttribute("docker") DockerModel docker) {
         // DockerModel docker = new DockerModel();
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         model.addAttribute("docker", docker);
         System.out.println(docker);
         System.out.println(
@@ -86,6 +93,8 @@ public class DockerController {
     @PostMapping(value = { "/docker.html/save/{name}", "/docker/save/{name}" })
     public String saveByName(HttpServletRequest request, Model model,
             @ModelAttribute("docker") DockerModel docker, @PathVariable("name") String name) {
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         model.addAttribute("docker", docker);
         // System.out.println(dockerService.save(docker));
         System.out.println(docker);

@@ -35,19 +35,21 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#contato" style="color: #ffff;">Contato</a>
                         </li>
-                        
+
                         <li class="nav-item">
-                            <a  class="nav-link" style="color: #ffff;" th:href="@{~/politicas}">
-                                Políticas 
+                            <a class="nav-link" style="color: #ffff;" th:href="@{~/politicas}">
+                                Políticas
                             </a>
                         </li>
 
                     </ul>
                     <form class="d-flex">
                         <div sec:authorize="isAuthenticated()">
-                            <a class="btn btn-light" th:href="${#authorization.expression('hasAnyAuthority(''ROLE_ADMIN'')')} ? @{~/gerenciarDash.html} : @{~/dash.html}" role="button">Entrar</a>
+                            <a class="btn btn-light"
+                                th:href="${#authorization.expression('hasAnyAuthority(''ROLE_ADMIN'')')} ? @{~/gerenciarDash.html} : @{~/dash.html}"
+                                role="button">Entrar</a>
                         </div>
-                        <div sec:authorize="isAnonymous()"> 
+                        <div sec:authorize="isAnonymous()">
                             <a class="btn btn-light" th:href="@{~/login.html}" role="button">Entrar</a>
                         </div>
                     </form>
@@ -111,10 +113,10 @@
         <!-- place footer here -->
         <div class="mx-5 py-5 row justify-content-center" id="contato">
             <div class="mx-5 row justify-content-center">
-                <div class="fusion-column col-lg-3 col-md-3 col-sm-3">
+                <div class="col">
                     <img th:src="@{assets/logo.png}" class="rounded" alt="logo" style="width: 200px;">
                 </div>
-                <div class="fusion-column col-lg-3 col-md-3 col-sm-3">
+                <div class="col">
                     <h4 class="widget-title">Telefone:</h4>
                     <div class="textwidget">
                         <div style="font-size:22px; margin-bottom:0px;"><strong><span style="font-size:14px;">41</span>
@@ -124,7 +126,7 @@
                     </div>
                     <div style="clear:both;"></div>
                 </div>
-                <div class="fusion-column col-lg-3 col-md-3 col-sm-3">
+                <div class="col">
                     <h4 class="widget-title">Endereço:</h4>
                     <div class="textwidget">
                         <div style="font-size:18px;">Av. N. Sra. Aparecida, 1260 <br> Seminário – Curitiba – PR
@@ -132,16 +134,16 @@
                     </div>
                     <div style="clear:both;"></div>
                 </div>
-                <div class="fusion-column col-lg-3 col-md-3 col-sm-3">
+                <div class="col">
                     <h4 class="widget-title">Políticas da empresa:</h4>
                     <div class="textwidget">
                         <a th:href="@{~/politicas}">
-                            POLÍTICA DE PRIVACIDADE 
+                            POLÍTICA DE PRIVACIDADE
                         </a>
                     </div>
                     <div style="clear:both;"></div>
                 </div>
-                <div class="fusion-column fusion-column-last col-lg-3 col-md-3 col-sm-3">
+                <div class="col">
                     <h4 class="widget-title">Nossas Redes:</h4>
                     <div class="px-3">
                         <a href="https://www.facebook.com/everywhereanalytics">

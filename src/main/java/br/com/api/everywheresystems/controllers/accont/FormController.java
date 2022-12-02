@@ -34,7 +34,8 @@ public class FormController {
     public String showGerenciarForm(HttpServletRequest request, Model model) {
         final PermissoesConfigs user = (PermissoesConfigs) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
-
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         model.addAttribute("forms",
                 formService.findByEmpresa(usuarioService.findByEmail(user.getUsername()).get().getEmpresa()));
         return "forms/gerenciarFormularios";
@@ -44,12 +45,16 @@ public class FormController {
     @GetMapping(value = { "/formulario.html", "/formulario", "/formularios" })
     public String showCadastroForm(HttpServletRequest request, Model model) {
         model.addAttribute("form", new FormModel());
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         return "forms/formulario";
     }
 
     @GetMapping(value = { "/formulario.html/{id}", "/formulario/{id}", "/formularios/{id}" })
     public String showCadastroFormById(HttpServletRequest request, Model model, @PathVariable("id") String id) {
         model.addAttribute("form", formService.findById(id).get());
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
 
         return "forms/formulario";
     }
@@ -58,6 +63,8 @@ public class FormController {
     @PostMapping(value = { "/formulario/save", "/formulario.html/save", "/formularios/save" })
     public String save(HttpServletRequest request, Model model,
             @ModelAttribute("form") FormModel form) {
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         final PermissoesConfigs user = (PermissoesConfigs) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
@@ -71,6 +78,8 @@ public class FormController {
     @PostMapping(value = { "/formulario.html/save/{id}", "/formulario/save/{id}", "/formularios/save/{id}" })
     public String saveByID(HttpServletRequest request, Model model,
             @ModelAttribute("form") FormModel form, @PathVariable("id") String id) {
+        String auth = request.getUserPrincipal().getName();
+        model.addAttribute("email", "Usuário: " + auth);
         model.addAttribute("form", form);
         System.out.println(formService.save(form));
 

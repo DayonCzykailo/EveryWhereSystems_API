@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
-
+    <script th:src="@{/js/bootstrap/bootstrap.bundle.js}" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script th:src="@{/js/menu.js}" type="text/javascript"></script>
     <title id="Title">Cliente</title>
@@ -37,8 +37,8 @@
                                 id="cadastrarCliente">Novo Cliente
                             </a>
                             <a class="btn btn-primary" th:href="@{~/cadastroAdministrador.html}" role="button"
-                            id="cadastrarCliente">Novo Administrador
-                        </a>
+                                id="cadastrarCliente">Novo Administrador
+                            </a>
                         </div>
                     </div>
                     <div class="form-row overflow-auto">
@@ -56,16 +56,33 @@
                                     <h2 th:case="null">Sem clientes, ainda.</h2>
                                     <td th:text="${cliente.nome}">...</td>
                                     <td th:text="${cliente.email}">...</td>
-                                    <td class="dropdown-item" th:each="regra : ${cliente.roles}"
-                                                th:text="${#strings.substring(#strings.replace(regra.role, '&#95;', '&#32;'),5)} == 'ADMIN' ? 'Administrador': 'Cliente'">.</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                Lista
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li><a class="dropdown-item" th:each="regra : ${cliente.roles}"
+                                                        th:text="${#strings.substring(#strings.replace(regra.role, '&#95;', '&#32;'),5)} == 'ADMIN' ? 'Administrador': 'Cliente'">.</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </td>
                                     <td th:if="${cliente.ativo}">ATIVO</td>
                                     <td th:unless="${cliente.ativo}">INATIVO</td>
                                     <td>
-                                        <a th:if="${(cliente.empresa.cnpj == '75167467000120')}" class="btn btn-primary" th:href="@{~/cadastroAdministrador/{id}(id=${cliente.id})}"
+
+                                        <a th:if="${(cliente.empresa.cnpj == '75167467000120')}" class="btn btn-primary"
+                                            th:href="@{~/cadastroAdministrador/{id}(id=${cliente.id})}"
                                             role="button">Editar</a>
-                                        
-                                            <a th:if="${!(cliente.empresa.cnpj == '75167467000120')}" class="btn btn-primary" th:href="@{~/cadastroCliente/{id}(id=${cliente.id})}"
-                                            role="button">Editar</a>    
+
+                                        <a th:if="${!(cliente.empresa.cnpj == '75167467000120')}"
+                                            class="btn btn-primary"
+                                            th:href="@{~/cadastroCliente/{id}(id=${cliente.id})}"
+                                            role="button">Editar</a>
                                     </td>
                                 </tr>
                             </table>

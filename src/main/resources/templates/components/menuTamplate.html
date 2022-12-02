@@ -18,6 +18,9 @@
             </div>
 
             <div class="col-auto">
+                <span class="nav_name" th:text="${email}">...</span>
+            </div>
+            <div class="col-auto">
                 <i class="bi bi-moon-stars" id="nightSwitch"></i>
             </div>
         </header>
@@ -29,12 +32,12 @@
                         <i class="bi bi-grid-1x2"></i>
                         <span class="nav_logo-name">Everywhere Analitics</span>
                     </a>
-                    
+
                     <div
                         sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUB_USER','ROLE_ACCESS_DASH','ROLE_ACCESS_MANAGE_DASH')">
                         <div class="nav_list">
-                            <a  th:href="${#authorization.expression('hasAnyAuthority(''ROLE_ADMIN'')')} ? @{~/gerenciarDash.html} : @{~/dash.html}" class="nav_link"
-                                th:classappend="${tela == 'dash'} ? active : inactive">
+                            <a th:href="${#authorization.expression('hasAnyAuthority(''ROLE_ADMIN'')')} ? @{~/gerenciarDash.html} : @{~/dash.html}"
+                                class="nav_link" th:classappend="${tela == 'dash'} ? active : inactive">
                                 <i class="bi bi-graph-up-arrow"></i>
                                 <span class="nav_name">Dashboard</span>
                             </a>
