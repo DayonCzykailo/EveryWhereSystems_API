@@ -86,6 +86,7 @@ public class DockerController {
         System.out.println(docker);
         System.out.println(
                 "ShellScript.executarShellScript('docker run " + docker.getImagem() + " --name " + docker.getName());
+        model.addAttribute("container", ShellScript.executarShellScript("docker container ls -a"));
 
         return "docker/gerenciarDocker";
     }
@@ -103,6 +104,7 @@ public class DockerController {
         } else {
             System.out.println("ShellScript.executarShellScript('docker stop " + docker.getName());
         }
+        model.addAttribute("container", ShellScript.executarShellScript("docker container ls -a"));
 
         return "docker/gerenciarDocker";
     }
