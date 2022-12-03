@@ -33,9 +33,10 @@
                         <span class="nav_logo-name">Everywhere Analitics</span>
                     </a>
 
-                    <div
-                        sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUB_USER','ROLE_ACCESS_DASH','ROLE_ACCESS_MANAGE_DASH')">
-                        <div class="nav_list">
+
+                    <div class="nav_list">
+                        <div
+                            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_USER','ROLE_ACCESS_DASH','ROLE_ACCESS_MANAGE_DASH')">
                             <a th:href="${#authorization.expression('hasAnyAuthority(''ROLE_ADMIN'')')} ? @{~/gerenciarDash.html} : @{~/dash.html}"
                                 class="nav_link" th:classappend="${tela == 'dash'} ? active : inactive">
                                 <i class="bi bi-graph-up-arrow"></i>
@@ -53,7 +54,7 @@
                         </div>
 
                         <div
-                            sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_SUB_USER','ROLE_USER','ROLE_ACCESS_FORMS','ROLE_ACCESS_MANAGE_FORMS','ROLE_ACCESS_REGISTER_FORMS')">
+                            sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_USER','ROLE_ACCESS_FORMS','ROLE_ACCESS_MANAGE_FORMS','ROLE_ACCESS_REGISTER_FORMS')">
                             <a th:href="@{~/gerenciarFormularios.html}" class="nav_link"
                                 th:classappend="${tela == 'formularios'} ? active : inactive">
                                 <i class="bi bx-x bi-card-checklist"></i>
@@ -80,12 +81,11 @@
                         </div>
 
 
+                        <a href="\logout" class="nav_link">
+                            <i class="bi bi-box-arrow-left"></i>
+                            <span class="nav_name">Desconectar</span>
+                        </a>
                     </div>
-                </div>
-                <a href="\logout" class="nav_link">
-                    <i class="bi bi-box-arrow-left"></i>
-                    <span class="nav_name">Desconectar</span>
-                </a>
             </nav>
         </div>
 

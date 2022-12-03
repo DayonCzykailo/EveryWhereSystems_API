@@ -59,6 +59,7 @@ public class UserController {
     @GetMapping(value = { "/cadastroUsuario.html", "/cadastroUsuario" })
     public String showCadastroUser(HttpServletRequest request, Model model) {
         AccontDto accont = new AccontDto();
+        model.addAttribute("erro", false);
         String auth = request.getUserPrincipal().getName();
         model.addAttribute("email", "Usuário: " + auth);
         accont.setAtivo(true);
@@ -71,6 +72,8 @@ public class UserController {
         model.addAttribute("usuario", new AccontDto(usuarioService.findById(id).get()));
         String auth = request.getUserPrincipal().getName();
         model.addAttribute("email", "Usuário: " + auth);
+        model.addAttribute("erro", false);
+
         return "user/cadastroUsuario";
     }
 
@@ -87,17 +90,32 @@ public class UserController {
         accont.setUltimoAcesso(Util.getDataHoraAgora());
         accont.setEmpresa(usuarioService.findByEmail(user.getUsername()).get().getEmpresa());
         accont.setSenha(usuarioService.encode(accont.getSenha()));
-        usuarioService.save(accont);
+        if (usuario.getAtuacao().isEmpty()) {
+            accont.setAtuacao("SEM ATUAÇÃO");
+        }
+        System.out.println(usuario);
+        if (!usuario.isAccessRegisterForms() && !usuario.isAccessRegisterUser() && !usuario.isAccessDash()) {
+            model.addAttribute("erro", true);
 
-        return "user/cadastroUsuario";
+            return "user/cadastroUsuario";
+        }
+        try {
+            usuarioService.save(accont);
+        } catch (Exception e) {
+            return "user/cadastroUsuario";
+        }
+        model.addAttribute("usuarios", usuarioService.findByRoleAndEmpresa(Role.ROLE_SUB_USER,
+                usuarioService.findByEmail(user.getUsername()).get().getEmpresa().getId()));
+
+        return "user/gerenciarUsuarios";
     }
 
     @PostMapping(value = { "/cadastroUsuario.html/save/{id}", "/cadastroUsuario/save/{id}" })
     public String saveByID(HttpServletRequest request, Model model,
             @ModelAttribute("usuario") AccontDto usuario, @PathVariable("id") String id) {
-
+        final PermissoesConfigs user = (PermissoesConfigs) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
         model.addAttribute("usuario", new AccontDto(usuarioService.findById(id).get()));
-        model.addAttribute("erro", "");
         String auth = request.getUserPrincipal().getName();
         model.addAttribute("email", "Usuário: " + auth);
 
@@ -105,7 +123,23 @@ public class UserController {
         accont.setUltimoAcesso(Util.getDataHoraAgora());
         accont.setEmpresa(usuarioService.findById(id).get().getEmpresa());
         accont.setSenha(usuarioService.encode(accont.getSenha()));
-        usuarioService.save(accont);
+
+        if (usuario.getAtuacao().isEmpty()) {
+            accont.setAtuacao("SEM ATUAÇÃO");
+        }
+
+        if (!usuario.isAccessRegisterForms() && !usuario.isAccessRegisterUser() && !usuario.isAccessDash()) {
+            model.addAttribute("erro", true);
+
+            return "user/cadastroUsuario";
+        }
+        try {
+            usuarioService.save(accont);
+        } catch (Exception e) {
+            return "user/cadastroUsuario";
+        }
+        model.addAttribute("usuarios", usuarioService.findByRoleAndEmpresa(Role.ROLE_SUB_USER,
+                usuarioService.findByEmail(user.getUsername()).get().getEmpresa().getId()));
 
         return "user/cadastroUsuario";
     }

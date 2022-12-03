@@ -139,6 +139,7 @@
               </div>
 
               <!--DASH-->
+
               <div class="form-row py-3">
                 <h2>Tipo de Acesso ao Sistema</h2>
                 <div class="form-check">
@@ -149,9 +150,9 @@
                 </div>
 
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" th:field="*{accessManageDash}">
+                  <input class="form-check-input" type="checkbox" th:field="*{accessRegisterUser}">
                   <label class="form-check-label" for="dashCheckBox">
-                    Acesso ao Listar Dashboard
+                    Acesso ao Usuário
                   </label>
                 </div>
                 <!--DASH-->
@@ -163,6 +164,9 @@
                   </label>
                 </div>
                 <!--Formulário-->
+                <div th:if="${erro}" class="alert alert-danger" role="alert">
+                  Escolha Um ou Vários níveis de acesso para este usuário.
+                </div>
 
 
                 <div class="row mx-4 d-flex">

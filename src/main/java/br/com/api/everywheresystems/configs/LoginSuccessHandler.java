@@ -15,6 +15,13 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         final String role = SecurityContextHolder.getContext().getAuthentication()
                 .getAuthorities().toString();
 
+        if (role.contains("ROLE_ACCESS_REGISTER_USERS")) {
+            return "gerenciarUsuarios.html";
+        }
+        if (role.contains("ROLE_ACCESS_REGISTER_FORMS")) {
+            return "gerenciarFormularios.html";
+        }
+
         if (role.contains("ROLE_USER")) {
             return "dash.html";
         }
@@ -25,7 +32,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         if (role.contains("ROLE_ADMIN")) {
             return "gerenciarDocker.html";
-
         }
 
         return "login.html";
