@@ -66,6 +66,11 @@ valida()
 
 
 //==== \/Mascaras\/ =====
+$(document).ready(function () { 
+    var $seuCampoCnpj = $("#validationCNPJ");
+    $seuCampoCnpj.mask('00.000.000/0000-00');
+});
+
 //$("#validationCelular").mask("(00) 00000-0000");
 //$('#validationNome').bind('keyup blur', function () {
 //    var node = $(this);

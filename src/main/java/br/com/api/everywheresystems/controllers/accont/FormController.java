@@ -84,7 +84,22 @@ public class FormController {
         form.setEmpresa(usuarioService.findByEmail(user.getUsername()).get().getEmpresa());
 
         model.addAttribute("form", form);
-        System.out.println(formService.save(form));
+
+        if ((formService.save(form)) != null) {
+            for (RoleModel role : user.getAuthorities()) {
+                if (role.getRole().equals(Role.ROLE_ADMIN)) {
+                    model.addAttribute("forms", formService.findAll());
+                    break;
+                } else if (role.getRole().equals(Role.ROLE_USER) || role.getRole().equals(Role.ROLE_SUB_USER)) {
+                    model.addAttribute("forms",
+                            formService
+                                    .findByEmpresa(usuarioService.findByEmail(user.getUsername()).get().getEmpresa()));
+
+                    break;
+                }
+            }
+            return "forms/gerenciarFormularios";
+        }
         return "forms/formulario";
     }
 
@@ -94,7 +109,24 @@ public class FormController {
         String auth = request.getUserPrincipal().getName();
         model.addAttribute("email", "Usuário: " + auth);
         model.addAttribute("form", form);
-        System.out.println(formService.save(form));
+        final PermissoesConfigs user = (PermissoesConfigs) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        if ((formService.save(form)) != null) {
+            for (RoleModel role : user.getAuthorities()) {
+                if (role.getRole().equals(Role.ROLE_ADMIN)) {
+                    model.addAttribute("forms", formService.findAll());
+                    break;
+                } else if (role.getRole().equals(Role.ROLE_USER) || role.getRole().equals(Role.ROLE_SUB_USER)) {
+                    model.addAttribute("forms",
+                            formService
+                                    .findByEmpresa(usuarioService.findByEmail(user.getUsername()).get().getEmpresa()));
+
+                    break;
+                }
+            }
+            return "forms/gerenciarFormularios";
+        }
 
         return "forms/formulario";
     }

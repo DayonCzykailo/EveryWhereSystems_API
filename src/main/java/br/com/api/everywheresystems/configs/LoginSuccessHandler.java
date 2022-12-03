@@ -21,6 +21,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         if (role.contains("ROLE_ACCESS_REGISTER_FORMS")) {
             return "gerenciarFormularios.html";
         }
+        if (role.contains("ROLE_ACCESS_DASH")) {
+            return "dash.html";
+        }
 
         if (role.contains("ROLE_USER")) {
             return "dash.html";

@@ -34,7 +34,7 @@
                             <h1>Usuários Cadastrados</h1>
                         </div>
                         <div class="col-auto">
-                            <a class="btn btn-primary" href="./cadastroUsuario.html" role="button"
+                            <a class="btn btn-primary" th:href="@{~/cadastroUsuario.html}" role="button"
                                 id="cadastrarCliente">Novo</a>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                                     <td th:if="${usuario.ativo}">ATIVO</td>
                                     <td th:unless="${usuario.ativo}">INATIVO</td>
                                     <td>
-                                        <a class="btn btn-primary" th:href="@{cadastroUsuario/{id}(id=${usuario.id})}"
+                                        <a class="btn btn-primary" th:href="@{~/cadastroUsuario/{id}(id=${usuario.id})}"
                                             role="button">Editar</a>
                                     </td>
                                 </tr>

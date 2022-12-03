@@ -33,7 +33,7 @@
                             <h1>Formulários</h1>
                         </div>
                         <div class="col-auto">
-                            <a class="btn btn-primary" href="./formulario.html" role="button"
+                            <a class="btn btn-primary" th:href="@{~/formulario.html}" role="button"
                                 id="cadastrarCliente">Novo</a>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                                      
                                     <td th:text="${form.enderecoExibicaoSensor}">...</td>
                                     <td>
-                                        <a class="btn btn-primary" th:href="@{formulario/{id}(id=${form.id})}"
+                                        <a class="btn btn-primary" th:href="@{~/formulario/{id}(id=${form.id})}"
                                             role="button">Visualizar</a>
                                     </td>
                                 </tr>
