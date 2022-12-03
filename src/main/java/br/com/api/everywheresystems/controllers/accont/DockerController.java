@@ -87,7 +87,7 @@ public class DockerController {
         System.out.println(
                 "ShellScript.executarShellScript('docker run " + docker.getImagem() + " --name " + docker.getName());
 
-        return "docker/docker";
+        return "docker/gerenciarDocker";
     }
 
     @PostMapping(value = { "/docker.html/save/{name}", "/docker/save/{name}" })
@@ -104,6 +104,6 @@ public class DockerController {
             System.out.println("ShellScript.executarShellScript('docker stop " + docker.getName());
         }
 
-        return "docker/docker";
+        return "docker/gerenciarDocker";
     }
 }
