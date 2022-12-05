@@ -84,8 +84,8 @@ public class DockerController {
         model.addAttribute("email", "Usuário: " + auth);
         model.addAttribute("docker", docker);
         System.out.println(docker);
-        System.out.println(
-                "ShellScript.executarShellScript('docker run " + docker.getImagem() + " --name " + docker.getName());
+        System.out.println("docker run --name " + docker.getName() + docker.getImagem() + " -d");
+        ShellScript.executarShellScript("docker run --name " + docker.getName() + " " + docker.getImagem() + " -d");
         model.addAttribute("container", ShellScript.executarShellScript("docker container ls -a"));
 
         return "docker/gerenciarDocker";
@@ -100,9 +100,9 @@ public class DockerController {
         // System.out.println(dockerService.save(docker));
         System.out.println(docker);
         if (docker.isAtivo()) {
-            System.out.println("ShellScript.executarShellScript('docker start " + docker.getName());
+            System.out.println(ShellScript.executarShellScript("docker start " + docker.getName()));
         } else {
-            System.out.println("ShellScript.executarShellScript('docker stop " + docker.getName());
+            System.out.println(ShellScript.executarShellScript("docker stop " + docker.getName()));
         }
         model.addAttribute("container", ShellScript.executarShellScript("docker container ls -a"));
 
