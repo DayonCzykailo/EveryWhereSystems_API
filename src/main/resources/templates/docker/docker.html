@@ -34,7 +34,7 @@
 
 <body id="body-pd">
     <div th:insert="components/menuTamplate :: menuTamplate(tela='docker')"></div>
-    <form th:object="${docker}" action="#" th:action="@{/docker/save/{name}(name=${docker.name})}" method="post">
+    <form th:object="${docker}" action="#" th:action="@{~/docker/save/{name}(name=${docker.name})}" method="post">
         <!--MENU-->
         <div class="mx-4" id="page-content-wrapper">
             <!--BODY da página-->
@@ -100,7 +100,8 @@
                                     <h3 id="log">Log do Docker</h3>
                                 </div>
                                 <div class="col-auto">
-                                    <p href="./docker/*{name}" class="btn btn-primary">Atualizar</p>
+                                    <a th:href="@{~/docker/{name}(name=${docker.name})}" class="btn btn-primary">
+                                        Atualizar</a>
                                 </div>
                             </div>
                             <textarea th:field="*{log}" disabled readonly class="form-control textAreaSize lightMode"
@@ -120,7 +121,8 @@
                                     <input type="hidden" id="namecont" th:value="*{name}" />
                                 </div>
                                 <div class="col-auto">
-                                    <p href="./docker/*{name}" class="btn btn-primary">Atualizar</p>
+                                    <a th:href="@{~/docker/{name}(name=${docker.name})}" class="btn btn-primary">
+                                        Atualizar</a>
                                 </div>
                             </div>
                             <div class="col fullSize">

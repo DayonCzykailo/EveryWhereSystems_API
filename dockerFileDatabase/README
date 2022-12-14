@@ -1,0 +1,2 @@
+# Para buildar a imagem do banco de dados use:
+docker build -t mssqldb .
